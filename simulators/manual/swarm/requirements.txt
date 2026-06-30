@@ -1,0 +1,17 @@
+# Pinned to the versions this demo was built and tested against.
+# NOTE: a2a-sdk 1.x is a protobuf-based rewrite with a different API.
+# This project targets the stable 0.3.x Pydantic API. If you bump the major
+# version, expect breaking changes (see README).
+a2a-sdk==0.3.7
+anthropic>=0.107
+uvicorn>=0.49
+starlette>=1.2
+sse-starlette>=3.4
+httpx>=0.28
+langgraph>=0.2
+langchain-anthropic>=0.3
+langchain-openai>=0.3
+openai>=1.0
+python-dotenv
+legacy-cgi
+matplotlib==3.11.0

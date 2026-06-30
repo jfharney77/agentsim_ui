@@ -1,0 +1,9 @@
+# Agent Sim UI — backend dependencies
+# Iteration 1 (SIM-UI-100 / SIM-UI-101)
+fastapi>=0.110
+uvicorn[standard]>=0.29
+pydantic>=2.6
+
+# Testing
+pytest>=8.0
+httpx>=0.27
