@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { ArrowLeft, X } from "lucide-react";
 import { api } from "../lib/api";
 import type { InstanceDescriptor, StateChangeEvent, Simulator } from "../types/api";
@@ -11,6 +11,9 @@ const CONCURRENCY_OPTIONS = [1, 2, 5, 10, 100, 1000] as const;
 
 export function ParallelPage() {
   const navigate = useNavigate();
+  // When launched from Setup, the run group arrives as a route param and we
+  // skip the built-in picker, jumping straight to the live grid.
+  const { runGroupId: routeRunGroupId } = useParams<{ runGroupId?: string }>();
   const [simulators, setSimulators] = useState<Simulator[]>([]);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [concurrency, setConcurrency] = useState<number>(10);
@@ -19,7 +22,7 @@ export function ParallelPage() {
   const [launching, setLaunching] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const [runGroupId, setRunGroupId] = useState<string | null>(null);
+  const [runGroupId, setRunGroupId] = useState<string | null>(routeRunGroupId ?? null);
   const [instances, setInstances] = useState<InstanceDescriptor[]>([]);
   const [cancelling, setCancelling] = useState(false);
   const [usePolling, setUsePolling] = useState(false);
