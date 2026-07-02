@@ -154,3 +154,6 @@ venv.bak/
 *.pid
 *.seed
 *.pid.lock
+
+# Backend runtime SQLite database
+agent_sim_ui/backend/data/
