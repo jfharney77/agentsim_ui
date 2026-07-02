@@ -114,6 +114,14 @@ class AgentRuntimeState(BaseModel):
     agent_id: str
     agent_name: str
     state: AgentState = AgentState.NOT_STARTED
+    in_scope: bool = Field(
+        True,
+        description=(
+            "False when the agent was excluded from the run via LaunchRequest."
+            "agent_scope. Out-of-scope agents are not stepped and render as OUT "
+            "in the live mesh (excluded from active/done tallies)."
+        ),
+    )
     started_at: Optional[datetime] = None
     ended_at: Optional[datetime] = None
     last_event: Optional[str] = None
@@ -126,6 +134,14 @@ class LaunchRequest(BaseModel):
     simulator_id: str
     concurrency: int
     task_prompt: Optional[str] = None
+    agent_scope: Optional[List[str]] = Field(
+        None,
+        description=(
+            "Agent ids (into the simulator roster) to run. None or empty means "
+            "run the whole mesh; otherwise agents not listed are marked "
+            "out-of-scope and rendered as OUT."
+        ),
+    )
 
 
 class InstanceDescriptor(BaseModel):

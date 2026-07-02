@@ -319,3 +319,44 @@ def test_concurrency_bound_queues_excess(tmp_path):
         assert all(i.status == InstanceStatus.COMPLETED for i in launcher.get_group(resp.run_group_id))
 
     asyncio.run(run())
+
+
+# ---------------------------------------------------------------------------
+# Agent scope: only listed agents are in scope; the rest render as OUT
+# ---------------------------------------------------------------------------
+def test_agent_scope_marks_out_of_scope_agents(tmp_path):
+    async def run():
+        stub = _python_stub(tmp_path, duration=0.2)
+        sim = _python_sim("swarm", stub, 0.2, n_agents=5)
+        launcher = SimulationLauncher(FakeRegistry([sim]), settings=_settings(tmp_path))
+
+        resp = await launcher.launch(
+            LaunchRequest(
+                simulator_id="swarm",
+                concurrency=1,
+                agent_scope=["a0", "a2"],
+            )
+        )
+        inst = resp.instances[0]
+        scoped = {a.agent_id: a.in_scope for a in inst.agents}
+        assert scoped == {"a0": True, "a1": False, "a2": True, "a3": False, "a4": False}
+        await _await_group_done(launcher, resp.run_group_id)
+
+    asyncio.run(run())
+
+
+def test_agent_scope_empty_means_whole_mesh(tmp_path):
+    async def run():
+        stub = _python_stub(tmp_path, duration=0.2)
+        sim = _python_sim("swarm", stub, 0.2, n_agents=5)
+        launcher = SimulationLauncher(FakeRegistry([sim]), settings=_settings(tmp_path))
+
+        for scope in (None, []):
+            resp = await launcher.launch(
+                LaunchRequest(simulator_id="swarm", concurrency=1, agent_scope=scope)
+            )
+            inst = resp.instances[0]
+            assert all(a.in_scope for a in inst.agents)
+            await _await_group_done(launcher, resp.run_group_id)
+
+    asyncio.run(run())

@@ -176,7 +176,9 @@ class SimulationLauncher(SimulationLauncherInterface):
         run_group_id = str(uuid.uuid4())
         managed: List[_Managed] = []
         for index in range(request.concurrency):
-            mi = self._make_instance(sim, run_group_id, index, request.task_prompt)
+            mi = self._make_instance(
+                sim, run_group_id, index, request.task_prompt, request.agent_scope
+            )
             self._instances[mi.descriptor.instance_id] = mi
             managed.append(mi)
         self._groups[run_group_id] = [m.descriptor.instance_id for m in managed]
@@ -234,11 +236,23 @@ class SimulationLauncher(SimulationLauncherInterface):
 
     # -- internals ---------------------------------------------------------
     def _make_instance(
-        self, sim: Simulator, run_group_id: str, index: int, task_prompt: Optional[str]
+        self,
+        sim: Simulator,
+        run_group_id: str,
+        index: int,
+        task_prompt: Optional[str],
+        agent_scope: Optional[List[str]] = None,
     ) -> _Managed:
         instance_id = str(uuid.uuid4())
+        # An empty/None scope means "run the whole mesh"; otherwise only the
+        # listed agent ids are in scope and the rest render as OUT.
+        scope: Optional[set] = set(agent_scope) if agent_scope else None
         agents = [
-            AgentRuntimeState(agent_id=a.agent_id, agent_name=a.agent_name)
+            AgentRuntimeState(
+                agent_id=a.agent_id,
+                agent_name=a.agent_name,
+                in_scope=scope is None or a.agent_id in scope,
+            )
             for a in sim.agents
         ]
         descriptor = InstanceDescriptor(

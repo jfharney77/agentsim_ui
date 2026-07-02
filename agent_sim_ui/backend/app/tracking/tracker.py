@@ -190,6 +190,11 @@ class StateTracker(StateTrackerInterface, LaunchSink):
         fms: List[str],
         line: str,
     ) -> None:
+        # Out-of-scope agents are excluded from the run: never transition them,
+        # so they stay NOT_STARTED and render as OUT / drop from tallies.
+        if not st.in_scope:
+            return
+
         new_fms = [fm for fm in fms if fm not in st.failure_modes]
         if st.state == to_state and not new_fms:
             return  # no-op

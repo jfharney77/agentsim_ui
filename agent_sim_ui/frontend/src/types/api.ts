@@ -24,6 +24,8 @@ export interface AgentRuntimeState {
   agent_id: string;
   agent_name: string;
   state: AgentState;
+  /** False when the agent was excluded from the run via LaunchRequest.agent_scope. */
+  in_scope: boolean;
   started_at: string | null;
   ended_at: string | null;
   failure_modes: string[];
@@ -51,6 +53,8 @@ export interface LaunchRequest {
   simulator_id: string;
   concurrency: number;
   task_prompt?: string;
+  /** Agent ids to run; omit or empty = whole mesh. Out-of-scope agents show as OUT. */
+  agent_scope?: string[];
 }
 
 export interface InstanceDescriptor {

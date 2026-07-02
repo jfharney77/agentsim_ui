@@ -157,3 +157,20 @@ def test_unknown_line_never_crashes():
     for ln in ["", "random noise", "12345", "System: **[chatting]**"]:
         tracker.process_line("i1", ln)
     assert all(s.state == AgentState.NOT_STARTED for s in tracker.snapshot("i1"))
+
+
+# --- Agent scope: out-of-scope agents never transition ---------------------
+def test_out_of_scope_agent_never_transitions():
+    tracker = StateTracker()
+    desc = make_descriptor("chatdev")
+    # Mark the Programmer out of scope; its running log line must be ignored.
+    for s in desc.agents:
+        if s.agent_id == "programmer":
+            s.in_scope = False
+    tracker.register_instance(desc)
+
+    line = "[2025-06-28 15:00:00 INFO] Programmer: **Programmer<->Code Reviewer on : Coding, turn 1**"
+    tracker.process_line("i1", line)
+
+    assert _state(tracker, "i1", "programmer").state == AgentState.NOT_STARTED
+    assert not any(e.agent_id == "programmer" for e in tracker.get_events("i1"))

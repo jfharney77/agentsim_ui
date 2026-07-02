@@ -4,6 +4,8 @@ import { X, ArrowLeft } from "lucide-react";
 import { api } from "../lib/api";
 import type { InstanceDescriptor, StateChangeEvent } from "../types/api";
 import { InstancePane } from "../components/InstancePane";
+import { LiveMesh } from "../components/LiveMesh";
+import { AgentState } from "../types/api";
 import { AGENT_STATE_COLORS, AGENT_STATE_LABELS } from "../lib/constants";
 
 export function RunView() {
@@ -194,6 +196,62 @@ export function RunView() {
             </div>
           ))}
         </div>
+
+        {/* Live mesh for the first instance (scope-aware: out-of-scope agents show as OUT). */}
+        {instances[0] && (() => {
+          const inst = instances[0];
+          const scoped = inst.agents.filter((a) => a.in_scope !== false);
+          const total = inst.agents.length;
+          const done = scoped.filter((a) => a.state === AgentState.COMPLETED).length;
+          const active = scoped.filter((a) => a.state === AgentState.RUNNING).length;
+          const scopeSummary =
+            scoped.length === total
+              ? `All ${total} agents`
+              : `${scoped.length} of ${total} agents`;
+          return (
+            <div className="mb-6 rounded-2xl bg-[#0D1E33] border border-white/10 p-6">
+              <div className="flex items-start justify-between mb-4 flex-wrap gap-4">
+                <div>
+                  <div className="text-[16px] font-bold text-[#E9EFF6]">
+                    Instance #{inst.index + 1} · live mesh
+                  </div>
+                  <div className="text-[12px] text-[#8AA0B8] mt-1">
+                    Simulating {scopeSummary} · out-of-scope agents shown as OUT
+                  </div>
+                </div>
+                <div className="flex gap-3">
+                  <div className="rounded-lg bg-white/[.04] px-4 py-2 text-center min-w-[92px]">
+                    <div className="text-[11px] font-mono uppercase tracking-[.1em] text-[#7E93AB]">
+                      Agents done
+                    </div>
+                    <div className="text-[18px] font-bold text-[#37c592]">
+                      {done}
+                      <span className="text-[#7E93AB]">/{scoped.length}</span>
+                    </div>
+                  </div>
+                  <div className="rounded-lg bg-white/[.04] px-4 py-2 text-center min-w-[92px]">
+                    <div className="text-[11px] font-mono uppercase tracking-[.1em] text-[#7E93AB]">
+                      Active
+                    </div>
+                    <div className="text-[18px] font-bold text-[#F2A81E]">{active}</div>
+                  </div>
+                  <div className="rounded-lg bg-white/[.04] px-4 py-2 text-center min-w-[92px]">
+                    <div className="text-[11px] font-mono uppercase tracking-[.1em] text-[#7E93AB]">
+                      Scope
+                    </div>
+                    <div className="text-[18px] font-bold text-[#E9EFF6]">
+                      {scoped.length}
+                      <span className="text-[#7E93AB]">/{total}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="flex justify-center">
+                <LiveMesh instance={inst} />
+              </div>
+            </div>
+          );
+        })()}
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {instances.map((instance) => (

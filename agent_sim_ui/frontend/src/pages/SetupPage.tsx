@@ -21,6 +21,8 @@ export function SetupPage() {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [concurrency, setConcurrency] = useState<number>(1);
   const [taskPrompt, setTaskPrompt] = useState<string>(initialTask);
+  const [scopeMode, setScopeMode] = useState<"all" | "select">("all");
+  const [scopeSel, setScopeSel] = useState<number[]>([]);
   const [loading, setLoading] = useState(true);
   const [launching, setLaunching] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -37,17 +39,46 @@ export function SetupPage() {
   }, []);
 
   const selected = simulators.find((s) => s.id === selectedId);
+  const roster = selected?.agents ?? [];
   const toParallel = routesToParallel(concurrency);
+
+  // Switching simulators re-keys the roster; clamp scope indices to its length.
+  useEffect(() => {
+    setScopeSel((cur) => cur.filter((i) => i < roster.length));
+  }, [selectedId, roster.length]);
+
+  // All indices when mode is "all", otherwise the (sorted) selected subset.
+  const scopeIndices =
+    scopeMode === "all"
+      ? roster.map((_, i) => i)
+      : [...scopeSel].filter((i) => i < roster.length).sort((a, b) => a - b);
+  const scopeSummary =
+    scopeMode === "all"
+      ? `All ${roster.length} agents`
+      : `${scopeIndices.length} of ${roster.length} agents`;
+
+  const toggleAgent = (i: number) => {
+    setScopeMode("select");
+    setScopeSel((cur) =>
+      cur.includes(i) ? cur.filter((x) => x !== i) : [...cur, i]
+    );
+  };
 
   const handleLaunch = async () => {
     if (!selectedId || launching) return;
     setLaunching(true);
     setError(null);
     try {
+      // Map in-scope roster indices → agent ids; omit when running the whole mesh.
+      const agentScope =
+        scopeMode === "select"
+          ? scopeIndices.map((i) => roster[i].agent_id)
+          : undefined;
       const response = await api.launch({
         simulator_id: selectedId,
         concurrency,
         task_prompt: taskPrompt || undefined,
+        agent_scope: agentScope,
       });
       // Concurrency routing: 1–10 → Live Run, 100–1000 → Parallel grid.
       if (toParallel) {
@@ -115,6 +146,68 @@ export function SetupPage() {
             </div>
           )}
 
+          {/* Agent scope */}
+          <div className="flex items-center justify-between mb-3">
+            <div className="text-[12px] font-mono font-semibold tracking-[.1em] uppercase text-[#62707E]">
+              Agent scope
+            </div>
+            <div className="text-[12px] text-dell font-medium">{scopeSummary}</div>
+          </div>
+          <div className="flex gap-1 bg-[#EEF2F7] border border-[#DCE3EB] rounded-[11px] p-[5px] mb-3 w-fit">
+            {(["all", "select"] as const).map((mode) => {
+              const active = scopeMode === mode;
+              return (
+                <button
+                  key={mode}
+                  type="button"
+                  onClick={() => {
+                    setScopeMode(mode);
+                    // Entering select mode with no prior picks defaults to all agents.
+                    if (mode === "select" && scopeSel.length === 0) {
+                      setScopeSel(roster.map((_, i) => i));
+                    }
+                  }}
+                  className={`px-4 py-2 rounded-lg text-[12.5px] font-semibold transition-colors ${
+                    active ? "bg-dell text-white" : "text-[#62707E] hover:text-[#12212F]"
+                  }`}
+                >
+                  {mode === "all" ? "All agents" : "Select agents"}
+                </button>
+              );
+            })}
+          </div>
+          {scopeMode === "select" && (
+            <div className="flex flex-wrap gap-2 mb-3">
+              {roster.map((agent, i) => {
+                const on = scopeSel.includes(i);
+                return (
+                  <button
+                    key={agent.agent_id}
+                    type="button"
+                    onClick={() => toggleAgent(i)}
+                    className={`flex items-center gap-[7px] rounded-full pl-[11px] pr-3.5 py-2 text-[12.5px] font-semibold transition-colors ${
+                      on
+                        ? "bg-[#EAF3FB] border-[1.5px] border-dell text-dell"
+                        : "bg-white border border-[#d7e2ee] text-[#62707E] hover:border-[#cdd6e0]"
+                    }`}
+                  >
+                    <span
+                      className="inline-block w-[9px] h-[9px] rounded-[3px]"
+                      style={{ background: on ? "#0076CE" : "#cbd6e4" }}
+                    />
+                    {agent.agent_name}
+                  </button>
+                );
+              })}
+            </div>
+          )}
+          <div className="text-[12.5px] leading-[1.5] text-[#8593A1] mb-[30px]">
+            Simulate the whole mesh, or isolate one workflow by running only the
+            agents you select. Out-of-scope agents show as{" "}
+            <span className="text-[#62707E] font-semibold">OUT</span> in the live
+            mesh.
+          </div>
+
           {/* Concurrency segmented control */}
           <div className="text-[12px] font-mono font-semibold tracking-[.1em] uppercase text-[#62707E] mb-3">
             Concurrency
@@ -178,7 +271,9 @@ export function SetupPage() {
             <Play className="w-4 h-4 fill-white" />
             {launching
               ? "Launching…"
-              : `Launch ${concurrency} × ${selected?.name ?? "Simulator"}`}
+              : `Launch ${concurrency} × ${
+                  selected?.name ?? "Simulator"
+                } · ${scopeSummary}`}
           </button>
         </div>
       </div>
