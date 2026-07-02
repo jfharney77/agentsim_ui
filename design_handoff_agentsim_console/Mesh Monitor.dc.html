@@ -1,0 +1,1298 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#eceef2;font-family:'Hanken Grotesk',system-ui,sans-serif}
+.dv-turn{padding:40px 44px 40px;scroll-margin-top:16px}
+.dv-thd{display:flex;align-items:baseline;gap:10px;margin:0 0 22px}
+.dv-tid{font:600 10px 'IBM Plex Mono',monospace;padding:3px 7px;background:#0A1727;color:#fff;border-radius:4px;text-decoration:none}
+.dv-tname{font:600 13px/1.2 'Hanken Grotesk',sans-serif;color:#1a1a1a}
+.dv-opts{display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start}
+.dv-opt{flex:none;display:flex;flex-direction:column;gap:12px;scroll-margin-top:16px}
+.dv-oid{font:600 10.5px 'IBM Plex Mono',monospace;padding:3px 7px;background:rgba(0,0,0,.09);color:#1a1a1a;border-radius:5px;text-decoration:none}
+.dv-olabel{display:flex;align-items:baseline;gap:8px;font:400 12px/1.3 'Hanken Grotesk',sans-serif;color:rgba(0,0,0,.6)}
+.dv-opt:target .dv-oid{background:#0076CE;color:#fff}
+.dv-next{margin:28px 0 0;font:13px/1.7 'Hanken Grotesk',sans-serif;color:rgba(0,0,0,.55)}
+.dv-next a{color:#0076CE;text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:12px}
+@keyframes ascellpulse{0%,100%{opacity:1}50%{opacity:.5}}
+@keyframes asedgeflow{to{stroke-dashoffset:-13}}
+@keyframes asping{0%{transform:scale(1);opacity:.6}100%{transform:scale(2.3);opacity:0}}
+@keyframes asblink{0%,100%{opacity:1}50%{opacity:.25}}
+</style>
+</helmet>
+
+<section class="dv-turn" id="t3">
+<div class="dv-thd"><a class="dv-tid" href="#t3">3</a><span class="dv-tname">Unified app — landing page · one dark theme · concurrency routing · rosters · Cancel modal · tweakable state colors</span></div>
+<div class="dv-opts">
+
+<div class="dv-opt" id="3a">
+<div class="dv-olabel"><a class="dv-oid" href="#3a">3a</a>AgentSim — live app. Landing page → Live Run / Parallel / Context / Setup. 1–10 opens Live Run, 100–1000 opens Parallel.</div>
+<div style="width:1460px;position:relative;background:#0A1727;border:1px solid rgba(255,255,255,.09);border-radius:14px;overflow:hidden;color:#E9EFF6;box-shadow:0 24px 60px rgba(6,16,30,.4)">
+
+  <div style="display:flex;align-items:center;gap:22px;padding:11px 26px;background:#fff;border-bottom:1px solid #e6ebf1">
+    <div onClick="{{ goHome }}" style="display:flex;align-items:center;gap:9px;cursor:pointer;flex:none">
+      <div style="width:26px;height:26px;border-radius:50%;border:2px solid #0076CE;display:flex;align-items:center;justify-content:center"><div style="width:8px;height:8px;border-radius:50%;background:#0076CE"></div></div>
+      <span style="font:800 16px 'Hanken Grotesk';color:#0076CE;letter-spacing:-.01em">AgentSim<span style="color:#5b6b7b;font-weight:500"> Console</span></span>
+    </div>
+    <div style="flex:1;max-width:560px;display:flex;align-items:center;background:#fff;border:1px solid #cdd6e0;border-radius:6px;overflow:hidden">
+      <input type="text" placeholder="Search runs, instances, or agents" style="flex:1;min-width:0;border:none;outline:none;font:400 13px 'Hanken Grotesk';color:#1B2733;padding:9px 12px" />
+      <button type="button" style="border:none;background:#f3f6fa;border-left:1px solid #e2e8f0;padding:0 12px;height:34px;cursor:pointer;display:flex;align-items:center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0076CE" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.5" y2="16.5"></line></svg></button>
+    </div>
+    <div style="display:flex;align-items:center;gap:20px;flex:none">
+      <span style="display:flex;align-items:center;gap:6px;font:500 13px 'Hanken Grotesk';color:#3d4a57;cursor:pointer"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#3d4a57" stroke-width="1.7"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18"></path><path d="M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"></path></svg>US/EN ▾</span>
+      <span style="font:500 13px 'Hanken Grotesk';color:#3d4a57;cursor:pointer">Docs</span>
+      <span style="display:flex;align-items:center;gap:6px;font:500 13px 'Hanken Grotesk';color:#3d4a57;cursor:pointer"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#3d4a57" stroke-width="1.7"><circle cx="12" cy="8" r="4"></circle><path d="M4 20c0-4 4-6 8-6s8 2 8 6"></path></svg>Sign in ▾</span>
+    </div>
+  </div>
+
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 26px;border-bottom:1px solid rgba(255,255,255,.08);background:linear-gradient(180deg,#0C1D31,#0A1727)">
+    <div onClick="{{ goHome }}" style="display:flex;align-items:center;gap:13px;cursor:pointer">
+      <div style="width:34px;height:34px;border-radius:50%;border:2px solid #0076CE;background:rgba(0,118,206,.14);display:flex;align-items:center;justify-content:center"><div style="width:10px;height:10px;border-radius:50%;background:#0076CE"></div></div>
+      <div style="font:800 15px/1 'Hanken Grotesk';letter-spacing:.16em">AGENTSIM</div>
+    </div>
+    <div style="display:flex;gap:3px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:11px;padding:4px">
+      <sc-for list="{{ tabs }}" as="tab" hint-placeholder-count="4">
+        <button type="button" onClick="{{ tab.go }}" style="{{ tab.style }}">{{ tab.label }}</button>
+      </sc-for>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px">
+      <sc-if value="{{ running }}">
+        <div style="display:flex;align-items:center;gap:8px"><span style="width:9px;height:9px;border-radius:50%;background:#18A673;box-shadow:0 0 8px #18A673;animation:asblink 1.4s ease-in-out infinite;display:inline-block"></span><span style="font:600 12px 'IBM Plex Mono';letter-spacing:.14em;color:#dfe8f1">LIVE</span><span style="font:500 12px 'IBM Plex Mono';color:#8AA0B8">{{ elapsed }}</span></div>
+      </sc-if>
+      <sc-if value="{{ running }}">
+        <button type="button" onClick="{{ openCancel }}" style="font:600 12px 'Hanken Grotesk';color:#f28a8a;background:transparent;border:1px solid rgba(226,61,61,.5);border-radius:8px;padding:8px 15px;cursor:pointer">Cancel run</button>
+      </sc-if>
+      <button type="button" onClick="{{ newRun }}" style="font:600 12px 'Hanken Grotesk';color:#7fb8e8;background:transparent;border:1px solid rgba(0,118,206,.55);border-radius:8px;padding:8px 15px;cursor:pointer">＋ New run</button>
+    </div>
+  </div>
+
+  <sc-if value="{{ isLanding }}" hint-placeholder-val="{{ true }}">
+  <div style="padding:58px 26px 54px">
+    <div style="max-width:1060px;margin:0 auto">
+      <div style="text-align:center;margin-bottom:44px">
+        <div style="font:600 12px 'IBM Plex Mono';letter-spacing:.28em;text-transform:uppercase;color:#5f7da0;margin-bottom:16px">Agentic mesh simulation</div>
+        <div style="font:800 44px/1.06 'Hanken Grotesk';margin-bottom:16px;letter-spacing:-.01em">Watch agents think, at any scale.</div>
+        <div style="font:400 16px/1.6 'Hanken Grotesk';color:#8AA0B8;max-width:640px;margin:0 auto 28px">Launch multi-agent simulators, follow the mesh as it passes messages, and inspect every agent's context window — from a single run to a thousand in parallel.</div>
+        <div style="max-width:780px;margin:26px auto 0;text-align:left">
+          <div style="background:#fff;border-radius:18px;padding:18px 20px 14px;box-shadow:0 14px 44px rgba(0,0,0,.38)">
+            <div style="display:flex;align-items:flex-start;gap:11px;min-height:64px">
+              <span style="font:400 17px 'Hanken Grotesk';color:#7b5cf0;line-height:1.4">✦</span>
+              <input type="text" value="{{ task }}" onChange="{{ setTask }}" placeholder="Describe a run to launch — e.g. “Swarm, 100 instances, analyze Acme Corp market position”" style="flex:1;border:none;outline:none;font:400 15px 'Hanken Grotesk';color:#1B2733;background:transparent;padding-top:1px" />
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-top:6px">
+              <span style="font:500 12px 'IBM Plex Mono';color:#9aa7b4">0/200</span>
+              <div style="display:flex;align-items:center;gap:14px">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6b7785" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"></rect><path d="M6 11a6 6 0 0 0 12 0"></path><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                <button type="button" onClick="{{ newRun }}" style="width:38px;height:38px;border-radius:50%;border:none;background:linear-gradient(135deg,#5b8def,#a86ad6,#e59ac0);color:#fff;font:700 17px 'Hanken Grotesk';cursor:pointer;display:flex;align-items:center;justify-content:center">→</button>
+              </div>
+            </div>
+          </div>
+          <div style="display:flex;gap:12px;justify-content:center;margin-top:18px;flex-wrap:wrap">
+            <button type="button" onClick="{{ newRun }}" style="background:linear-gradient(#0A1727,#0A1727) padding-box,linear-gradient(95deg,#2E93E6,#a24fd0) border-box;border:1.6px solid transparent;border-radius:999px;color:#fff;font:600 13px 'Hanken Grotesk';padding:11px 20px;cursor:pointer">New Swarm run</button>
+            <button type="button" onClick="{{ goLive }}" style="background:linear-gradient(#0A1727,#0A1727) padding-box,linear-gradient(95deg,#2E93E6,#a24fd0) border-box;border:1.6px solid transparent;border-radius:999px;color:#fff;font:600 13px 'Hanken Grotesk';padding:11px 20px;cursor:pointer">Watch live mesh</button>
+            <button type="button" onClick="{{ goParallel }}" style="background:linear-gradient(#0A1727,#0A1727) padding-box,linear-gradient(95deg,#2E93E6,#a24fd0) border-box;border:1.6px solid transparent;border-radius:999px;color:#fff;font:600 13px 'Hanken Grotesk';padding:11px 20px;cursor:pointer">Run at scale</button>
+            <button type="button" onClick="{{ goContext }}" style="background:linear-gradient(#0A1727,#0A1727) padding-box,linear-gradient(95deg,#2E93E6,#a24fd0) border-box;border:1.6px solid transparent;border-radius:999px;color:#fff;font:600 13px 'Hanken Grotesk';padding:11px 20px;cursor:pointer">Inspect context</button>
+          </div>
+          <div style="text-align:center;margin-top:14px;font:400 12px 'Hanken Grotesk';color:#5f7da0">Runs consume tokens. <span style="color:#7fb8e8;text-decoration:underline;cursor:pointer">Provider settings</span></div>
+        </div>
+      </div>
+
+      <div style="background:#f4f6f9;border-radius:18px;padding:26px 28px 28px">
+        <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:20px">
+          <div style="font:800 20px 'Hanken Grotesk';color:#12212F">Jump back in</div>
+          <span style="font:500 12px 'IBM Plex Mono';color:#0076CE">5 simulators · 1 run active · anthropic</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 300px;gap:22px;align-items:start">
+          <div style="min-width:0">
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:16px">
+              <button type="button" onClick="{{ goLive }}" style-hover="border-color:#0076CE" style="text-align:left;background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:18px;cursor:pointer;transition:border-color .15s">
+                <div style="font:400 20px 'Hanken Grotesk';color:#0076CE;margin-bottom:12px">◈</div>
+                <div style="font:700 15px 'Hanken Grotesk';color:#12212F;margin-bottom:6px">Live Run</div>
+                <div style="font:400 12px/1.55 'Hanken Grotesk';color:#62707E;margin-bottom:12px">Follow one run's agents as they message across the mesh in real time.</div>
+                <div style="font:600 12px 'IBM Plex Mono';color:#0076CE">Open →</div>
+              </button>
+              <button type="button" onClick="{{ goParallel }}" style-hover="border-color:#0076CE" style="text-align:left;background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:18px;cursor:pointer;transition:border-color .15s">
+                <div style="font:400 20px 'Hanken Grotesk';color:#0076CE;margin-bottom:12px">▦</div>
+                <div style="font:700 15px 'Hanken Grotesk';color:#12212F;margin-bottom:6px">Parallel</div>
+                <div style="font:400 12px/1.55 'Hanken Grotesk';color:#62707E;margin-bottom:12px">Run hundreds or thousands at once and spot failures at a glance.</div>
+                <div style="font:600 12px 'IBM Plex Mono';color:#0076CE">Open →</div>
+              </button>
+              <button type="button" onClick="{{ goContext }}" style-hover="border-color:#0076CE" style="text-align:left;background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:18px;cursor:pointer;transition:border-color .15s">
+                <div style="font:400 20px 'Hanken Grotesk';color:#0076CE;margin-bottom:12px">▤</div>
+                <div style="font:700 15px 'Hanken Grotesk';color:#12212F;margin-bottom:6px">Context</div>
+                <div style="font:400 12px/1.55 'Hanken Grotesk';color:#62707E;margin-bottom:12px">Compare each agent's context window — tokens, tool calls, free space.</div>
+                <div style="font:600 12px 'IBM Plex Mono';color:#0076CE">Open →</div>
+              </button>
+            </div>
+            <div style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:16px 18px">
+              <div style="font:700 13px 'Hanken Grotesk';color:#12212F;margin-bottom:4px">Recent runs</div>
+              <sc-for list="{{ recentRuns }}" as="run" hint-placeholder-count="4">
+                <div style="display:grid;grid-template-columns:82px 1fr auto auto;gap:14px;align-items:center;padding:10px 0;border-top:1px solid #eef2f7">
+                  <span style="font:500 12px 'IBM Plex Mono';color:#0076CE">{{ run.id }}</span>
+                  <span style="font:500 12px 'Hanken Grotesk';color:#4A5765">{{ run.sim }} · {{ run.n }}×</span>
+                  <span style="font:400 11px 'IBM Plex Mono';color:#8593A1">{{ run.ago }}</span>
+                  <span style="{{ run.pillStyle }}">{{ run.status }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+          <div>
+            <div style="font:700 11px 'IBM Plex Mono';letter-spacing:.1em;text-transform:uppercase;color:#8593A1;margin-bottom:11px">Quick links</div>
+            <button type="button" onClick="{{ newRun }}" style-hover="border-color:#0076CE" style="display:flex;align-items:center;gap:11px;width:100%;text-align:left;background:#EAF3FB;border:1px solid #cfe4f5;border-radius:8px;padding:12px 14px;cursor:pointer;margin-bottom:9px;transition:border-color .15s">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#0076CE" stroke-width="1.9"><rect x="3" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="3" width="7" height="7" rx="1"></rect><rect x="3" y="14" width="7" height="7" rx="1"></rect><rect x="14" y="14" width="7" height="7" rx="1"></rect></svg>
+              <span style="font:600 13px 'Hanken Grotesk';color:#0076CE">Browse simulators</span>
+            </button>
+            <button type="button" onClick="{{ goLive }}" style-hover="border-color:#0076CE" style="display:flex;align-items:center;gap:11px;width:100%;text-align:left;background:#fff;border:1px solid #d7e2ee;border-radius:8px;padding:12px 14px;cursor:pointer;margin-bottom:9px;transition:border-color .15s">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#0076CE" stroke-width="1.9"><circle cx="11" cy="11" r="7"></circle><line x1="11" y1="6" x2="11" y2="11"></line><line x1="11" y1="11" x2="15" y2="13"></line></svg>
+              <span style="font:600 13px 'Hanken Grotesk';color:#0076CE">Detect active runs</span>
+            </button>
+            <button type="button" onClick="{{ goParallel }}" style-hover="border-color:#0076CE" style="display:flex;align-items:center;gap:11px;width:100%;text-align:left;background:#fff;border:1px solid #d7e2ee;border-radius:8px;padding:12px 14px;cursor:pointer;margin-bottom:9px;transition:border-color .15s">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#0076CE" stroke-width="1.9"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+              <span style="font:600 13px 'Hanken Grotesk';color:#0076CE">Recently viewed</span>
+            </button>
+            <button type="button" onClick="{{ goContext }}" style-hover="border-color:#0076CE" style="display:flex;align-items:center;gap:11px;width:100%;text-align:left;background:#fff;border:1px solid #d7e2ee;border-radius:8px;padding:12px 14px;cursor:pointer;margin-bottom:9px;transition:border-color .15s">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#0076CE" stroke-width="1.9"><rect x="3" y="4" width="5" height="16" rx="1"></rect><rect x="10" y="4" width="5" height="16" rx="1"></rect><rect x="17" y="4" width="4" height="16" rx="1"></rect></svg>
+              <span style="font:600 13px 'Hanken Grotesk';color:#0076CE">Context workspace</span>
+            </button>
+            <button type="button" style-hover="border-color:#0076CE" style="display:flex;align-items:center;gap:11px;width:100%;text-align:left;background:#fff;border:1px solid #d7e2ee;border-radius:8px;padding:12px 14px;cursor:pointer;transition:border-color .15s">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#0076CE" stroke-width="1.9"><path d="M4 4h11l5 5v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"></path><path d="M14 4v6h6"></path></svg>
+              <span style="font:600 13px 'Hanken Grotesk';color:#0076CE">Docs &amp; API</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ isLaunch }}">
+  <div style="background:#f4f6f9;padding:44px 26px 52px;display:flex;justify-content:center">
+    <div style="width:780px;background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:34px 36px;box-shadow:0 2px 12px rgba(30,50,80,.06)">
+      <div style="text-align:center;margin-bottom:8px;font:800 27px 'Hanken Grotesk';color:#12212F">Configure a run</div>
+      <div style="text-align:center;margin-bottom:32px;font:400 14px 'Hanken Grotesk';color:#62707E">Choose a simulator and how many instances to spin up. 1–10 opens the live mesh · 100–1000 opens the parallel grid.</div>
+
+      <div style="font:600 12px 'IBM Plex Mono';letter-spacing:.1em;text-transform:uppercase;color:#62707E;margin-bottom:12px">Simulator</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:30px">
+        <sc-for list="{{ simOptions }}" as="s" hint-placeholder-count="5">
+          <button type="button" onClick="{{ s.pick }}" style="{{ s.style }}">
+            <div style="font:700 15px 'Hanken Grotesk';margin-bottom:4px">{{ s.label }}</div>
+            <div style="font:400 11px 'IBM Plex Mono';color:#62707E;margin-bottom:9px">{{ s.topo }} · {{ s.agents }} agents</div>
+            <div style="font:400 10.5px/1.55 'Hanken Grotesk';color:#8593A1">{{ s.roster }}</div>
+          </button>
+        </sc-for>
+      </div>
+
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+        <span style="font:600 12px 'IBM Plex Mono';letter-spacing:.1em;text-transform:uppercase;color:#62707E">Agent scope</span>
+        <span style="font:500 12px 'Hanken Grotesk';color:#0076CE">{{ scopeSummary }}</span>
+      </div>
+      <div style="display:flex;gap:4px;background:#EEF2F7;border:1px solid #DCE3EB;border-radius:11px;padding:5px;margin-bottom:14px;width:fit-content">
+        <button type="button" onClick="{{ setScopeAll }}" style="{{ scopeModeAll }}">All agents</button>
+        <button type="button" onClick="{{ setScopeSelect }}" style="{{ scopeModeSel }}">Select agents</button>
+      </div>
+      <sc-if value="{{ scopeSelect }}">
+        <div style="display:flex;flex-wrap:wrap;gap:9px;margin-bottom:8px">
+          <sc-for list="{{ scopeChips }}" as="chip" hint-placeholder-count="5">
+            <button type="button" onClick="{{ chip.toggle }}" style="{{ chip.style }}"><span style="{{ chip.dot }}"></span>{{ chip.name }}</button>
+          </sc-for>
+        </div>
+      </sc-if>
+      <div style="font:400 12.5px/1.5 'Hanken Grotesk';color:#8593A1;margin-bottom:30px">Simulate the whole mesh, or isolate one workflow by running only the agents you select. Out-of-scope agents show as <span style="color:#62707E;font-weight:600">OUT</span> in the live mesh.</div>
+
+      <div style="font:600 12px 'IBM Plex Mono';letter-spacing:.1em;text-transform:uppercase;color:#62707E;margin-bottom:12px">Concurrency</div>
+      <div style="display:flex;gap:4px;background:#EEF2F7;border:1px solid #DCE3EB;border-radius:11px;padding:5px;margin-bottom:11px">
+        <sc-for list="{{ concOptions }}" as="opt" hint-placeholder-count="6">
+          <button type="button" onClick="{{ opt.pick }}" style="{{ opt.style }}">{{ opt.n }}</button>
+        </sc-for>
+      </div>
+      <div style="font:400 13px 'Hanken Grotesk';color:#62707E;margin-bottom:30px">Selected <span style="color:#0076CE;font-weight:600">{{ concurrency }} instances</span> → opens <span style="color:#12212F;font-weight:600">{{ routeLabel }}</span></div>
+
+      <div style="font:600 12px 'IBM Plex Mono';letter-spacing:.1em;text-transform:uppercase;color:#62707E;margin-bottom:12px">Task prompt <span style="text-transform:none;letter-spacing:0;color:#8593A1">(optional)</span></div>
+      <input type="text" value="{{ task }}" onChange="{{ setTask }}" placeholder="Analyze Acme Corp market position" style="width:100%;box-sizing:border-box;padding:13px 15px;border-radius:10px;background:#fff;border:1px solid #cdd6e0;color:#1B2733;font:400 14px 'Hanken Grotesk';margin-bottom:28px" />
+
+      <button type="button" onClick="{{ launch }}" style="width:100%;padding:16px;border-radius:11px;background:#0076CE;border:none;color:#fff;font:700 15px 'Hanken Grotesk';cursor:pointer">▸ Launch {{ concurrency }} × {{ selSimLabel }} · {{ scopeSummary }}</button>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ isLive }}">
+  <div style="padding:22px 26px">
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:18px;font:400 12px 'IBM Plex Mono';color:#8AA0B8"><span style="font:700 16px 'Hanken Grotesk';color:#E9EFF6">Live Run</span><span style="color:#33475f">·</span><span>{{ selSimLabel }} · mesh · run {{ runId }} · anthropic</span></div>
+    <div style="display:grid;grid-template-columns:296px 1fr;gap:22px">
+      <div style="min-width:0">
+        <div style="font:700 13px 'Hanken Grotesk';margin-bottom:12px">Instances <span style="color:#7E93AB;font-weight:500">(1)</span></div>
+        <div style="background:rgba(0,118,206,.1);border:1.5px solid #0076CE;border-radius:11px;padding:12px 13px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:9px"><span style="font:500 12px 'IBM Plex Mono';color:#E9EFF6">#012</span><span style="font:600 9.5px 'IBM Plex Mono';letter-spacing:.06em;text-transform:uppercase;color:#F2A81E;background:rgba(242,168,30,.16);border-radius:5px;padding:2px 7px">running</span></div>
+          <div style="display:flex;gap:6px;margin-bottom:10px"><span style="width:13px;height:13px;border-radius:4px;background:#18A673"></span><span style="width:13px;height:13px;border-radius:4px;background:#18A673"></span><span style="width:13px;height:13px;border-radius:4px;background:#F2A81E"></span><span style="width:13px;height:13px;border-radius:4px;background:#1C3454;border:1px solid rgba(255,255,255,.14)"></span><span style="width:13px;height:13px;border-radius:4px;background:#1C3454;border:1px solid rgba(255,255,255,.14)"></span></div>
+          <div style="font:400 11px 'Hanken Grotesk';color:#8AA0B8;line-height:1.5">Coordinator, Researcher done · Analyst running · Writer, Critic queued</div>
+        </div>
+        <div style="background:#10233C;border:1px solid rgba(255,255,255,.08);border-radius:11px;padding:14px;margin-top:14px">
+          <div style="font:700 12px 'Hanken Grotesk';margin-bottom:9px">Run info</div>
+          <div style="display:flex;justify-content:space-between;padding:4px 0"><span style="font:400 11px 'IBM Plex Mono';color:#7E93AB">topology</span><span style="font:500 11px 'IBM Plex Mono';color:#c6d5e5">mesh</span></div>
+          <div style="display:flex;justify-content:space-between;padding:4px 0"><span style="font:400 11px 'IBM Plex Mono';color:#7E93AB">elapsed</span><span style="font:500 11px 'IBM Plex Mono';color:#c6d5e5">{{ elapsed }}</span></div>
+          <div style="display:flex;justify-content:space-between;padding:4px 0"><span style="font:400 11px 'IBM Plex Mono';color:#7E93AB">model</span><span style="font:500 11px 'IBM Plex Mono';color:#c6d5e5">sonnet-4.5</span></div>
+          <div style="display:flex;justify-content:space-between;padding:4px 0"><span style="font:400 11px 'IBM Plex Mono';color:#7E93AB">scope</span><span style="font:500 11px 'IBM Plex Mono';color:#7fb8e8">{{ scopeCount }} / {{ rosterCount }} agents</span></div>
+        </div>
+      </div>
+      <div style="min-width:0;display:flex;flex-direction:column;gap:16px">
+        <div style="background:#0D1E33;border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:20px 22px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+            <div><div style="font:700 16px 'Hanken Grotesk'">Instance #012 · live mesh</div><div style="font:400 12px 'Hanken Grotesk';color:#8AA0B8;margin-top:3px">Simulating {{ scopeSummary }} · out-of-scope agents shown as OUT</div></div>
+            <div style="display:flex;gap:15px;align-items:center">
+              <div style="display:flex;gap:6px;align-items:center"><span style="width:11px;height:11px;border-radius:3px;background:#F2A81E;display:inline-block"></span><span style="font:500 11px 'Hanken Grotesk';color:#8AA0B8">Running</span></div>
+              <div style="display:flex;gap:6px;align-items:center"><span style="width:11px;height:11px;border-radius:3px;background:#18A673;display:inline-block"></span><span style="font:500 11px 'Hanken Grotesk';color:#8AA0B8">Completed</span></div>
+              <div style="display:flex;gap:6px;align-items:center"><span style="width:11px;height:11px;border-radius:3px;background:#1C3454;border:1px solid rgba(255,255,255,.14);display:inline-block"></span><span style="font:500 11px 'Hanken Grotesk';color:#8AA0B8">Idle</span></div>
+            </div>
+          </div>
+          <div style="min-height:340px;display:flex;align-items:center;justify-content:center">{{ meshEl3 }}</div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px">
+          <div style="background:#10233C;border:1px solid rgba(255,255,255,.08);border-radius:11px;padding:14px 16px"><div style="font:500 11px 'IBM Plex Mono';letter-spacing:.08em;text-transform:uppercase;color:#7E93AB">Agents done</div><div style="font:700 26px/1.1 'Hanken Grotesk';margin-top:6px;color:#37c592">2<span style="font:500 14px 'IBM Plex Mono';color:#7E93AB"> / {{ scopeCount }}</span></div></div>
+          <div style="background:#10233C;border:1px solid rgba(255,255,255,.08);border-radius:11px;padding:14px 16px"><div style="font:500 11px 'IBM Plex Mono';letter-spacing:.08em;text-transform:uppercase;color:#7E93AB">Active</div><div style="font:700 26px/1.1 'Hanken Grotesk';margin-top:6px;color:#F2A81E">1</div></div>
+          <div style="background:#10233C;border:1px solid rgba(255,255,255,.08);border-radius:11px;padding:14px 16px"><div style="font:500 11px 'IBM Plex Mono';letter-spacing:.08em;text-transform:uppercase;color:#7E93AB">Messages</div><div style="font:700 26px/1.1 'Hanken Grotesk';margin-top:6px;color:#e9eff6">17</div></div>
+          <div style="background:#10233C;border:1px solid rgba(255,255,255,.08);border-radius:11px;padding:14px 16px"><div style="font:500 11px 'IBM Plex Mono';letter-spacing:.08em;text-transform:uppercase;color:#7E93AB">Elapsed</div><div style="font:700 26px/1.1 'Hanken Grotesk';margin-top:6px;color:#e9eff6">{{ elapsed }}</div></div>
+        </div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 380px;gap:22px;margin-top:16px">
+      <div style="background:#10233C;border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:18px 20px">
+        <div style="font:700 14px 'Hanken Grotesk';margin-bottom:16px">Agent timeline · Instance #012</div>
+        <div style="display:grid;grid-template-columns:88px 1fr;gap:12px;align-items:center;margin-bottom:9px"><span style="font:600 12px 'Hanken Grotesk';color:#C6D4E4">Coordinator</span><div style="position:relative;height:20px;background:rgba(255,255,255,.06);border-radius:5px"><div style="position:absolute;left:0%;width:13%;top:0;bottom:0;background:#18A673;border-radius:5px"></div></div></div>
+        <div style="display:grid;grid-template-columns:88px 1fr;gap:12px;align-items:center;margin-bottom:9px"><span style="font:600 12px 'Hanken Grotesk';color:#C6D4E4">Researcher</span><div style="position:relative;height:20px;background:rgba(255,255,255,.06);border-radius:5px"><div style="position:absolute;left:13%;width:26%;top:0;bottom:0;background:#18A673;border-radius:5px"></div></div></div>
+        <div style="display:grid;grid-template-columns:88px 1fr;gap:12px;align-items:center;margin-bottom:9px"><span style="font:600 12px 'Hanken Grotesk';color:#C6D4E4">Analyst</span><div style="position:relative;height:20px;background:rgba(255,255,255,.06);border-radius:5px"><div style="position:absolute;left:16%;width:22%;top:0;bottom:0;background:#F2A81E;border-radius:5px;animation:ascellpulse 1.3s ease-in-out infinite"></div></div></div>
+        <div style="display:grid;grid-template-columns:88px 1fr;gap:12px;align-items:center;margin-bottom:9px"><span style="font:600 12px 'Hanken Grotesk';color:#8092a6">Writer</span><div style="position:relative;height:20px;background:rgba(255,255,255,.06);border-radius:5px"><div style="position:absolute;left:44%;width:24%;top:0;bottom:0;background:rgba(255,255,255,.14);border-radius:5px"></div></div></div>
+        <div style="display:grid;grid-template-columns:88px 1fr;gap:12px;align-items:center"><span style="font:600 12px 'Hanken Grotesk';color:#8092a6">Critic</span><div style="position:relative;height:20px;background:rgba(255,255,255,.06);border-radius:5px"><div style="position:absolute;left:62%;width:20%;top:0;bottom:0;background:rgba(255,255,255,.14);border-radius:5px"></div></div></div>
+      </div>
+      <div style="background:linear-gradient(160deg,#0076CE,#00539a);border-radius:14px;padding:22px;display:flex;flex-direction:column;justify-content:space-between">
+        <div><div style="font:700 15px 'Hanken Grotesk';margin-bottom:8px">Inspect agent context</div><div style="font:400 12px/1.6 'Hanken Grotesk';color:rgba(255,255,255,.85)">Compare each agent's context window side by side — tokens, tool calls, and free space.</div></div>
+        <button type="button" onClick="{{ goContext }}" style="align-self:flex-start;margin-top:18px;font:600 12px 'Hanken Grotesk';color:#0076CE;background:#fff;border:none;border-radius:8px;padding:9px 16px;cursor:pointer">Open context workspace →</button>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ isParallel }}">
+  <div style="padding:22px 26px">
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:18px;font:400 12px 'IBM Plex Mono';color:#8AA0B8"><span style="font:700 16px 'Hanken Grotesk';color:#E9EFF6">Parallel</span><span style="color:#33475f">·</span><span>{{ concurrency }} instances · {{ selSimLabel }} · run {{ runId }}</span></div>
+    <div style="display:grid;grid-template-columns:1fr 540px;gap:22px;min-width:0">
+      <div style="min-width:0">
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px">
+          <div style="background:#10233C;border:1px solid rgba(255,255,255,.08);border-radius:11px;padding:15px 16px"><div style="font:500 11px 'IBM Plex Mono';letter-spacing:.1em;text-transform:uppercase;color:#7E93AB">Active</div><div style="font:700 32px/1.1 'Hanken Grotesk';margin-top:6px;color:#F2A81E">{{ activeCount }}</div></div>
+          <div style="background:#10233C;border:1px solid rgba(255,255,255,.08);border-radius:11px;padding:15px 16px"><div style="font:500 11px 'IBM Plex Mono';letter-spacing:.1em;text-transform:uppercase;color:#7E93AB">Completed</div><div style="font:700 32px/1.1 'Hanken Grotesk';margin-top:6px;color:#37c592">{{ completedTotal }}</div></div>
+          <div style="background:#10233C;border:1px solid rgba(255,255,255,.08);border-radius:11px;padding:15px 16px"><div style="font:500 11px 'IBM Plex Mono';letter-spacing:.1em;text-transform:uppercase;color:#7E93AB">Errored</div><div style="font:700 32px/1.1 'Hanken Grotesk';margin-top:6px;color:#E23D3D">{{ erroredTotal }}</div></div>
+          <div style="background:#10233C;border:1px solid rgba(255,255,255,.08);border-radius:11px;padding:15px 16px"><div style="font:500 11px 'IBM Plex Mono';letter-spacing:.1em;text-transform:uppercase;color:#7E93AB">Throughput</div><div style="font:700 26px/1.1 'Hanken Grotesk';margin-top:6px;color:#e9eff6">{{ throughput }}<span style="font:500 13px 'IBM Plex Mono';color:#8AA0B8">/min</span></div><div style="margin-top:4px">{{ sparkEl3 }}</div></div>
+        </div>
+        <div style="background:#0D1E33;border:1px solid rgba(255,255,255,.08);border-radius:13px;padding:18px 20px;margin-top:16px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+            <div><div style="font:700 15px 'Hanken Grotesk'">Instance activity</div><div style="font:400 11px 'IBM Plex Mono';color:#7E93AB;margin-top:3px">20 × 6 grid · showing 120 of {{ concurrency }} instances</div></div>
+            <div style="display:flex;gap:16px;align-items:center">
+              <div style="display:flex;gap:6px;align-items:center"><span style="width:11px;height:11px;border-radius:3px;background:#F2A81E;display:inline-block"></span><span style="font:500 11px 'Hanken Grotesk';color:#8AA0B8">Running</span></div>
+              <div style="display:flex;gap:6px;align-items:center"><span style="width:11px;height:11px;border-radius:3px;background:#18A673;display:inline-block"></span><span style="font:500 11px 'Hanken Grotesk';color:#8AA0B8">Completed</span></div>
+              <div style="display:flex;gap:6px;align-items:center"><span style="width:11px;height:11px;border-radius:3px;background:#E23D3D;display:inline-block"></span><span style="font:500 11px 'Hanken Grotesk';color:#8AA0B8">Errored</span></div>
+              <div style="display:flex;gap:6px;align-items:center"><span style="width:11px;height:11px;border-radius:3px;background:#17293f;border:1px solid rgba(255,255,255,.12);display:inline-block"></span><span style="font:500 11px 'Hanken Grotesk';color:#8AA0B8">Idle</span></div>
+            </div>
+          </div>
+          <div style="display:flex;justify-content:center;min-height:180px">{{ gridEl3 }}</div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:16px;min-width:0">
+        <div style="background:#10233C;border:1px solid rgba(255,255,255,.08);border-radius:13px;padding:17px 18px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px"><div style="display:flex;align-items:baseline;gap:9px"><span style="font:700 15px 'Hanken Grotesk'">Instance #037</span><span style="font:400 11px 'IBM Plex Mono';color:#7E93AB">a1c9…37</span></div><span style="font:600 10px 'IBM Plex Mono';letter-spacing:.08em;text-transform:uppercase;padding:4px 9px;border-radius:6px;background:rgba(242,168,30,.16);color:#F2A81E">running</span></div>
+          <div style="display:grid;grid-template-columns:92px 1fr 74px 44px;gap:10px;align-items:center;padding:5px 0"><span style="font:600 12px 'Hanken Grotesk';color:#C6D4E4">Coordinator</span><div style="height:8px;border-radius:4px;background:rgba(255,255,255,.06);overflow:hidden"><div style="height:100%;width:100%;background:#18A673;border-radius:4px"></div></div><span style="justify-self:start;font:600 9.5px 'IBM Plex Mono';letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:5px;background:rgba(24,166,115,.16);color:#37c592">done</span><span style="font:400 11px 'IBM Plex Mono';color:#8AA0B8;text-align:right">3.1s</span></div>
+          <div style="display:grid;grid-template-columns:92px 1fr 74px 44px;gap:10px;align-items:center;padding:5px 0"><span style="font:600 12px 'Hanken Grotesk';color:#C6D4E4">Researcher</span><div style="height:8px;border-radius:4px;background:rgba(255,255,255,.06);overflow:hidden"><div style="height:100%;width:100%;background:#18A673;border-radius:4px"></div></div><span style="justify-self:start;font:600 9.5px 'IBM Plex Mono';letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:5px;background:rgba(24,166,115,.16);color:#37c592">done</span><span style="font:400 11px 'IBM Plex Mono';color:#8AA0B8;text-align:right">4.4s</span></div>
+          <div style="display:grid;grid-template-columns:92px 1fr 74px 44px;gap:10px;align-items:center;padding:5px 0"><span style="font:600 12px 'Hanken Grotesk';color:#C6D4E4">Analyst</span><div style="height:8px;border-radius:4px;background:rgba(255,255,255,.06);overflow:hidden"><div style="height:100%;width:55%;background:#F2A81E;border-radius:4px;animation:ascellpulse 1.3s ease-in-out infinite"></div></div><span style="justify-self:start;font:600 9.5px 'IBM Plex Mono';letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:5px;background:rgba(242,168,30,.16);color:#F2A81E">running</span><span style="font:400 11px 'IBM Plex Mono';color:#8AA0B8;text-align:right">2.2s</span></div>
+          <div style="display:grid;grid-template-columns:92px 1fr 74px 44px;gap:10px;align-items:center;padding:5px 0"><span style="font:600 12px 'Hanken Grotesk';color:#8092a6">Writer</span><div style="height:8px;border-radius:4px;background:rgba(255,255,255,.06)"></div><span style="justify-self:start;font:600 9.5px 'IBM Plex Mono';letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:5px;background:rgba(255,255,255,.05);color:#7E93AB">idle</span><span style="font:400 11px 'IBM Plex Mono';color:#556a80;text-align:right">—</span></div>
+          <div style="display:grid;grid-template-columns:92px 1fr 74px 44px;gap:10px;align-items:center;padding:5px 0"><span style="font:600 12px 'Hanken Grotesk';color:#8092a6">Critic</span><div style="height:8px;border-radius:4px;background:rgba(255,255,255,.06)"></div><span style="justify-self:start;font:600 9.5px 'IBM Plex Mono';letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:5px;background:rgba(255,255,255,.05);color:#7E93AB">idle</span><span style="font:400 11px 'IBM Plex Mono';color:#556a80;text-align:right">—</span></div>
+          <button type="button" onClick="{{ goContext }}" style="margin-top:12px;font:600 12px 'Hanken Grotesk';color:#7fb8e8;background:transparent;border:none;cursor:pointer;padding:0">Inspect agent context →</button>
+        </div>
+        <div style="background:#10233C;border:1px solid rgba(255,255,255,.08);border-radius:13px;padding:17px 18px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px"><div style="font:700 14px 'Hanken Grotesk'">Run results</div><span style="font:400 10.5px 'IBM Plex Mono';color:#7E93AB">GET /api/runs/4f2a/result</span></div>
+          <div style="font:400 11px 'Hanken Grotesk';color:#8AA0B8;margin-bottom:13px">Error / no-error verdict per completed run — from the stub results API</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">
+            <div style="background:rgba(24,166,115,.1);border:1px solid rgba(24,166,115,.28);border-radius:9px;padding:11px 13px"><div style="font:500 10px 'IBM Plex Mono';letter-spacing:.08em;text-transform:uppercase;color:#37c592">No error</div><div style="font:700 24px/1.1 'Hanken Grotesk';margin-top:4px;color:#3fd39a">2,781</div></div>
+            <div style="background:rgba(226,61,61,.1);border:1px solid rgba(226,61,61,.28);border-radius:9px;padding:11px 13px"><div style="font:500 10px 'IBM Plex Mono';letter-spacing:.08em;text-transform:uppercase;color:#E97a7a">Error</div><div style="font:700 24px/1.1 'Hanken Grotesk';margin-top:4px;color:#f26060">60</div></div>
+          </div>
+          <div style="background:#0A1728;border:1px solid rgba(255,255,255,.06);border-radius:9px;overflow:hidden">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:9px 13px;border-bottom:1px solid rgba(255,255,255,.05)"><span style="font:500 12px 'IBM Plex Mono';color:#c6d5e5">#001</span><span style="font:600 9.5px 'IBM Plex Mono';letter-spacing:.05em;text-transform:uppercase;color:#37c592;background:rgba(24,166,115,.14);border-radius:5px;padding:3px 9px">✓ no error</span></div>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 13px;border-bottom:1px solid rgba(255,255,255,.05)"><span style="font:500 12px 'IBM Plex Mono';color:#c6d5e5;flex:none">#009</span><span style="font:400 10px 'IBM Plex Mono';color:#7E93AB;flex:1;text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">analyst · tool_timeout</span><span style="font:600 9.5px 'IBM Plex Mono';letter-spacing:.05em;text-transform:uppercase;color:#f26060;background:rgba(226,61,61,.14);border-radius:5px;padding:3px 9px;flex:none">✗ error</span></div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:9px 13px;border-bottom:1px solid rgba(255,255,255,.05)"><span style="font:500 12px 'IBM Plex Mono';color:#c6d5e5">#018</span><span style="font:600 9.5px 'IBM Plex Mono';letter-spacing:.05em;text-transform:uppercase;color:#37c592;background:rgba(24,166,115,.14);border-radius:5px;padding:3px 9px">✓ no error</span></div>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 13px;border-bottom:1px solid rgba(255,255,255,.05)"><span style="font:500 12px 'IBM Plex Mono';color:#c6d5e5;flex:none">#027</span><span style="font:400 10px 'IBM Plex Mono';color:#7E93AB;flex:1;text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">critic · schema_violation</span><span style="font:600 9.5px 'IBM Plex Mono';letter-spacing:.05em;text-transform:uppercase;color:#f26060;background:rgba(226,61,61,.14);border-radius:5px;padding:3px 9px;flex:none">✗ error</span></div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:9px 13px"><span style="font:500 12px 'IBM Plex Mono';color:#c6d5e5">#033</span><span style="font:600 9.5px 'IBM Plex Mono';letter-spacing:.05em;text-transform:uppercase;color:#37c592;background:rgba(24,166,115,.14);border-radius:5px;padding:3px 9px">✓ no error</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ isContext }}">
+  <div>
+    <div style="display:flex;align-items:center;gap:14px;padding:14px 26px;border-bottom:1px solid rgba(255,255,255,.07);background:#0B1A2C;flex-wrap:wrap">
+      <button type="button" style="font:600 12px 'Hanken Grotesk';color:#fff;background:#0076CE;border:none;border-radius:7px;padding:8px 15px;cursor:pointer">＋ Add viewer</button>
+      <span style="font:500 12px 'IBM Plex Mono';color:#8AA0B8">3 viewers open · run 4f2a · #037</span>
+      <div style="display:flex;gap:2px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:8px;padding:3px">
+        <span style="font:600 12px 'Hanken Grotesk';color:#fff;background:#0076CE;border-radius:6px;padding:5px 12px">▦ Grid</span>
+        <span style="font:500 12px 'Hanken Grotesk';color:#8AA0B8;border-radius:6px;padding:5px 12px">▥ Columns</span>
+        <span style="font:500 12px 'Hanken Grotesk';color:#8AA0B8;border-radius:6px;padding:5px 12px">◳ Tabs</span>
+      </div>
+      <span style="flex:1"></span>
+      <div style="display:flex;gap:13px;align-items:center;flex-wrap:wrap">
+        <div style="display:flex;gap:5px;align-items:center"><span style="width:11px;height:11px;border-radius:3px;background:#8b5cf6;display:inline-block"></span><span style="font:500 10.5px 'Hanken Grotesk';color:#8AA0B8">System</span></div>
+        <div style="display:flex;gap:5px;align-items:center"><span style="width:11px;height:11px;border-radius:3px;background:#3b82f6;display:inline-block"></span><span style="font:500 10.5px 'Hanken Grotesk';color:#8AA0B8">Human</span></div>
+        <div style="display:flex;gap:5px;align-items:center"><span style="width:11px;height:11px;border-radius:3px;background:#10b981;display:inline-block"></span><span style="font:500 10.5px 'Hanken Grotesk';color:#8AA0B8">AI</span></div>
+        <div style="display:flex;gap:5px;align-items:center"><span style="width:11px;height:11px;border-radius:3px;background:#f59e0b;display:inline-block"></span><span style="font:500 10.5px 'Hanken Grotesk';color:#8AA0B8">Tool call</span></div>
+        <div style="display:flex;gap:5px;align-items:center"><span style="width:11px;height:11px;border-radius:3px;background:#ef4444;display:inline-block"></span><span style="font:500 10.5px 'Hanken Grotesk';color:#8AA0B8">Tool result</span></div>
+        <div style="display:flex;gap:5px;align-items:center"><span style="width:11px;height:11px;border-radius:3px;background:#24344a;border:1px solid rgba(255,255,255,.14);display:inline-block"></span><span style="font:500 10.5px 'Hanken Grotesk';color:#8AA0B8">Free</span></div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:22px 26px">
+
+      <div style="background:#10233C;border:1px solid rgba(255,255,255,.08);border-radius:13px;padding:16px;border-top:3px solid #3b82f6">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:3px"><div style="display:flex;align-items:center;gap:8px"><span style="width:9px;height:9px;border-radius:50%;background:#3b82f6"></span><span style="font:700 14px 'Hanken Grotesk'">Researcher · #037</span></div><span style="font:400 15px 'Hanken Grotesk';color:#6a7d92;cursor:pointer">✕</span></div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:13px"><span style="font:400 11px 'IBM Plex Mono';color:#8AA0B8">claude-sonnet-4.5</span><span style="font:500 9px 'IBM Plex Mono';color:#F2A81E;background:rgba(242,168,30,.14);border-radius:4px;padding:2px 6px">⚠ approx</span></div>
+        <div style="display:flex;height:26px;border-radius:6px;overflow:hidden;border:1px solid rgba(255,255,255,.08);margin-bottom:9px"><div style="width:2%;background:#8b5cf6"></div><div style="width:1.5%;background:#3b82f6"></div><div style="width:1%;background:#10b981"></div><div style="width:1%;background:#f59e0b"></div><div style="width:22%;background:#ef4444"></div><div style="width:1%;background:#10b981"></div><div style="width:1%;background:#f59e0b"></div><div style="width:26%;background:#ef4444"></div><div style="width:4%;background:#10b981"></div><div style="flex:1;background:#24344a"></div></div>
+        <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:14px"><span style="font:400 11px 'IBM Plex Mono';color:#8AA0B8">122,400 / 200,000 tok</span><span style="font:600 12px 'Hanken Grotesk';color:#7fb8e8">61% used</span></div>
+        <div style="border-top:1px solid rgba(255,255,255,.06)">
+          <div style="display:grid;grid-template-columns:58px 1fr auto;gap:8px;align-items:center;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.05)"><span style="font:600 8.5px 'IBM Plex Mono';letter-spacing:.05em;text-transform:uppercase;color:#a78bfa;background:rgba(139,92,246,.16);border-radius:4px;padding:3px 6px;text-align:center">system</span><span style="font:400 11px 'Hanken Grotesk';color:#93a6ba;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">3-stage research pipeline…</span><span style="font:400 10px 'IBM Plex Mono';color:#6a7d92">4,180</span></div>
+          <div style="display:grid;grid-template-columns:58px 1fr auto;gap:8px;align-items:center;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.05)"><span style="font:600 8.5px 'IBM Plex Mono';letter-spacing:.05em;text-transform:uppercase;color:#f59e0b;background:rgba(245,158,11,.16);border-radius:4px;padding:3px 6px;text-align:center">tool</span><span style="font:400 11px 'Hanken Grotesk';color:#93a6ba;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">web_search · SMR 2026…</span><span style="font:400 10px 'IBM Plex Mono';color:#6a7d92">1,020</span></div>
+          <div style="display:grid;grid-template-columns:58px 1fr auto;gap:8px;align-items:center;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.05)"><span style="font:600 8.5px 'IBM Plex Mono';letter-spacing:.05em;text-transform:uppercase;color:#f87171;background:rgba(239,68,68,.16);border-radius:4px;padding:3px 6px;text-align:center">result</span><span style="font:400 11px 'Hanken Grotesk';color:#93a6ba;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">6 findings: NuScale, BWRX…</span><span style="font:400 10px 'IBM Plex Mono';color:#6a7d92">44,320</span></div>
+          <div style="display:grid;grid-template-columns:58px 1fr auto;gap:8px;align-items:center;padding:7px 0"><span style="font:600 8.5px 'IBM Plex Mono';letter-spacing:.05em;text-transform:uppercase;color:#34d399;background:rgba(16,185,129,.16);border-radius:4px;padding:3px 6px;text-align:center">ai</span><span style="font:400 11px 'Hanken Grotesk';color:#93a6ba;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Research stage complete…</span><span style="font:400 10px 'IBM Plex Mono';color:#6a7d92">7,100</span></div>
+        </div>
+        <div style="margin-top:12px;background:#0A1728;border:1px solid rgba(255,255,255,.06);border-radius:8px;padding:11px">
+          <div style="display:flex;gap:6px;margin-bottom:9px"><span style="font:600 9.5px 'Hanken Grotesk';color:#fff;background:#0076CE;border-radius:5px;padding:3px 9px">Tokens</span><span style="font:600 9.5px 'Hanken Grotesk';color:#8AA0B8;padding:3px 9px">Text</span></div>
+          <div style="display:flex;flex-wrap:wrap;gap:3px"><span style="font:500 10px 'IBM Plex Mono';color:#c6d5e5;background:rgba(255,255,255,.06);border-radius:3px;padding:2px 5px">Results</span><span style="font:500 10px 'IBM Plex Mono';color:#c6d5e5;background:rgba(255,255,255,.06);border-radius:3px;padding:2px 5px">:</span><span style="font:500 10px 'IBM Plex Mono';color:#c6d5e5;background:rgba(255,255,255,.06);border-radius:3px;padding:2px 5px">·1</span><span style="font:500 10px 'IBM Plex Mono';color:#c6d5e5;background:rgba(255,255,255,.06);border-radius:3px;padding:2px 5px">·NuScale</span><span style="font:500 10px 'IBM Plex Mono';color:#c6d5e5;background:rgba(255,255,255,.06);border-radius:3px;padding:2px 5px">'s</span><span style="font:500 10px 'IBM Plex Mono';color:#c6d5e5;background:rgba(255,255,255,.06);border-radius:3px;padding:2px 5px">·VOY</span><span style="font:500 10px 'IBM Plex Mono';color:#c6d5e5;background:rgba(255,255,255,.06);border-radius:3px;padding:2px 5px">GR</span><span style="font:500 10px 'IBM Plex Mono';color:#6a7d92;padding:2px 5px">+43,912 more</span></div>
+        </div>
+      </div>
+
+      <div style="background:#10233C;border:1px solid rgba(255,255,255,.08);border-radius:13px;padding:16px;border-top:3px solid #f59e0b">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:3px"><div style="display:flex;align-items:center;gap:8px"><span style="width:9px;height:9px;border-radius:50%;background:#f59e0b"></span><span style="font:700 14px 'Hanken Grotesk'">Analyst · #037</span></div><span style="font:400 15px 'Hanken Grotesk';color:#6a7d92;cursor:pointer">✕</span></div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:13px"><span style="font:400 11px 'IBM Plex Mono';color:#8AA0B8">claude-sonnet-4.5</span><span style="font:500 9px 'IBM Plex Mono';color:#F2A81E;background:rgba(242,168,30,.14);border-radius:4px;padding:2px 6px">⚠ approx</span></div>
+        <div style="display:flex;height:26px;border-radius:6px;overflow:hidden;border:1px solid rgba(255,255,255,.08);margin-bottom:9px"><div style="width:2%;background:#8b5cf6"></div><div style="width:20%;background:#3b82f6"></div><div style="width:1.5%;background:#10b981"></div><div style="width:1%;background:#f59e0b"></div><div style="width:15%;background:#ef4444"></div><div style="width:2.5%;background:#10b981"></div><div style="width:24%;background:#3b82f6"></div><div style="width:6%;background:#10b981"></div><div style="flex:1;background:#24344a"></div></div>
+        <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:14px"><span style="font:400 11px 'IBM Plex Mono';color:#8AA0B8">148,300 / 200,000 tok</span><span style="font:600 12px 'Hanken Grotesk';color:#F2A81E">74% used</span></div>
+        <div style="border-top:1px solid rgba(255,255,255,.06)">
+          <div style="display:grid;grid-template-columns:58px 1fr auto;gap:8px;align-items:center;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.05)"><span style="font:600 8.5px 'IBM Plex Mono';letter-spacing:.05em;text-transform:uppercase;color:#a78bfa;background:rgba(139,92,246,.16);border-radius:4px;padding:3px 6px;text-align:center">system</span><span style="font:400 11px 'Hanken Grotesk';color:#93a6ba;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Stage 2 — distill findings…</span><span style="font:400 10px 'IBM Plex Mono';color:#6a7d92">4,180</span></div>
+          <div style="display:grid;grid-template-columns:58px 1fr auto;gap:8px;align-items:center;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.05)"><span style="font:600 8.5px 'IBM Plex Mono';letter-spacing:.05em;text-transform:uppercase;color:#60a5fa;background:rgba(59,130,246,.16);border-radius:4px;padding:3px 6px;text-align:center">human</span><span style="font:400 11px 'Hanken Grotesk';color:#93a6ba;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Evidence bundle from Researcher…</span><span style="font:400 10px 'IBM Plex Mono';color:#6a7d92">40,100</span></div>
+          <div style="display:grid;grid-template-columns:58px 1fr auto;gap:8px;align-items:center;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.05)"><span style="font:600 8.5px 'IBM Plex Mono';letter-spacing:.05em;text-transform:uppercase;color:#f59e0b;background:rgba(245,158,11,.16);border-radius:4px;padding:3px 6px;text-align:center">tool</span><span style="font:400 11px 'Hanken Grotesk';color:#93a6ba;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">summarize_findings · 5 insights…</span><span style="font:400 10px 'IBM Plex Mono';color:#6a7d92">30,240</span></div>
+          <div style="display:grid;grid-template-columns:58px 1fr auto;gap:8px;align-items:center;padding:7px 0"><span style="font:600 8.5px 'IBM Plex Mono';letter-spacing:.05em;text-transform:uppercase;color:#34d399;background:rgba(16,185,129,.16);border-radius:4px;padding:3px 6px;text-align:center">ai</span><span style="font:400 11px 'Hanken Grotesk';color:#93a6ba;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Analysis complete. Top signal…</span><span style="font:400 10px 'IBM Plex Mono';color:#6a7d92">12,300</span></div>
+        </div>
+        <div style="margin-top:12px;background:rgba(242,168,30,.08);border:1px solid rgba(242,168,30,.22);border-radius:8px;padding:10px 12px"><div style="font:600 10px 'IBM Plex Mono';letter-spacing:.05em;text-transform:uppercase;color:#F2A81E;margin-bottom:3px">Compaction preview</div><div style="font:400 11px/1.5 'Hanken Grotesk';color:#c6d4e4">At 74% full — a refresh keeping the last 4 turns reclaims <span style="color:#F2A81E;font-weight:600">~62,400 tok (31%)</span>.</div></div>
+      </div>
+
+      <div style="background:#10233C;border:1px solid rgba(255,255,255,.08);border-radius:13px;padding:16px;border-top:3px solid #10b981">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:3px"><div style="display:flex;align-items:center;gap:8px"><span style="width:9px;height:9px;border-radius:50%;background:#10b981"></span><span style="font:700 14px 'Hanken Grotesk'">Writer · #037</span></div><span style="font:400 15px 'Hanken Grotesk';color:#6a7d92;cursor:pointer">✕</span></div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:13px"><span style="font:400 11px 'IBM Plex Mono';color:#8AA0B8">claude-sonnet-4.5</span><span style="font:500 9px 'IBM Plex Mono';color:#F2A81E;background:rgba(242,168,30,.14);border-radius:4px;padding:2px 6px">⚠ approx</span></div>
+        <div style="display:flex;height:26px;border-radius:6px;overflow:hidden;border:1px solid rgba(255,255,255,.08);margin-bottom:9px"><div style="width:2%;background:#8b5cf6"></div><div style="width:16%;background:#3b82f6"></div><div style="width:1.5%;background:#10b981"></div><div style="width:1%;background:#f59e0b"></div><div style="width:20%;background:#ef4444"></div><div style="width:5.5%;background:#10b981"></div><div style="flex:1;background:#24344a"></div></div>
+        <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:14px"><span style="font:400 11px 'IBM Plex Mono';color:#8AA0B8">94,100 / 200,000 tok</span><span style="font:600 12px 'Hanken Grotesk';color:#37c592">47% used</span></div>
+        <div style="border-top:1px solid rgba(255,255,255,.06)">
+          <div style="display:grid;grid-template-columns:58px 1fr auto;gap:8px;align-items:center;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.05)"><span style="font:600 8.5px 'IBM Plex Mono';letter-spacing:.05em;text-transform:uppercase;color:#a78bfa;background:rgba(139,92,246,.16);border-radius:4px;padding:3px 6px;text-align:center">system</span><span style="font:400 11px 'Hanken Grotesk';color:#93a6ba;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Stage 3 — produce report…</span><span style="font:400 10px 'IBM Plex Mono';color:#6a7d92">4,180</span></div>
+          <div style="display:grid;grid-template-columns:58px 1fr auto;gap:8px;align-items:center;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.05)"><span style="font:600 8.5px 'IBM Plex Mono';letter-spacing:.05em;text-transform:uppercase;color:#60a5fa;background:rgba(59,130,246,.16);border-radius:4px;padding:3px 6px;text-align:center">human</span><span style="font:400 11px 'Hanken Grotesk';color:#93a6ba;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Ranked insights from Analyst…</span><span style="font:400 10px 'IBM Plex Mono';color:#6a7d92">32,000</span></div>
+          <div style="display:grid;grid-template-columns:58px 1fr auto;gap:8px;align-items:center;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.05)"><span style="font:600 8.5px 'IBM Plex Mono';letter-spacing:.05em;text-transform:uppercase;color:#f87171;background:rgba(239,68,68,.16);border-radius:4px;padding:3px 6px;text-align:center">result</span><span style="font:400 11px 'Hanken Grotesk';color:#93a6ba;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">draft_report · SMR Snapshot…</span><span style="font:400 10px 'IBM Plex Mono';color:#6a7d92">40,200</span></div>
+          <div style="display:grid;grid-template-columns:58px 1fr auto;gap:8px;align-items:center;padding:7px 0"><span style="font:600 8.5px 'IBM Plex Mono';letter-spacing:.05em;text-transform:uppercase;color:#34d399;background:rgba(16,185,129,.16);border-radius:4px;padding:3px 6px;text-align:center">ai</span><span style="font:400 11px 'Hanken Grotesk';color:#93a6ba;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Here is the final report…</span><span style="font:400 10px 'IBM Plex Mono';color:#6a7d92">11,320</span></div>
+        </div>
+        <div style="margin-top:12px;background:#0A1728;border:1px solid rgba(255,255,255,.06);border-radius:8px;padding:11px;font:400 11px/1.6 'Hanken Grotesk';color:#8AA0B8">Bound to its own backend session — loads, tokenizes, and live-watches independently.</div>
+      </div>
+
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ cancelOpen }}">
+    <div style="position:absolute;inset:0;background:rgba(6,16,30,.74);display:flex;align-items:center;justify-content:center;z-index:50;border-radius:14px">
+      <div style="width:430px;background:#10233C;border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:26px;box-shadow:0 30px 70px rgba(0,0,0,.5)">
+        <div style="font:700 18px 'Hanken Grotesk';margin-bottom:10px">Cancel this run?</div>
+        <div style="font:400 13px/1.6 'Hanken Grotesk';color:#8AA0B8;margin-bottom:22px">All running instances will stop immediately. Completed results and logs are kept.</div>
+        <div style="display:flex;gap:10px;justify-content:flex-end">
+          <button type="button" onClick="{{ closeCancel }}" style="font:600 13px 'Hanken Grotesk';color:#c6d5e5;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:9px;padding:10px 18px;cursor:pointer">Keep running</button>
+          <button type="button" onClick="{{ confirmCancel }}" style="font:600 13px 'Hanken Grotesk';color:#fff;background:#E23D3D;border:none;border-radius:9px;padding:10px 18px;cursor:pointer">Cancel run</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+</div>
+</div>
+
+</div>
+<p class="dv-next">Now with <strong>Agent scope</strong> on Setup — run the whole mesh or isolate a workflow (All agents / Select agents); out-of-scope agents show as OUT in the live mesh. All live in <a class="dv-oid" href="#3a">3a</a>. Try next: "make the landing recent-runs clickable into that run" · "add a run detail / summary page" · "give the Setup a light theme" · "add role-color tweaks for the context view too"</p>
+</section>
+
+<section class="dv-turn" id="t2">
+<div class="dv-thd"><a class="dv-tid" href="#t2">2</a><span class="dv-tname">Merged product — <a class="dv-oid" href="#1a">1a</a> + <a class="dv-oid" href="#1b">1b</a> unified under one shell, plus the context workspace</span></div>
+<div class="dv-opts">
+
+<div class="dv-opt" id="2a">
+<div class="dv-olabel"><a class="dv-oid" href="#2a">2a</a>Parallel — dark, LOTS of runs · concurrency launcher · error/no-error results (stub API)</div>
+<div style="width:1460px;background:#0A1727;border:1px solid rgba(255,255,255,.09);border-radius:14px;overflow:hidden;color:#E9EFF6;box-shadow:0 24px 60px rgba(6,16,30,.4)">
+
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:15px 26px;border-bottom:1px solid rgba(255,255,255,.08);background:linear-gradient(180deg,#0C1D31,#0A1727)">
+    <div style="display:flex;align-items:center;gap:13px">
+      <div style="width:34px;height:34px;border-radius:50%;border:2px solid #0076CE;background:rgba(0,118,206,.14);display:flex;align-items:center;justify-content:center"><div style="width:10px;height:10px;border-radius:50%;background:#0076CE"></div></div>
+      <div style="font:800 15px/1 'Hanken Grotesk';letter-spacing:.16em">AGENTSIM</div>
+    </div>
+    <div style="display:flex;gap:3px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:11px;padding:4px">
+      <a href="#2a" style="font:600 13px 'Hanken Grotesk';color:#fff;background:#0076CE;border-radius:7px;padding:8px 18px;text-decoration:none">Parallel</a>
+      <a href="#2b" style="font:600 13px 'Hanken Grotesk';color:#8AA0B8;border-radius:7px;padding:8px 18px;text-decoration:none">Live Run</a>
+      <a href="#2c" style="font:600 13px 'Hanken Grotesk';color:#8AA0B8;border-radius:7px;padding:8px 18px;text-decoration:none">Context</a>
+    </div>
+    <div style="display:flex;align-items:center;gap:16px">
+      <div style="display:flex;align-items:center;gap:8px"><span style="width:9px;height:9px;border-radius:50%;background:#18A673;box-shadow:0 0 8px #18A673;animation:asblink 1.4s ease-in-out infinite;display:inline-block"></span><span style="font:600 12px 'IBM Plex Mono';letter-spacing:.14em;color:#dfe8f1">LIVE</span><span style="font:500 12px 'IBM Plex Mono';color:#8AA0B8">{{ elapsed }}</span></div>
+      <button type="button" style="font:600 12px 'Hanken Grotesk';color:#7fb8e8;background:transparent;border:1px solid rgba(0,118,206,.55);border-radius:8px;padding:8px 15px;cursor:pointer">Cancel run</button>
+    </div>
+  </div>
+
+  <div style="display:flex;align-items:center;gap:16px;padding:12px 26px;border-bottom:1px solid rgba(255,255,255,.07);background:#0B1A2C">
+    <span style="font:500 11px 'IBM Plex Mono';letter-spacing:.1em;text-transform:uppercase;color:#7E93AB">Instances</span>
+    <div style="display:flex;gap:2px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:8px;padding:3px">
+      <span style="font:500 12px 'IBM Plex Mono';color:#8AA0B8;border-radius:6px;padding:5px 12px">1</span>
+      <span style="font:500 12px 'IBM Plex Mono';color:#8AA0B8;border-radius:6px;padding:5px 12px">2</span>
+      <span style="font:500 12px 'IBM Plex Mono';color:#8AA0B8;border-radius:6px;padding:5px 12px">5</span>
+      <span style="font:500 12px 'IBM Plex Mono';color:#8AA0B8;border-radius:6px;padding:5px 12px">10</span>
+      <span style="font:500 12px 'IBM Plex Mono';color:#8AA0B8;border-radius:6px;padding:5px 12px">100</span>
+      <span style="font:600 12px 'IBM Plex Mono';color:#fff;background:#0076CE;border-radius:6px;padding:5px 12px">1000</span>
+    </div>
+    <button type="button" style="font:600 12px 'Hanken Grotesk';color:#fff;background:#0076CE;border:none;border-radius:7px;padding:7px 16px;cursor:pointer">▸ Launch</button>
+    <span style="color:#33475f">·</span>
+    <span style="font:400 12px 'IBM Plex Mono';color:#8AA0B8">run <span style="color:#c6d5e5">{{ runId }}</span> · anthropic · claude-sonnet-4.5</span>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 540px;gap:22px;padding:22px 26px;min-width:0">
+    <div style="min-width:0">
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px">
+        <div style="background:#10233C;border:1px solid rgba(255,255,255,.08);border-radius:11px;padding:15px 16px"><div style="font:500 11px 'IBM Plex Mono';letter-spacing:.1em;text-transform:uppercase;color:#7E93AB">Active</div><div style="font:700 32px/1.1 'Hanken Grotesk';margin-top:6px;color:#F2A81E">{{ activeCount }}</div><div style="font:500 11px 'Hanken Grotesk';color:#8AA0B8;margin-top:2px">instances running</div></div>
+        <div style="background:#10233C;border:1px solid rgba(255,255,255,.08);border-radius:11px;padding:15px 16px"><div style="font:500 11px 'IBM Plex Mono';letter-spacing:.1em;text-transform:uppercase;color:#7E93AB">Completed</div><div style="font:700 32px/1.1 'Hanken Grotesk';margin-top:6px;color:#37c592">{{ completedTotal }}</div><div style="font:500 11px 'Hanken Grotesk';color:#8AA0B8;margin-top:2px">since run start</div></div>
+        <div style="background:#10233C;border:1px solid rgba(255,255,255,.08);border-radius:11px;padding:15px 16px"><div style="font:500 11px 'IBM Plex Mono';letter-spacing:.1em;text-transform:uppercase;color:#7E93AB">Errored</div><div style="font:700 32px/1.1 'Hanken Grotesk';margin-top:6px;color:#E23D3D">{{ erroredTotal }}</div><div style="font:500 11px 'Hanken Grotesk';color:#8AA0B8;margin-top:2px">failure modes logged</div></div>
+        <div style="background:#10233C;border:1px solid rgba(255,255,255,.08);border-radius:11px;padding:15px 16px"><div style="font:500 11px 'IBM Plex Mono';letter-spacing:.1em;text-transform:uppercase;color:#7E93AB">Throughput</div><div style="font:700 26px/1.1 'Hanken Grotesk';margin-top:6px;color:#e9eff6">{{ throughput }}<span style="font:500 13px 'IBM Plex Mono';color:#8AA0B8">/min</span></div><div style="margin-top:4px">{{ sparkEl2 }}</div></div>
+      </div>
+
+      <div style="background:#0D1E33;border:1px solid rgba(255,255,255,.08);border-radius:13px;padding:18px 20px;margin-top:16px">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+          <div><div style="font:700 15px 'Hanken Grotesk'">Instance activity</div><div style="font:400 11px 'IBM Plex Mono';color:#7E93AB;margin-top:3px">20 × 6 grid · showing 120 of 1000 instances</div></div>
+          <div style="display:flex;gap:16px;align-items:center">
+            <div style="display:flex;gap:6px;align-items:center"><span style="width:11px;height:11px;border-radius:3px;background:#F2A81E;display:inline-block"></span><span style="font:500 11px 'Hanken Grotesk';color:#8AA0B8">Running</span></div>
+            <div style="display:flex;gap:6px;align-items:center"><span style="width:11px;height:11px;border-radius:3px;background:#18A673;display:inline-block"></span><span style="font:500 11px 'Hanken Grotesk';color:#8AA0B8">Completed</span></div>
+            <div style="display:flex;gap:6px;align-items:center"><span style="width:11px;height:11px;border-radius:3px;background:#E23D3D;display:inline-block"></span><span style="font:500 11px 'Hanken Grotesk';color:#8AA0B8">Errored</span></div>
+            <div style="display:flex;gap:6px;align-items:center"><span style="width:11px;height:11px;border-radius:3px;background:#17293f;border:1px solid rgba(255,255,255,.12);display:inline-block"></span><span style="font:500 11px 'Hanken Grotesk';color:#8AA0B8">Idle</span></div>
+          </div>
+        </div>
+        <div style="display:flex;justify-content:center;min-height:180px">{{ gridEl2 }}</div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:16px;min-width:0">
+      <div style="background:#10233C;border:1px solid rgba(255,255,255,.08);border-radius:13px;padding:17px 18px">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px"><div style="display:flex;align-items:baseline;gap:9px"><span style="font:700 15px 'Hanken Grotesk'">Instance #037</span><span style="font:400 11px 'IBM Plex Mono';color:#7E93AB">a1c9…37</span></div><span style="font:600 10px 'IBM Plex Mono';letter-spacing:.08em;text-transform:uppercase;padding:4px 9px;border-radius:6px;background:rgba(242,168,30,.16);color:#F2A81E">running</span></div>
+        <div style="display:grid;grid-template-columns:92px 1fr 74px 44px;gap:10px;align-items:center;padding:5px 0"><span style="font:600 12px 'Hanken Grotesk';color:#C6D4E4">Coordinator</span><div style="height:8px;border-radius:4px;background:rgba(255,255,255,.06);overflow:hidden"><div style="height:100%;width:100%;background:#18A673;border-radius:4px"></div></div><span style="justify-self:start;font:600 9.5px 'IBM Plex Mono';letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:5px;background:rgba(24,166,115,.16);color:#37c592">done</span><span style="font:400 11px 'IBM Plex Mono';color:#8AA0B8;text-align:right">3.1s</span></div>
+        <div style="display:grid;grid-template-columns:92px 1fr 74px 44px;gap:10px;align-items:center;padding:5px 0"><span style="font:600 12px 'Hanken Grotesk';color:#C6D4E4">Researcher</span><div style="height:8px;border-radius:4px;background:rgba(255,255,255,.06);overflow:hidden"><div style="height:100%;width:100%;background:#18A673;border-radius:4px"></div></div><span style="justify-self:start;font:600 9.5px 'IBM Plex Mono';letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:5px;background:rgba(24,166,115,.16);color:#37c592">done</span><span style="font:400 11px 'IBM Plex Mono';color:#8AA0B8;text-align:right">4.4s</span></div>
+        <div style="display:grid;grid-template-columns:92px 1fr 74px 44px;gap:10px;align-items:center;padding:5px 0"><span style="font:600 12px 'Hanken Grotesk';color:#C6D4E4">Analyst</span><div style="height:8px;border-radius:4px;background:rgba(255,255,255,.06);overflow:hidden"><div style="height:100%;width:55%;background:#F2A81E;border-radius:4px;animation:ascellpulse 1.3s ease-in-out infinite"></div></div><span style="justify-self:start;font:600 9.5px 'IBM Plex Mono';letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:5px;background:rgba(242,168,30,.16);color:#F2A81E">running</span><span style="font:400 11px 'IBM Plex Mono';color:#8AA0B8;text-align:right">2.2s</span></div>
+        <div style="display:grid;grid-template-columns:92px 1fr 74px 44px;gap:10px;align-items:center;padding:5px 0"><span style="font:600 12px 'Hanken Grotesk';color:#8092a6">Writer</span><div style="height:8px;border-radius:4px;background:rgba(255,255,255,.06)"></div><span style="justify-self:start;font:600 9.5px 'IBM Plex Mono';letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:5px;background:rgba(255,255,255,.05);color:#7E93AB">idle</span><span style="font:400 11px 'IBM Plex Mono';color:#556a80;text-align:right">—</span></div>
+        <div style="display:grid;grid-template-columns:92px 1fr 74px 44px;gap:10px;align-items:center;padding:5px 0"><span style="font:600 12px 'Hanken Grotesk';color:#8092a6">Critic</span><div style="height:8px;border-radius:4px;background:rgba(255,255,255,.06)"></div><span style="justify-self:start;font:600 9.5px 'IBM Plex Mono';letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:5px;background:rgba(255,255,255,.05);color:#7E93AB">idle</span><span style="font:400 11px 'IBM Plex Mono';color:#556a80;text-align:right">—</span></div>
+        <a href="#2c" style="display:inline-block;margin-top:12px;font:600 12px 'Hanken Grotesk';color:#7fb8e8;text-decoration:none">Inspect agent context →</a>
+      </div>
+
+      <div style="background:#10233C;border:1px solid rgba(255,255,255,.08);border-radius:13px;padding:17px 18px">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px"><div style="font:700 14px 'Hanken Grotesk'">Run results</div><span style="font:400 10.5px 'IBM Plex Mono';color:#7E93AB">GET /api/runs/4f2a/result</span></div>
+        <div style="font:400 11px 'Hanken Grotesk';color:#8AA0B8;margin-bottom:13px">Error / no-error verdict per completed run — from the stub results API</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">
+          <div style="background:rgba(24,166,115,.1);border:1px solid rgba(24,166,115,.28);border-radius:9px;padding:11px 13px"><div style="font:500 10px 'IBM Plex Mono';letter-spacing:.08em;text-transform:uppercase;color:#37c592">No error</div><div style="font:700 24px/1.1 'Hanken Grotesk';margin-top:4px;color:#3fd39a">2,781</div></div>
+          <div style="background:rgba(226,61,61,.1);border:1px solid rgba(226,61,61,.28);border-radius:9px;padding:11px 13px"><div style="font:500 10px 'IBM Plex Mono';letter-spacing:.08em;text-transform:uppercase;color:#E97a7a">Error</div><div style="font:700 24px/1.1 'Hanken Grotesk';margin-top:4px;color:#f26060">60</div></div>
+        </div>
+        <div style="background:#0A1728;border:1px solid rgba(255,255,255,.06);border-radius:9px;overflow:hidden">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:9px 13px;border-bottom:1px solid rgba(255,255,255,.05)"><span style="font:500 12px 'IBM Plex Mono';color:#c6d5e5">#001</span><span style="font:600 9.5px 'IBM Plex Mono';letter-spacing:.05em;text-transform:uppercase;color:#37c592;background:rgba(24,166,115,.14);border-radius:5px;padding:3px 9px">✓ no error</span></div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:9px 13px;border-bottom:1px solid rgba(255,255,255,.05)"><span style="font:500 12px 'IBM Plex Mono';color:#c6d5e5">#002</span><span style="font:600 9.5px 'IBM Plex Mono';letter-spacing:.05em;text-transform:uppercase;color:#37c592;background:rgba(24,166,115,.14);border-radius:5px;padding:3px 9px">✓ no error</span></div>
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 13px;border-bottom:1px solid rgba(255,255,255,.05)"><span style="font:500 12px 'IBM Plex Mono';color:#c6d5e5;flex:none">#009</span><span style="font:400 10px 'IBM Plex Mono';color:#7E93AB;flex:1;text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">analyst · tool_timeout</span><span style="font:600 9.5px 'IBM Plex Mono';letter-spacing:.05em;text-transform:uppercase;color:#f26060;background:rgba(226,61,61,.14);border-radius:5px;padding:3px 9px;flex:none">✗ error</span></div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:9px 13px;border-bottom:1px solid rgba(255,255,255,.05)"><span style="font:500 12px 'IBM Plex Mono';color:#c6d5e5">#018</span><span style="font:600 9.5px 'IBM Plex Mono';letter-spacing:.05em;text-transform:uppercase;color:#37c592;background:rgba(24,166,115,.14);border-radius:5px;padding:3px 9px">✓ no error</span></div>
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 13px;border-bottom:1px solid rgba(255,255,255,.05)"><span style="font:500 12px 'IBM Plex Mono';color:#c6d5e5;flex:none">#027</span><span style="font:400 10px 'IBM Plex Mono';color:#7E93AB;flex:1;text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">critic · schema_violation</span><span style="font:600 9.5px 'IBM Plex Mono';letter-spacing:.05em;text-transform:uppercase;color:#f26060;background:rgba(226,61,61,.14);border-radius:5px;padding:3px 9px;flex:none">✗ error</span></div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:9px 13px"><span style="font:500 12px 'IBM Plex Mono';color:#c6d5e5">#033</span><span style="font:600 9.5px 'IBM Plex Mono';letter-spacing:.05em;text-transform:uppercase;color:#37c592;background:rgba(24,166,115,.14);border-radius:5px;padding:3px 9px">✓ no error</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="dv-opt" id="2b">
+<div class="dv-olabel"><a class="dv-oid" href="#2b">2b</a>Live Run — light, watch ONE simulation · same shell + concurrency · context moved to its own tab</div>
+<div style="width:1460px;background:#F4F6F9;border:1px solid #E2E8F0;border-radius:14px;overflow:hidden;color:#1B2733;box-shadow:0 24px 60px rgba(30,50,80,.16)">
+
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:15px 26px;border-bottom:1px solid #E6EBF1;background:#fff">
+    <div style="display:flex;align-items:center;gap:12px">
+      <div style="width:34px;height:34px;border-radius:50%;background:#0076CE;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 8px rgba(0,118,206,.3)"><div style="width:12px;height:12px;border-radius:50%;border:2.5px solid #fff"></div></div>
+      <div style="font:800 16px/1 'Hanken Grotesk';color:#0F1F2E;letter-spacing:-.01em">AgentSim</div>
+    </div>
+    <div style="display:flex;gap:3px;background:#EEF2F7;border:1px solid #DCE3EB;border-radius:11px;padding:4px">
+      <a href="#2a" style="font:600 13px 'Hanken Grotesk';color:#62707E;border-radius:7px;padding:8px 18px;text-decoration:none">Parallel</a>
+      <a href="#2b" style="font:600 13px 'Hanken Grotesk';color:#fff;background:#0076CE;border-radius:7px;padding:8px 18px;text-decoration:none">Live Run</a>
+      <a href="#2c" style="font:600 13px 'Hanken Grotesk';color:#62707E;border-radius:7px;padding:8px 18px;text-decoration:none">Context</a>
+    </div>
+    <div style="display:flex;align-items:center;gap:14px">
+      <div style="display:flex;align-items:center;gap:7px"><span style="width:9px;height:9px;border-radius:50%;background:#18A673;box-shadow:0 0 7px rgba(24,166,115,.7);animation:asblink 1.4s ease-in-out infinite;display:inline-block"></span><span style="font:600 12px 'IBM Plex Mono';letter-spacing:.12em;color:#2A3542">LIVE</span></div>
+      <button type="button" style="font:600 12px 'Hanken Grotesk';color:#0076CE;background:#fff;border:1px solid #C5D3E0;border-radius:8px;padding:8px 15px;cursor:pointer">Cancel run</button>
+    </div>
+  </div>
+
+  <div style="display:flex;align-items:center;gap:16px;padding:12px 26px;border-bottom:1px solid #E6EBF1;background:#EEF2F7">
+    <span style="font:500 11px 'IBM Plex Mono';letter-spacing:.1em;text-transform:uppercase;color:#8593A1">Instances</span>
+    <div style="display:flex;gap:2px;background:#fff;border:1px solid #DCE3EB;border-radius:8px;padding:3px">
+      <span style="font:600 12px 'IBM Plex Mono';color:#fff;background:#0076CE;border-radius:6px;padding:5px 12px">1</span>
+      <span style="font:500 12px 'IBM Plex Mono';color:#62707E;border-radius:6px;padding:5px 12px">2</span>
+      <span style="font:500 12px 'IBM Plex Mono';color:#62707E;border-radius:6px;padding:5px 12px">5</span>
+      <span style="font:500 12px 'IBM Plex Mono';color:#62707E;border-radius:6px;padding:5px 12px">10</span>
+      <span style="font:500 12px 'IBM Plex Mono';color:#62707E;border-radius:6px;padding:5px 12px">100</span>
+      <span style="font:500 12px 'IBM Plex Mono';color:#62707E;border-radius:6px;padding:5px 12px">1000</span>
+    </div>
+    <button type="button" style="font:600 12px 'Hanken Grotesk';color:#fff;background:#0076CE;border:none;border-radius:7px;padding:7px 16px;cursor:pointer">▸ Launch</button>
+    <span style="color:#C4CCD6">·</span>
+    <span style="font:400 12px 'IBM Plex Mono';color:#62707E">Swarm · mesh · anthropic · claude-sonnet-4.5</span>
+  </div>
+
+  <div style="display:grid;grid-template-columns:296px 1fr;gap:22px;padding:22px 26px">
+    <div style="min-width:0">
+      <div style="font:700 13px 'Hanken Grotesk';color:#2A3542;margin-bottom:12px">Instances <span style="color:#8593A1;font-weight:500">(1)</span></div>
+      <div style="display:flex;flex-direction:column;gap:9px">
+        <div style="background:#fff;border:1.5px solid #0076CE;border-radius:11px;padding:12px 13px;box-shadow:0 3px 10px rgba(0,118,206,.12)">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:9px"><span style="font:500 12px 'IBM Plex Mono';color:#2A3542">#012</span><span style="font:600 9.5px 'IBM Plex Mono';letter-spacing:.06em;text-transform:uppercase;color:#B57E00;background:#FDF3DE;border-radius:5px;padding:2px 7px">running</span></div>
+          <div style="display:flex;gap:6px;margin-bottom:10px"><span style="width:13px;height:13px;border-radius:4px;background:#18A673"></span><span style="width:13px;height:13px;border-radius:4px;background:#18A673"></span><span style="width:13px;height:13px;border-radius:4px;background:#F2A81E"></span><span style="width:13px;height:13px;border-radius:4px;background:#E3E9F1;border:1px solid #D2DAE4"></span><span style="width:13px;height:13px;border-radius:4px;background:#E3E9F1;border:1px solid #D2DAE4"></span></div>
+          <div style="font:400 11px 'Hanken Grotesk';color:#6B7785;line-height:1.5">Coordinator, Researcher done · Analyst running · Writer, Critic queued</div>
+        </div>
+      </div>
+      <div style="background:#fff;border:1px solid #E2E8F0;border-radius:11px;padding:14px;margin-top:14px">
+        <div style="font:700 12px 'Hanken Grotesk';color:#2A3542;margin-bottom:9px">Run info</div>
+        <div style="display:flex;justify-content:space-between;padding:4px 0"><span style="font:400 11px 'IBM Plex Mono';color:#8593A1">run</span><span style="font:500 11px 'IBM Plex Mono';color:#2A3542">4f2a91c8</span></div>
+        <div style="display:flex;justify-content:space-between;padding:4px 0"><span style="font:400 11px 'IBM Plex Mono';color:#8593A1">topology</span><span style="font:500 11px 'IBM Plex Mono';color:#2A3542">mesh</span></div>
+        <div style="display:flex;justify-content:space-between;padding:4px 0"><span style="font:400 11px 'IBM Plex Mono';color:#8593A1">elapsed</span><span style="font:500 11px 'IBM Plex Mono';color:#2A3542">{{ elapsed }}</span></div>
+        <div style="display:flex;justify-content:space-between;padding:4px 0"><span style="font:400 11px 'IBM Plex Mono';color:#8593A1">task</span><span style="font:500 11px 'IBM Plex Mono';color:#2A3542">Acme Corp</span></div>
+      </div>
+    </div>
+
+    <div style="min-width:0;display:flex;flex-direction:column;gap:16px">
+      <div style="background:#fff;border:1px solid #E2E8F0;border-radius:14px;padding:20px 22px;box-shadow:0 2px 10px rgba(30,50,80,.05)">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+          <div><div style="font:700 16px 'Hanken Grotesk';color:#12212F">Instance #012 · live mesh</div><div style="font:400 12px 'Hanken Grotesk';color:#6B7785;margin-top:3px">Agents exchange messages across the swarm — flowing links are active</div></div>
+          <div style="display:flex;gap:15px;align-items:center">
+            <div style="display:flex;gap:6px;align-items:center"><span style="width:11px;height:11px;border-radius:3px;background:#F2A81E;display:inline-block"></span><span style="font:500 11px 'Hanken Grotesk';color:#62707E">Running</span></div>
+            <div style="display:flex;gap:6px;align-items:center"><span style="width:11px;height:11px;border-radius:3px;background:#18A673;display:inline-block"></span><span style="font:500 11px 'Hanken Grotesk';color:#62707E">Completed</span></div>
+            <div style="display:flex;gap:6px;align-items:center"><span style="width:11px;height:11px;border-radius:3px;background:#E3E9F1;border:1px solid #D2DAE4;display:inline-block"></span><span style="font:500 11px 'Hanken Grotesk';color:#62707E">Idle</span></div>
+          </div>
+        </div>
+        <div style="min-height:340px;display:flex;align-items:center;justify-content:center">{{ meshEl2 }}</div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px">
+        <div style="background:#fff;border:1px solid #E2E8F0;border-radius:11px;padding:14px 16px"><div style="font:500 11px 'IBM Plex Mono';letter-spacing:.08em;text-transform:uppercase;color:#8593A1">Agents done</div><div style="font:700 28px/1.1 'Hanken Grotesk';margin-top:6px;color:#0b7a52">2<span style="font:500 15px 'IBM Plex Mono';color:#8593A1"> / 5</span></div></div>
+        <div style="background:#fff;border:1px solid #E2E8F0;border-radius:11px;padding:14px 16px"><div style="font:500 11px 'IBM Plex Mono';letter-spacing:.08em;text-transform:uppercase;color:#8593A1">Active</div><div style="font:700 28px/1.1 'Hanken Grotesk';margin-top:6px;color:#B57E00">1</div></div>
+        <div style="background:#fff;border:1px solid #E2E8F0;border-radius:11px;padding:14px 16px"><div style="font:500 11px 'IBM Plex Mono';letter-spacing:.08em;text-transform:uppercase;color:#8593A1">Messages</div><div style="font:700 28px/1.1 'Hanken Grotesk';margin-top:6px;color:#12212F">17</div></div>
+        <div style="background:#fff;border:1px solid #E2E8F0;border-radius:11px;padding:14px 16px"><div style="font:500 11px 'IBM Plex Mono';letter-spacing:.08em;text-transform:uppercase;color:#8593A1">Elapsed</div><div style="font:700 28px/1.1 'Hanken Grotesk';margin-top:6px;color:#12212F">{{ elapsed }}</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 380px;gap:22px;padding:0 26px 24px">
+    <div style="background:#fff;border:1px solid #E2E8F0;border-radius:14px;padding:18px 20px">
+      <div style="font:700 14px 'Hanken Grotesk';color:#12212F;margin-bottom:16px">Agent timeline · Instance #012</div>
+      <div style="display:grid;grid-template-columns:88px 1fr;gap:12px;align-items:center;margin-bottom:9px"><span style="font:600 12px 'Hanken Grotesk';color:#33414F">Coordinator</span><div style="position:relative;height:20px;background:#F1F4F8;border-radius:5px"><div style="position:absolute;left:0%;width:13%;top:0;bottom:0;background:#18A673;border-radius:5px"></div></div></div>
+      <div style="display:grid;grid-template-columns:88px 1fr;gap:12px;align-items:center;margin-bottom:9px"><span style="font:600 12px 'Hanken Grotesk';color:#33414F">Researcher</span><div style="position:relative;height:20px;background:#F1F4F8;border-radius:5px"><div style="position:absolute;left:13%;width:26%;top:0;bottom:0;background:#18A673;border-radius:5px"></div></div></div>
+      <div style="display:grid;grid-template-columns:88px 1fr;gap:12px;align-items:center;margin-bottom:9px"><span style="font:600 12px 'Hanken Grotesk';color:#33414F">Analyst</span><div style="position:relative;height:20px;background:#F1F4F8;border-radius:5px"><div style="position:absolute;left:16%;width:22%;top:0;bottom:0;background:#F2A81E;border-radius:5px;animation:ascellpulse 1.3s ease-in-out infinite"></div></div></div>
+      <div style="display:grid;grid-template-columns:88px 1fr;gap:12px;align-items:center;margin-bottom:9px"><span style="font:600 12px 'Hanken Grotesk';color:#8593A1">Writer</span><div style="position:relative;height:20px;background:#F1F4F8;border-radius:5px"><div style="position:absolute;left:44%;width:24%;top:0;bottom:0;background:#DBE2EA;border-radius:5px"></div></div></div>
+      <div style="display:grid;grid-template-columns:88px 1fr;gap:12px;align-items:center"><span style="font:600 12px 'Hanken Grotesk';color:#8593A1">Critic</span><div style="position:relative;height:20px;background:#F1F4F8;border-radius:5px"><div style="position:absolute;left:62%;width:20%;top:0;bottom:0;background:#DBE2EA;border-radius:5px"></div></div></div>
+      <div style="display:flex;justify-content:space-between;margin-top:10px;padding-left:100px;font:400 10px 'IBM Plex Mono';color:#A3AEBB"><span>0s</span><span>4s</span><span>8s</span><span>12s</span><span>16s</span></div>
+    </div>
+
+    <div style="background:linear-gradient(160deg,#0076CE,#00539a);border-radius:14px;padding:22px;color:#fff;display:flex;flex-direction:column;justify-content:space-between">
+      <div>
+        <div style="font:700 15px 'Hanken Grotesk';margin-bottom:8px">Inspect agent context</div>
+        <div style="font:400 12px/1.6 'Hanken Grotesk';color:rgba(255,255,255,.85)">Open the context workspace to compare each agent's window side by side — tokens, tool calls, and free space.</div>
+      </div>
+      <a href="#2c" style="align-self:flex-start;margin-top:18px;font:600 12px 'Hanken Grotesk';color:#0076CE;background:#fff;border-radius:8px;padding:9px 16px;text-decoration:none">Open context workspace →</a>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="dv-opt" id="2c">
+<div class="dv-olabel"><a class="dv-oid" href="#2c">2c</a>Context workspace — multi-viewer from your context_window repo · each agent's window side by side</div>
+<div style="width:1460px;background:#0A1727;border:1px solid rgba(255,255,255,.09);border-radius:14px;overflow:hidden;color:#E9EFF6;box-shadow:0 24px 60px rgba(6,16,30,.4)">
+
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:15px 26px;border-bottom:1px solid rgba(255,255,255,.08);background:linear-gradient(180deg,#0C1D31,#0A1727)">
+    <div style="display:flex;align-items:center;gap:13px">
+      <div style="width:34px;height:34px;border-radius:50%;border:2px solid #0076CE;background:rgba(0,118,206,.14);display:flex;align-items:center;justify-content:center"><div style="width:10px;height:10px;border-radius:50%;background:#0076CE"></div></div>
+      <div style="font:800 15px/1 'Hanken Grotesk';letter-spacing:.16em">AGENTSIM</div>
+    </div>
+    <div style="display:flex;gap:3px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:11px;padding:4px">
+      <a href="#2a" style="font:600 13px 'Hanken Grotesk';color:#8AA0B8;border-radius:7px;padding:8px 18px;text-decoration:none">Parallel</a>
+      <a href="#2b" style="font:600 13px 'Hanken Grotesk';color:#8AA0B8;border-radius:7px;padding:8px 18px;text-decoration:none">Live Run</a>
+      <a href="#2c" style="font:600 13px 'Hanken Grotesk';color:#fff;background:#0076CE;border-radius:7px;padding:8px 18px;text-decoration:none">Context</a>
+    </div>
+    <div style="font:400 12px 'IBM Plex Mono';color:#8AA0B8">run <span style="color:#c6d5e5">4f2a</span> · Instance #037</div>
+  </div>
+
+  <div style="display:flex;align-items:center;gap:14px;padding:12px 26px;border-bottom:1px solid rgba(255,255,255,.07);background:#0B1A2C;flex-wrap:wrap">
+    <button type="button" style="font:600 12px 'Hanken Grotesk';color:#fff;background:#0076CE;border:none;border-radius:7px;padding:8px 15px;cursor:pointer">＋ Add viewer</button>
+    <span style="font:500 12px 'IBM Plex Mono';color:#8AA0B8">3 viewers open</span>
+    <div style="display:flex;gap:2px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:8px;padding:3px">
+      <span style="font:600 12px 'Hanken Grotesk';color:#fff;background:#0076CE;border-radius:6px;padding:5px 12px">▦ Grid</span>
+      <span style="font:500 12px 'Hanken Grotesk';color:#8AA0B8;border-radius:6px;padding:5px 12px">▥ Columns</span>
+      <span style="font:500 12px 'Hanken Grotesk';color:#8AA0B8;border-radius:6px;padding:5px 12px">◳ Tabs</span>
+    </div>
+    <span style="flex:1"></span>
+    <div style="display:flex;gap:13px;align-items:center;flex-wrap:wrap">
+      <div style="display:flex;gap:5px;align-items:center"><span style="width:11px;height:11px;border-radius:3px;background:#8b5cf6;display:inline-block"></span><span style="font:500 10.5px 'Hanken Grotesk';color:#8AA0B8">System</span></div>
+      <div style="display:flex;gap:5px;align-items:center"><span style="width:11px;height:11px;border-radius:3px;background:#3b82f6;display:inline-block"></span><span style="font:500 10.5px 'Hanken Grotesk';color:#8AA0B8">Human</span></div>
+      <div style="display:flex;gap:5px;align-items:center"><span style="width:11px;height:11px;border-radius:3px;background:#10b981;display:inline-block"></span><span style="font:500 10.5px 'Hanken Grotesk';color:#8AA0B8">AI</span></div>
+      <div style="display:flex;gap:5px;align-items:center"><span style="width:11px;height:11px;border-radius:3px;background:#f59e0b;display:inline-block"></span><span style="font:500 10.5px 'Hanken Grotesk';color:#8AA0B8">Tool call</span></div>
+      <div style="display:flex;gap:5px;align-items:center"><span style="width:11px;height:11px;border-radius:3px;background:#ef4444;display:inline-block"></span><span style="font:500 10.5px 'Hanken Grotesk';color:#8AA0B8">Tool result</span></div>
+      <div style="display:flex;gap:5px;align-items:center"><span style="width:11px;height:11px;border-radius:3px;background:#24344a;border:1px solid rgba(255,255,255,.14);display:inline-block"></span><span style="font:500 10.5px 'Hanken Grotesk';color:#8AA0B8">Free</span></div>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:22px 26px">
+
+    <div style="background:#10233C;border:1px solid rgba(255,255,255,.08);border-radius:13px;padding:16px;border-top:3px solid #3b82f6">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:3px"><div style="display:flex;align-items:center;gap:8px"><span style="width:9px;height:9px;border-radius:50%;background:#3b82f6"></span><span style="font:700 14px 'Hanken Grotesk'">Researcher · #037</span></div><span style="font:400 15px 'Hanken Grotesk';color:#6a7d92;cursor:pointer">✕</span></div>
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:13px"><span style="font:400 11px 'IBM Plex Mono';color:#8AA0B8">claude-sonnet-4.5</span><span style="font:500 9px 'IBM Plex Mono';color:#F2A81E;background:rgba(242,168,30,.14);border-radius:4px;padding:2px 6px" title="No public local tokenizer for Claude — counts are approximate">⚠ approx</span></div>
+
+      <div style="display:flex;height:26px;border-radius:6px;overflow:hidden;border:1px solid rgba(255,255,255,.08);margin-bottom:9px">
+        <div style="width:2%;background:#8b5cf6"></div><div style="width:1.5%;background:#3b82f6"></div><div style="width:1%;background:#10b981"></div><div style="width:1%;background:#f59e0b"></div><div style="width:22%;background:#ef4444"></div><div style="width:1%;background:#10b981"></div><div style="width:1%;background:#f59e0b"></div><div style="width:26%;background:#ef4444"></div><div style="width:4%;background:#10b981"></div><div style="flex:1;background:#24344a"></div>
+      </div>
+      <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:14px"><span style="font:400 11px 'IBM Plex Mono';color:#8AA0B8">122,400 / 200,000 tok</span><span style="font:600 12px 'Hanken Grotesk';color:#7fb8e8">61% used</span></div>
+
+      <div style="border-top:1px solid rgba(255,255,255,.06)">
+        <div style="display:grid;grid-template-columns:58px 1fr auto;gap:8px;align-items:center;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.05)"><span style="font:600 8.5px 'IBM Plex Mono';letter-spacing:.05em;text-transform:uppercase;color:#a78bfa;background:rgba(139,92,246,.16);border-radius:4px;padding:3px 6px;text-align:center">system</span><span style="font:400 11px 'Hanken Grotesk';color:#93a6ba;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">3-stage research pipeline: gather…</span><span style="font:400 10px 'IBM Plex Mono';color:#6a7d92">4,180</span></div>
+        <div style="display:grid;grid-template-columns:58px 1fr auto;gap:8px;align-items:center;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.05)"><span style="font:600 8.5px 'IBM Plex Mono';letter-spacing:.05em;text-transform:uppercase;color:#f59e0b;background:rgba(245,158,11,.16);border-radius:4px;padding:3px 6px;text-align:center">tool</span><span style="font:400 11px 'Hanken Grotesk';color:#93a6ba;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">web_search · SMR deployment 2026…</span><span style="font:400 10px 'IBM Plex Mono';color:#6a7d92">1,020</span></div>
+        <div style="display:grid;grid-template-columns:58px 1fr auto;gap:8px;align-items:center;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.05)"><span style="font:600 8.5px 'IBM Plex Mono';letter-spacing:.05em;text-transform:uppercase;color:#f87171;background:rgba(239,68,68,.16);border-radius:4px;padding:3px 6px;text-align:center">result</span><span style="font:400 11px 'Hanken Grotesk';color:#93a6ba;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">6 findings: NuScale, BWRX-300…</span><span style="font:400 10px 'IBM Plex Mono';color:#6a7d92">44,320</span></div>
+        <div style="display:grid;grid-template-columns:58px 1fr auto;gap:8px;align-items:center;padding:7px 0"><span style="font:600 8.5px 'IBM Plex Mono';letter-spacing:.05em;text-transform:uppercase;color:#34d399;background:rgba(16,185,129,.16);border-radius:4px;padding:3px 6px;text-align:center">ai</span><span style="font:400 11px 'Hanken Grotesk';color:#93a6ba;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Research stage complete. Handing…</span><span style="font:400 10px 'IBM Plex Mono';color:#6a7d92">7,100</span></div>
+      </div>
+
+      <div style="margin-top:12px;background:#0A1728;border:1px solid rgba(255,255,255,.06);border-radius:8px;padding:11px">
+        <div style="display:flex;gap:6px;margin-bottom:9px"><span style="font:600 9.5px 'Hanken Grotesk';color:#fff;background:#0076CE;border-radius:5px;padding:3px 9px">Tokens</span><span style="font:600 9.5px 'Hanken Grotesk';color:#8AA0B8;padding:3px 9px">Text</span></div>
+        <div style="display:flex;flex-wrap:wrap;gap:3px">
+          <span style="font:500 10px 'IBM Plex Mono';color:#c6d5e5;background:rgba(255,255,255,.06);border-radius:3px;padding:2px 5px">Results</span><span style="font:500 10px 'IBM Plex Mono';color:#c6d5e5;background:rgba(255,255,255,.06);border-radius:3px;padding:2px 5px">:</span><span style="font:500 10px 'IBM Plex Mono';color:#c6d5e5;background:rgba(255,255,255,.06);border-radius:3px;padding:2px 5px">·1</span><span style="font:500 10px 'IBM Plex Mono';color:#c6d5e5;background:rgba(255,255,255,.06);border-radius:3px;padding:2px 5px">·NuScale</span><span style="font:500 10px 'IBM Plex Mono';color:#c6d5e5;background:rgba(255,255,255,.06);border-radius:3px;padding:2px 5px">'s</span><span style="font:500 10px 'IBM Plex Mono';color:#c6d5e5;background:rgba(255,255,255,.06);border-radius:3px;padding:2px 5px">·VOY</span><span style="font:500 10px 'IBM Plex Mono';color:#c6d5e5;background:rgba(255,255,255,.06);border-radius:3px;padding:2px 5px">GR</span><span style="font:500 10px 'IBM Plex Mono';color:#c6d5e5;background:rgba(255,255,255,.06);border-radius:3px;padding:2px 5px">·plant</span><span style="font:500 10px 'IBM Plex Mono';color:#6a7d92;padding:2px 5px">+43,912 more</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:#10233C;border:1px solid rgba(255,255,255,.08);border-radius:13px;padding:16px;border-top:3px solid #f59e0b">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:3px"><div style="display:flex;align-items:center;gap:8px"><span style="width:9px;height:9px;border-radius:50%;background:#f59e0b"></span><span style="font:700 14px 'Hanken Grotesk'">Analyst · #037</span></div><span style="font:400 15px 'Hanken Grotesk';color:#6a7d92;cursor:pointer">✕</span></div>
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:13px"><span style="font:400 11px 'IBM Plex Mono';color:#8AA0B8">claude-sonnet-4.5</span><span style="font:500 9px 'IBM Plex Mono';color:#F2A81E;background:rgba(242,168,30,.14);border-radius:4px;padding:2px 6px">⚠ approx</span></div>
+
+      <div style="display:flex;height:26px;border-radius:6px;overflow:hidden;border:1px solid rgba(255,255,255,.08);margin-bottom:9px">
+        <div style="width:2%;background:#8b5cf6"></div><div style="width:20%;background:#3b82f6"></div><div style="width:1.5%;background:#10b981"></div><div style="width:1%;background:#f59e0b"></div><div style="width:15%;background:#ef4444"></div><div style="width:2.5%;background:#10b981"></div><div style="width:24%;background:#3b82f6"></div><div style="width:6%;background:#10b981"></div><div style="flex:1;background:#24344a"></div>
+      </div>
+      <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:14px"><span style="font:400 11px 'IBM Plex Mono';color:#8AA0B8">148,300 / 200,000 tok</span><span style="font:600 12px 'Hanken Grotesk';color:#F2A81E">74% used</span></div>
+
+      <div style="border-top:1px solid rgba(255,255,255,.06)">
+        <div style="display:grid;grid-template-columns:58px 1fr auto;gap:8px;align-items:center;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.05)"><span style="font:600 8.5px 'IBM Plex Mono';letter-spacing:.05em;text-transform:uppercase;color:#a78bfa;background:rgba(139,92,246,.16);border-radius:4px;padding:3px 6px;text-align:center">system</span><span style="font:400 11px 'Hanken Grotesk';color:#93a6ba;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Stage 2 — distill findings to…</span><span style="font:400 10px 'IBM Plex Mono';color:#6a7d92">4,180</span></div>
+        <div style="display:grid;grid-template-columns:58px 1fr auto;gap:8px;align-items:center;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.05)"><span style="font:600 8.5px 'IBM Plex Mono';letter-spacing:.05em;text-transform:uppercase;color:#60a5fa;background:rgba(59,130,246,.16);border-radius:4px;padding:3px 6px;text-align:center">human</span><span style="font:400 11px 'Hanken Grotesk';color:#93a6ba;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Evidence bundle from Researcher…</span><span style="font:400 10px 'IBM Plex Mono';color:#6a7d92">40,100</span></div>
+        <div style="display:grid;grid-template-columns:58px 1fr auto;gap:8px;align-items:center;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.05)"><span style="font:600 8.5px 'IBM Plex Mono';letter-spacing:.05em;text-transform:uppercase;color:#f59e0b;background:rgba(245,158,11,.16);border-radius:4px;padding:3px 6px;text-align:center">tool</span><span style="font:400 11px 'Hanken Grotesk';color:#93a6ba;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">summarize_findings · 5 insights…</span><span style="font:400 10px 'IBM Plex Mono';color:#6a7d92">30,240</span></div>
+        <div style="display:grid;grid-template-columns:58px 1fr auto;gap:8px;align-items:center;padding:7px 0"><span style="font:600 8.5px 'IBM Plex Mono';letter-spacing:.05em;text-transform:uppercase;color:#34d399;background:rgba(16,185,129,.16);border-radius:4px;padding:3px 6px;text-align:center">ai</span><span style="font:400 11px 'Hanken Grotesk';color:#93a6ba;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Analysis complete. Top signal:…</span><span style="font:400 10px 'IBM Plex Mono';color:#6a7d92">12,300</span></div>
+      </div>
+
+      <div style="margin-top:12px;background:rgba(242,168,30,.08);border:1px solid rgba(242,168,30,.22);border-radius:8px;padding:10px 12px">
+        <div style="font:600 10px 'IBM Plex Mono';letter-spacing:.05em;text-transform:uppercase;color:#F2A81E;margin-bottom:3px">Compaction preview</div>
+        <div style="font:400 11px/1.5 'Hanken Grotesk';color:#c6d4e4">At 74% full — a refresh keeping the last 4 turns would reclaim <span style="color:#F2A81E;font-weight:600">~62,400 tok (31%)</span>.</div>
+      </div>
+    </div>
+
+    <div style="background:#10233C;border:1px solid rgba(255,255,255,.08);border-radius:13px;padding:16px;border-top:3px solid #10b981">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:3px"><div style="display:flex;align-items:center;gap:8px"><span style="width:9px;height:9px;border-radius:50%;background:#10b981"></span><span style="font:700 14px 'Hanken Grotesk'">Writer · #037</span></div><span style="font:400 15px 'Hanken Grotesk';color:#6a7d92;cursor:pointer">✕</span></div>
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:13px"><span style="font:400 11px 'IBM Plex Mono';color:#8AA0B8">claude-sonnet-4.5</span><span style="font:500 9px 'IBM Plex Mono';color:#F2A81E;background:rgba(242,168,30,.14);border-radius:4px;padding:2px 6px">⚠ approx</span></div>
+
+      <div style="display:flex;height:26px;border-radius:6px;overflow:hidden;border:1px solid rgba(255,255,255,.08);margin-bottom:9px">
+        <div style="width:2%;background:#8b5cf6"></div><div style="width:16%;background:#3b82f6"></div><div style="width:1.5%;background:#10b981"></div><div style="width:1%;background:#f59e0b"></div><div style="width:20%;background:#ef4444"></div><div style="width:5.5%;background:#10b981"></div><div style="flex:1;background:#24344a"></div>
+      </div>
+      <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:14px"><span style="font:400 11px 'IBM Plex Mono';color:#8AA0B8">94,100 / 200,000 tok</span><span style="font:600 12px 'Hanken Grotesk';color:#37c592">47% used</span></div>
+
+      <div style="border-top:1px solid rgba(255,255,255,.06)">
+        <div style="display:grid;grid-template-columns:58px 1fr auto;gap:8px;align-items:center;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.05)"><span style="font:600 8.5px 'IBM Plex Mono';letter-spacing:.05em;text-transform:uppercase;color:#a78bfa;background:rgba(139,92,246,.16);border-radius:4px;padding:3px 6px;text-align:center">system</span><span style="font:400 11px 'Hanken Grotesk';color:#93a6ba;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Stage 3 — produce polished report…</span><span style="font:400 10px 'IBM Plex Mono';color:#6a7d92">4,180</span></div>
+        <div style="display:grid;grid-template-columns:58px 1fr auto;gap:8px;align-items:center;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.05)"><span style="font:600 8.5px 'IBM Plex Mono';letter-spacing:.05em;text-transform:uppercase;color:#60a5fa;background:rgba(59,130,246,.16);border-radius:4px;padding:3px 6px;text-align:center">human</span><span style="font:400 11px 'Hanken Grotesk';color:#93a6ba;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Ranked insights from Analyst…</span><span style="font:400 10px 'IBM Plex Mono';color:#6a7d92">32,000</span></div>
+        <div style="display:grid;grid-template-columns:58px 1fr auto;gap:8px;align-items:center;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.05)"><span style="font:600 8.5px 'IBM Plex Mono';letter-spacing:.05em;text-transform:uppercase;color:#f87171;background:rgba(239,68,68,.16);border-radius:4px;padding:3px 6px;text-align:center">result</span><span style="font:400 11px 'Hanken Grotesk';color:#93a6ba;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">draft_report · SMR 2026 Snapshot…</span><span style="font:400 10px 'IBM Plex Mono';color:#6a7d92">40,200</span></div>
+        <div style="display:grid;grid-template-columns:58px 1fr auto;gap:8px;align-items:center;padding:7px 0"><span style="font:600 8.5px 'IBM Plex Mono';letter-spacing:.05em;text-transform:uppercase;color:#34d399;background:rgba(16,185,129,.16);border-radius:4px;padding:3px 6px;text-align:center">ai</span><span style="font:400 11px 'Hanken Grotesk';color:#93a6ba;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Here is the final report on SMR…</span><span style="font:400 10px 'IBM Plex Mono';color:#6a7d92">11,320</span></div>
+      </div>
+
+      <div style="margin-top:12px;background:#0A1728;border:1px solid rgba(255,255,255,.06);border-radius:8px;padding:11px;font:400 11px/1.6 'Hanken Grotesk';color:#8AA0B8">
+        Bound to its own backend session — loads, tokenizes, and live-watches independently.
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+</div>
+<p class="dv-next">Try next: "pick one theme for all three screens" · "wire the concurrency picker so 1–10 opens Live Run and 100–1000 opens Parallel" · "add the launch / setup screen" · "give <a class="dv-oid" href="#2c">2c</a> the token drill-down on every panel" · "make the state + role colors tweakable"</p>
+</section>
+
+<section class="dv-turn" id="t1">
+<div class="dv-thd"><a class="dv-tid" href="#t1">1</a><span class="dv-tname">Two directions for the AgentSim mesh monitor — Dell-flavored</span></div>
+<div class="dv-opts">
+
+<div class="dv-opt" id="1a">
+<div class="dv-olabel"><a class="dv-oid" href="#1a">1a</a>Mission Control — dark observability cockpit, grid heatmap hero (live)</div>
+<div style="width:1460px;background:#0A1727;border:1px solid rgba(255,255,255,.09);border-radius:14px;overflow:hidden;color:#E9EFF6;box-shadow:0 24px 60px rgba(6,16,30,.4)">
+
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:18px 26px;border-bottom:1px solid rgba(255,255,255,.08);background:linear-gradient(180deg,#0C1D31,#0A1727)">
+    <div style="display:flex;align-items:center;gap:14px">
+      <div style="width:38px;height:38px;border-radius:50%;border:2px solid #0076CE;background:rgba(0,118,206,.14);display:flex;align-items:center;justify-content:center">
+        <div style="width:11px;height:11px;border-radius:50%;background:#0076CE"></div>
+      </div>
+      <div>
+        <div style="font:800 15px/1 'Hanken Grotesk';letter-spacing:.2em">AGENTSIM</div>
+        <div style="font:600 10px/1.4 'IBM Plex Mono';letter-spacing:.24em;color:#7E93AB;text-transform:uppercase;margin-top:3px">Mission Control</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:10px">
+      <span style="font:500 12px 'IBM Plex Mono';color:#B7C7D8;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:999px;padding:7px 14px">Swarm · mesh topology</span>
+      <span style="font:500 12px 'IBM Plex Mono';color:#B7C7D8;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:999px;padding:7px 14px">120× concurrency</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:18px">
+      <div style="display:flex;align-items:center;gap:8px">
+        <span style="width:9px;height:9px;border-radius:50%;background:#18A673;box-shadow:0 0 8px #18A673;animation:asblink 1.4s ease-in-out infinite;display:inline-block"></span>
+        <span style="font:600 12px 'IBM Plex Mono';letter-spacing:.16em;color:#dfe8f1">LIVE</span>
+        <span style="font:500 12px 'IBM Plex Mono';color:#8AA0B8">{{ elapsed }}</span>
+      </div>
+      <button type="button" style="font:600 12px 'Hanken Grotesk';color:#7fb8e8;background:transparent;border:1px solid rgba(0,118,206,.55);border-radius:8px;padding:8px 16px;cursor:pointer">Cancel run</button>
+    </div>
+  </div>
+
+  <div style="display:flex;align-items:center;gap:24px;padding:11px 26px;border-bottom:1px solid rgba(255,255,255,.07);background:#0B1A2C;font:400 12px 'IBM Plex Mono';color:#8AA0B8">
+    <span>run <span style="color:#c6d5e5">{{ runId }}</span></span>
+    <span style="color:#3a4c62">·</span>
+    <span style="background:rgba(0,118,206,.14);border:1px solid rgba(0,118,206,.3);color:#8fc2ec;border-radius:6px;padding:3px 10px">task: analyze Acme Corp market position</span>
+    <span style="color:#3a4c62">·</span>
+    <span>provider <span style="color:#c6d5e5">anthropic</span></span>
+    <span style="color:#3a4c62">·</span>
+    <span>model <span style="color:#c6d5e5">claude-sonnet-4.5</span></span>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 560px;gap:22px;padding:22px 26px;min-width:0">
+
+    <div style="min-width:0">
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px">
+        <div style="background:#10233C;border:1px solid rgba(255,255,255,.08);border-radius:11px;padding:15px 16px">
+          <div style="font:500 11px 'IBM Plex Mono';letter-spacing:.1em;text-transform:uppercase;color:#7E93AB">Active</div>
+          <div style="font:700 32px/1.1 'Hanken Grotesk';margin-top:6px;color:#F2A81E">{{ activeCount }}</div>
+          <div style="font:500 11px 'Hanken Grotesk';color:#8AA0B8;margin-top:2px">instances running</div>
+        </div>
+        <div style="background:#10233C;border:1px solid rgba(255,255,255,.08);border-radius:11px;padding:15px 16px">
+          <div style="font:500 11px 'IBM Plex Mono';letter-spacing:.1em;text-transform:uppercase;color:#7E93AB">Completed</div>
+          <div style="font:700 32px/1.1 'Hanken Grotesk';margin-top:6px;color:#37c592">{{ completedTotal }}</div>
+          <div style="font:500 11px 'Hanken Grotesk';color:#8AA0B8;margin-top:2px">since run start</div>
+        </div>
+        <div style="background:#10233C;border:1px solid rgba(255,255,255,.08);border-radius:11px;padding:15px 16px">
+          <div style="font:500 11px 'IBM Plex Mono';letter-spacing:.1em;text-transform:uppercase;color:#7E93AB">Errored</div>
+          <div style="font:700 32px/1.1 'Hanken Grotesk';margin-top:6px;color:#E23D3D">{{ erroredTotal }}</div>
+          <div style="font:500 11px 'Hanken Grotesk';color:#8AA0B8;margin-top:2px">failure modes logged</div>
+        </div>
+        <div style="background:#10233C;border:1px solid rgba(255,255,255,.08);border-radius:11px;padding:15px 16px">
+          <div style="font:500 11px 'IBM Plex Mono';letter-spacing:.1em;text-transform:uppercase;color:#7E93AB">Throughput</div>
+          <div style="font:700 26px/1.1 'Hanken Grotesk';margin-top:6px;color:#e9eff6">{{ throughput }}<span style="font:500 13px 'IBM Plex Mono';color:#8AA0B8">/min</span></div>
+          <div style="margin-top:4px">{{ sparkEl }}</div>
+        </div>
+      </div>
+
+      <div style="background:#0D1E33;border:1px solid rgba(255,255,255,.08);border-radius:13px;padding:18px 20px;margin-top:16px">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+          <div>
+            <div style="font:700 15px 'Hanken Grotesk'">Instance activity</div>
+            <div style="font:400 11px 'IBM Plex Mono';color:#7E93AB;margin-top:3px">20 × 6 grid · showing 120 of 1000 instances</div>
+          </div>
+          <div style="display:flex;gap:16px;align-items:center">
+            <div style="display:flex;gap:6px;align-items:center"><span style="width:11px;height:11px;border-radius:3px;background:#F2A81E;display:inline-block"></span><span style="font:500 11px 'Hanken Grotesk';color:#8AA0B8">Running</span></div>
+            <div style="display:flex;gap:6px;align-items:center"><span style="width:11px;height:11px;border-radius:3px;background:#18A673;display:inline-block"></span><span style="font:500 11px 'Hanken Grotesk';color:#8AA0B8">Completed</span></div>
+            <div style="display:flex;gap:6px;align-items:center"><span style="width:11px;height:11px;border-radius:3px;background:#E23D3D;display:inline-block"></span><span style="font:500 11px 'Hanken Grotesk';color:#8AA0B8">Errored</span></div>
+            <div style="display:flex;gap:6px;align-items:center"><span style="width:11px;height:11px;border-radius:3px;background:#17293f;border:1px solid rgba(255,255,255,.12);display:inline-block"></span><span style="font:500 11px 'Hanken Grotesk';color:#8AA0B8">Idle</span></div>
+          </div>
+        </div>
+        <div style="display:flex;justify-content:center;min-height:180px">{{ gridEl }}</div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:16px;min-width:0">
+      <div style="background:#10233C;border:1px solid rgba(255,255,255,.08);border-radius:13px;padding:17px 18px">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+          <div style="display:flex;align-items:baseline;gap:9px">
+            <span style="font:700 15px 'Hanken Grotesk'">Instance #037</span>
+            <span style="font:400 11px 'IBM Plex Mono';color:#7E93AB">a1c9…37</span>
+          </div>
+          <span style="font:600 10px 'IBM Plex Mono';letter-spacing:.08em;text-transform:uppercase;padding:4px 9px;border-radius:6px;background:rgba(242,168,30,.16);color:#F2A81E">running</span>
+        </div>
+
+        <div style="display:grid;grid-template-columns:92px 1fr 74px 44px;gap:10px;align-items:center;padding:6px 0">
+          <span style="font:600 12px 'Hanken Grotesk';color:#C6D4E4">Coordinator</span>
+          <div style="height:8px;border-radius:4px;background:rgba(255,255,255,.06);overflow:hidden"><div style="height:100%;width:100%;background:#18A673;border-radius:4px"></div></div>
+          <span style="justify-self:start;font:600 9.5px 'IBM Plex Mono';letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:5px;background:rgba(24,166,115,.16);color:#37c592">done</span>
+          <span style="font:400 11px 'IBM Plex Mono';color:#8AA0B8;text-align:right">3.1s</span>
+        </div>
+        <div style="display:grid;grid-template-columns:92px 1fr 74px 44px;gap:10px;align-items:center;padding:6px 0">
+          <span style="font:600 12px 'Hanken Grotesk';color:#C6D4E4">Researcher</span>
+          <div style="height:8px;border-radius:4px;background:rgba(255,255,255,.06);overflow:hidden"><div style="height:100%;width:100%;background:#18A673;border-radius:4px"></div></div>
+          <span style="justify-self:start;font:600 9.5px 'IBM Plex Mono';letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:5px;background:rgba(24,166,115,.16);color:#37c592">done</span>
+          <span style="font:400 11px 'IBM Plex Mono';color:#8AA0B8;text-align:right">4.4s</span>
+        </div>
+        <div style="display:grid;grid-template-columns:92px 1fr 74px 44px;gap:10px;align-items:center;padding:6px 0">
+          <span style="font:600 12px 'Hanken Grotesk';color:#C6D4E4">Analyst</span>
+          <div style="height:8px;border-radius:4px;background:rgba(255,255,255,.06);overflow:hidden"><div style="height:100%;width:55%;background:#F2A81E;border-radius:4px;animation:ascellpulse 1.3s ease-in-out infinite"></div></div>
+          <span style="justify-self:start;font:600 9.5px 'IBM Plex Mono';letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:5px;background:rgba(242,168,30,.16);color:#F2A81E">running</span>
+          <span style="font:400 11px 'IBM Plex Mono';color:#8AA0B8;text-align:right">2.2s</span>
+        </div>
+        <div style="display:grid;grid-template-columns:92px 1fr 74px 44px;gap:10px;align-items:center;padding:6px 0">
+          <span style="font:600 12px 'Hanken Grotesk';color:#8092a6">Writer</span>
+          <div style="height:8px;border-radius:4px;background:rgba(255,255,255,.06)"></div>
+          <span style="justify-self:start;font:600 9.5px 'IBM Plex Mono';letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:5px;background:rgba(255,255,255,.05);color:#7E93AB">idle</span>
+          <span style="font:400 11px 'IBM Plex Mono';color:#556a80;text-align:right">—</span>
+        </div>
+        <div style="display:grid;grid-template-columns:92px 1fr 74px 44px;gap:10px;align-items:center;padding:6px 0">
+          <span style="font:600 12px 'Hanken Grotesk';color:#8092a6">Critic</span>
+          <div style="height:8px;border-radius:4px;background:rgba(255,255,255,.06)"></div>
+          <span style="justify-self:start;font:600 9.5px 'IBM Plex Mono';letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:5px;background:rgba(255,255,255,.05);color:#7E93AB">idle</span>
+          <span style="font:400 11px 'IBM Plex Mono';color:#556a80;text-align:right">—</span>
+        </div>
+
+        <div style="margin-top:14px;background:#0A1728;border:1px solid rgba(255,255,255,.06);border-radius:9px;padding:12px 13px;font:400 11.5px/1.95 'IBM Plex Mono'">
+          <div><span style="color:#556a80">12:04:19</span> <span style="color:#7fb8e8">coordinator</span> <span style="color:#93a6ba">dispatched 4 subtasks to mesh</span></div>
+          <div><span style="color:#556a80">12:04:21</span> <span style="color:#7fb8e8">researcher</span> <span style="color:#93a6ba">retrieved 14 sources</span></div>
+          <div><span style="color:#556a80">12:04:23</span> <span style="color:#7fb8e8">analyst</span> <span style="color:#93a6ba">scoring evidence relevance…</span></div>
+          <div><span style="color:#556a80">12:04:24</span> <span style="color:#7fb8e8">analyst</span> <span style="color:#93a6ba">context 42,318 tok · streaming</span></div>
+        </div>
+      </div>
+
+      <div style="background:#10233C;border:1px solid rgba(255,255,255,.08);border-radius:13px;padding:17px 18px">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:13px">
+          <div style="font:700 14px 'Hanken Grotesk'">Context window</div>
+          <span style="font:400 11px 'IBM Plex Mono';color:#7E93AB">Analyst · #037</span>
+        </div>
+        <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:7px">
+          <span style="font:400 12px 'IBM Plex Mono';color:#8AA0B8">42,318 / 200,000 tokens</span>
+          <span style="font:600 13px 'Hanken Grotesk';color:#7fb8e8">21%</span>
+        </div>
+        <div style="height:9px;border-radius:5px;background:rgba(255,255,255,.06);overflow:hidden;margin-bottom:15px"><div style="height:100%;width:21%;background:linear-gradient(90deg,#0076CE,#3B9BEA);border-radius:5px"></div></div>
+
+        <div style="display:flex;flex-direction:column;gap:9px">
+          <div style="display:flex;gap:9px;align-items:flex-start"><span style="flex:none;font:600 9px 'IBM Plex Mono';letter-spacing:.06em;padding:3px 7px;border-radius:5px;background:rgba(255,255,255,.06);color:#9fb2c6">SYSTEM</span><span style="font:400 11.5px/1.5 'Hanken Grotesk';color:#93a6ba">You are the Analyst in a 5-agent research swarm. Rank evidence and surface top signals for the Writer.</span></div>
+          <div style="display:flex;gap:9px;align-items:flex-start"><span style="flex:none;font:600 9px 'IBM Plex Mono';letter-spacing:.06em;padding:3px 7px;border-radius:5px;background:rgba(0,118,206,.16);color:#7fb8e8">USER</span><span style="font:400 11.5px/1.5 'Hanken Grotesk';color:#93a6ba">Evidence bundle from Researcher — 14 documents, 3 filings.</span></div>
+          <div style="display:flex;gap:9px;align-items:flex-start"><span style="flex:none;font:600 9px 'IBM Plex Mono';letter-spacing:.06em;padding:3px 7px;border-radius:5px;background:rgba(24,166,115,.16);color:#37c592">ASSISTANT</span><span style="font:400 11.5px/1.5 'Hanken Grotesk';color:#c6d4e4">Top signal: Q3 filings show 18% YoY services growth. Ranking sources by relevance…</span></div>
+        </div>
+
+        <div style="display:flex;gap:7px;margin-top:14px;flex-wrap:wrap">
+          <span style="font:500 10px 'IBM Plex Mono';color:#8AA0B8;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:6px;padding:4px 9px">web_search</span>
+          <span style="font:500 10px 'IBM Plex Mono';color:#8AA0B8;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:6px;padding:4px 9px">rank_docs</span>
+          <span style="font:500 10px 'IBM Plex Mono';color:#8AA0B8;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:6px;padding:4px 9px">summarize</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="dv-opt" id="1b">
+<div class="dv-olabel"><a class="dv-oid" href="#1b">1b</a>Clean Instrument — light Dell-support aesthetic, live mesh graph hero</div>
+<div style="width:1460px;background:#F4F6F9;border:1px solid #E2E8F0;border-radius:14px;overflow:hidden;color:#1B2733;box-shadow:0 24px 60px rgba(30,50,80,.16)">
+
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:17px 26px;border-bottom:1px solid #E6EBF1;background:#fff">
+    <div style="display:flex;align-items:center;gap:13px">
+      <div style="width:38px;height:38px;border-radius:50%;background:#0076CE;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 8px rgba(0,118,206,.3)">
+        <div style="width:14px;height:14px;border-radius:50%;border:2.5px solid #fff"></div>
+      </div>
+      <div>
+        <div style="font:800 16px/1 'Hanken Grotesk';color:#0F1F2E;letter-spacing:-.01em">AgentSim</div>
+        <div style="font:500 11px/1.4 'IBM Plex Mono';color:#6B7785;margin-top:3px">Live Monitor</div>
+      </div>
+    </div>
+    <span style="font:500 12px 'IBM Plex Mono';color:#3A6B93;background:#EAF3FB;border:1px solid #CFE4F5;border-radius:999px;padding:7px 15px">Run 4f2a · Swarm · mesh</span>
+    <div style="display:flex;align-items:center;gap:12px">
+      <div style="display:flex;background:#EEF2F7;border:1px solid #DCE3EB;border-radius:9px;padding:3px">
+        <span style="font:600 12px 'Hanken Grotesk';color:#fff;background:#0076CE;border-radius:6px;padding:6px 15px">Mesh</span>
+        <span style="font:600 12px 'Hanken Grotesk';color:#62707E;padding:6px 15px">Grid</span>
+      </div>
+      <button type="button" style="font:600 12px 'Hanken Grotesk';color:#0076CE;background:#fff;border:1px solid #C5D3E0;border-radius:8px;padding:8px 16px;cursor:pointer">Cancel run</button>
+    </div>
+  </div>
+
+  <div style="display:flex;align-items:center;gap:22px;padding:11px 26px;border-bottom:1px solid #E6EBF1;background:#EEF2F7;font:400 12px 'IBM Plex Mono';color:#62707E">
+    <span>Swarm</span><span style="color:#B7C1CD">·</span>
+    <span>mesh topology</span><span style="color:#B7C1CD">·</span>
+    <span>12 instances</span><span style="color:#B7C1CD">·</span>
+    <span>anthropic</span><span style="color:#B7C1CD">·</span>
+    <span>claude-sonnet-4.5</span><span style="color:#B7C1CD">·</span>
+    <span>elapsed <span style="color:#2A3542">{{ elapsed }}</span></span>
+  </div>
+
+  <div style="display:grid;grid-template-columns:296px 1fr;gap:22px;padding:22px 26px">
+
+    <div style="min-width:0">
+      <div style="font:700 13px 'Hanken Grotesk';color:#2A3542;margin-bottom:12px">Instances <span style="color:#8593A1;font-weight:500">(12)</span></div>
+      <div style="display:flex;flex-direction:column;gap:9px">
+
+        <div style="background:#fff;border:1.5px solid #0076CE;border-radius:11px;padding:11px 13px;box-shadow:0 3px 10px rgba(0,118,206,.12)">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px"><span style="font:500 12px 'IBM Plex Mono';color:#2A3542">#012</span><span style="font:600 9.5px 'IBM Plex Mono';letter-spacing:.06em;text-transform:uppercase;color:#B57E00;background:#FDF3DE;border-radius:5px;padding:2px 7px">running</span></div>
+          <div style="display:flex;gap:6px"><span style="width:13px;height:13px;border-radius:4px;background:#18A673"></span><span style="width:13px;height:13px;border-radius:4px;background:#18A673"></span><span style="width:13px;height:13px;border-radius:4px;background:#F2A81E"></span><span style="width:13px;height:13px;border-radius:4px;background:#E3E9F1;border:1px solid #D2DAE4"></span><span style="width:13px;height:13px;border-radius:4px;background:#E3E9F1;border:1px solid #D2DAE4"></span></div>
+        </div>
+
+        <div style="background:#fff;border:1px solid #E2E8F0;border-radius:11px;padding:11px 13px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px"><span style="font:500 12px 'IBM Plex Mono';color:#62707E">#010</span><span style="font:600 9.5px 'IBM Plex Mono';letter-spacing:.06em;text-transform:uppercase;color:#0b7a52;background:#E3F5EC;border-radius:5px;padding:2px 7px">completed</span></div>
+          <div style="display:flex;gap:6px"><span style="width:13px;height:13px;border-radius:4px;background:#18A673"></span><span style="width:13px;height:13px;border-radius:4px;background:#18A673"></span><span style="width:13px;height:13px;border-radius:4px;background:#18A673"></span><span style="width:13px;height:13px;border-radius:4px;background:#18A673"></span><span style="width:13px;height:13px;border-radius:4px;background:#18A673"></span></div>
+        </div>
+
+        <div style="background:#fff;border:1px solid #E2E8F0;border-radius:11px;padding:11px 13px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px"><span style="font:500 12px 'IBM Plex Mono';color:#62707E">#011</span><span style="font:600 9.5px 'IBM Plex Mono';letter-spacing:.06em;text-transform:uppercase;color:#B57E00;background:#FDF3DE;border-radius:5px;padding:2px 7px">running</span></div>
+          <div style="display:flex;gap:6px"><span style="width:13px;height:13px;border-radius:4px;background:#18A673"></span><span style="width:13px;height:13px;border-radius:4px;background:#F2A81E"></span><span style="width:13px;height:13px;border-radius:4px;background:#F2A81E"></span><span style="width:13px;height:13px;border-radius:4px;background:#E3E9F1;border:1px solid #D2DAE4"></span><span style="width:13px;height:13px;border-radius:4px;background:#E3E9F1;border:1px solid #D2DAE4"></span></div>
+        </div>
+
+        <div style="background:#fff;border:1px solid #E2E8F0;border-radius:11px;padding:11px 13px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px"><span style="font:500 12px 'IBM Plex Mono';color:#62707E">#013</span><span style="font:600 9.5px 'IBM Plex Mono';letter-spacing:.06em;text-transform:uppercase;color:#B4231F;background:#FBE4E3;border-radius:5px;padding:2px 7px">failed</span></div>
+          <div style="display:flex;gap:6px"><span style="width:13px;height:13px;border-radius:4px;background:#18A673"></span><span style="width:13px;height:13px;border-radius:4px;background:#18A673"></span><span style="width:13px;height:13px;border-radius:4px;background:#E23D3D"></span><span style="width:13px;height:13px;border-radius:4px;background:#E3E9F1;border:1px solid #D2DAE4"></span><span style="width:13px;height:13px;border-radius:4px;background:#E3E9F1;border:1px solid #D2DAE4"></span></div>
+        </div>
+
+        <div style="background:#fff;border:1px solid #E2E8F0;border-radius:11px;padding:11px 13px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px"><span style="font:500 12px 'IBM Plex Mono';color:#62707E">#014</span><span style="font:600 9.5px 'IBM Plex Mono';letter-spacing:.06em;text-transform:uppercase;color:#B57E00;background:#FDF3DE;border-radius:5px;padding:2px 7px">running</span></div>
+          <div style="display:flex;gap:6px"><span style="width:13px;height:13px;border-radius:4px;background:#18A673"></span><span style="width:13px;height:13px;border-radius:4px;background:#18A673"></span><span style="width:13px;height:13px;border-radius:4px;background:#18A673"></span><span style="width:13px;height:13px;border-radius:4px;background:#F2A81E"></span><span style="width:13px;height:13px;border-radius:4px;background:#E3E9F1;border:1px solid #D2DAE4"></span></div>
+        </div>
+
+        <div style="background:#fff;border:1px solid #E2E8F0;border-radius:11px;padding:11px 13px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px"><span style="font:500 12px 'IBM Plex Mono';color:#62707E">#015</span><span style="font:600 9.5px 'IBM Plex Mono';letter-spacing:.06em;text-transform:uppercase;color:#5B6875;background:#EEF2F7;border-radius:5px;padding:2px 7px">pending</span></div>
+          <div style="display:flex;gap:6px"><span style="width:13px;height:13px;border-radius:4px;background:#E3E9F1;border:1px solid #D2DAE4"></span><span style="width:13px;height:13px;border-radius:4px;background:#E3E9F1;border:1px solid #D2DAE4"></span><span style="width:13px;height:13px;border-radius:4px;background:#E3E9F1;border:1px solid #D2DAE4"></span><span style="width:13px;height:13px;border-radius:4px;background:#E3E9F1;border:1px solid #D2DAE4"></span><span style="width:13px;height:13px;border-radius:4px;background:#E3E9F1;border:1px solid #D2DAE4"></span></div>
+        </div>
+
+      </div>
+    </div>
+
+    <div style="min-width:0;display:flex;flex-direction:column;gap:16px">
+      <div style="background:#fff;border:1px solid #E2E8F0;border-radius:14px;padding:20px 22px;box-shadow:0 2px 10px rgba(30,50,80,.05)">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+          <div>
+            <div style="font:700 16px 'Hanken Grotesk';color:#12212F">Instance #012 · live mesh</div>
+            <div style="font:400 12px 'Hanken Grotesk';color:#6B7785;margin-top:3px">Agents exchange messages across the swarm — flowing links are active</div>
+          </div>
+          <div style="display:flex;gap:15px;align-items:center">
+            <div style="display:flex;gap:6px;align-items:center"><span style="width:11px;height:11px;border-radius:3px;background:#F2A81E;display:inline-block"></span><span style="font:500 11px 'Hanken Grotesk';color:#62707E">Running</span></div>
+            <div style="display:flex;gap:6px;align-items:center"><span style="width:11px;height:11px;border-radius:3px;background:#18A673;display:inline-block"></span><span style="font:500 11px 'Hanken Grotesk';color:#62707E">Completed</span></div>
+            <div style="display:flex;gap:6px;align-items:center"><span style="width:11px;height:11px;border-radius:3px;background:#E3E9F1;border:1px solid #D2DAE4;display:inline-block"></span><span style="font:500 11px 'Hanken Grotesk';color:#62707E">Idle</span></div>
+          </div>
+        </div>
+        <div style="min-height:340px;display:flex;align-items:center;justify-content:center">{{ meshEl }}</div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px">
+        <div style="background:#fff;border:1px solid #E2E8F0;border-radius:11px;padding:14px 16px">
+          <div style="font:500 11px 'IBM Plex Mono';letter-spacing:.08em;text-transform:uppercase;color:#8593A1">Active</div>
+          <div style="font:700 28px/1.1 'Hanken Grotesk';margin-top:6px;color:#B57E00">{{ activeCount }}</div>
+        </div>
+        <div style="background:#fff;border:1px solid #E2E8F0;border-radius:11px;padding:14px 16px">
+          <div style="font:500 11px 'IBM Plex Mono';letter-spacing:.08em;text-transform:uppercase;color:#8593A1">Completed</div>
+          <div style="font:700 28px/1.1 'Hanken Grotesk';margin-top:6px;color:#0b7a52">{{ completedTotal }}</div>
+        </div>
+        <div style="background:#fff;border:1px solid #E2E8F0;border-radius:11px;padding:14px 16px">
+          <div style="font:500 11px 'IBM Plex Mono';letter-spacing:.08em;text-transform:uppercase;color:#8593A1">Errored</div>
+          <div style="font:700 28px/1.1 'Hanken Grotesk';margin-top:6px;color:#C0261F">{{ erroredTotal }}</div>
+        </div>
+        <div style="background:#fff;border:1px solid #E2E8F0;border-radius:11px;padding:14px 16px">
+          <div style="font:500 11px 'IBM Plex Mono';letter-spacing:.08em;text-transform:uppercase;color:#8593A1">Avg duration</div>
+          <div style="font:700 28px/1.1 'Hanken Grotesk';margin-top:6px;color:#12212F">14.2<span style="font:500 13px 'IBM Plex Mono';color:#8593A1">s</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 470px;gap:22px;padding:0 26px 24px">
+    <div style="background:#fff;border:1px solid #E2E8F0;border-radius:14px;padding:18px 20px">
+      <div style="font:700 14px 'Hanken Grotesk';color:#12212F;margin-bottom:16px">Agent timeline · Instance #012</div>
+
+      <div style="display:grid;grid-template-columns:88px 1fr;gap:12px;align-items:center;margin-bottom:9px">
+        <span style="font:600 12px 'Hanken Grotesk';color:#33414F">Coordinator</span>
+        <div style="position:relative;height:20px;background:#F1F4F8;border-radius:5px"><div style="position:absolute;left:0%;width:13%;top:0;bottom:0;background:#18A673;border-radius:5px"></div></div>
+      </div>
+      <div style="display:grid;grid-template-columns:88px 1fr;gap:12px;align-items:center;margin-bottom:9px">
+        <span style="font:600 12px 'Hanken Grotesk';color:#33414F">Researcher</span>
+        <div style="position:relative;height:20px;background:#F1F4F8;border-radius:5px"><div style="position:absolute;left:13%;width:26%;top:0;bottom:0;background:#18A673;border-radius:5px"></div></div>
+      </div>
+      <div style="display:grid;grid-template-columns:88px 1fr;gap:12px;align-items:center;margin-bottom:9px">
+        <span style="font:600 12px 'Hanken Grotesk';color:#33414F">Analyst</span>
+        <div style="position:relative;height:20px;background:#F1F4F8;border-radius:5px"><div style="position:absolute;left:16%;width:22%;top:0;bottom:0;background:#F2A81E;border-radius:5px;animation:ascellpulse 1.3s ease-in-out infinite"></div></div>
+      </div>
+      <div style="display:grid;grid-template-columns:88px 1fr;gap:12px;align-items:center;margin-bottom:9px">
+        <span style="font:600 12px 'Hanken Grotesk';color:#8593A1">Writer</span>
+        <div style="position:relative;height:20px;background:#F1F4F8;border-radius:5px"><div style="position:absolute;left:44%;width:24%;top:0;bottom:0;background:#DBE2EA;border-radius:5px"></div></div>
+      </div>
+      <div style="display:grid;grid-template-columns:88px 1fr;gap:12px;align-items:center">
+        <span style="font:600 12px 'Hanken Grotesk';color:#8593A1">Critic</span>
+        <div style="position:relative;height:20px;background:#F1F4F8;border-radius:5px"><div style="position:absolute;left:62%;width:20%;top:0;bottom:0;background:#DBE2EA;border-radius:5px"></div></div>
+      </div>
+
+      <div style="display:flex;justify-content:space-between;margin-top:10px;padding-left:100px;font:400 10px 'IBM Plex Mono';color:#A3AEBB">
+        <span>0s</span><span>4s</span><span>8s</span><span>12s</span><span>16s</span>
+      </div>
+    </div>
+
+    <div style="background:#fff;border:1px solid #E2E8F0;border-radius:14px;padding:18px 20px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:13px">
+        <div style="font:700 14px 'Hanken Grotesk';color:#12212F">Context window</div>
+        <span style="font:400 11px 'IBM Plex Mono';color:#8593A1">Writer · #012</span>
+      </div>
+      <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:7px">
+        <span style="font:400 12px 'IBM Plex Mono';color:#62707E">68,940 / 200,000 tokens</span>
+        <span style="font:600 13px 'Hanken Grotesk';color:#0076CE">34%</span>
+      </div>
+      <div style="height:9px;border-radius:5px;background:#EDF1F6;overflow:hidden;margin-bottom:15px"><div style="height:100%;width:34%;background:linear-gradient(90deg,#0076CE,#3B9BEA);border-radius:5px"></div></div>
+
+      <div style="display:flex;flex-direction:column;gap:9px">
+        <div style="display:flex;gap:9px;align-items:flex-start"><span style="flex:none;font:600 9px 'IBM Plex Mono';letter-spacing:.06em;padding:3px 7px;border-radius:5px;background:#EEF2F7;color:#62707E">SYSTEM</span><span style="font:400 11.5px/1.5 'Hanken Grotesk';color:#4A5765">You are the Writer. Synthesize the Analyst's ranked findings into a brief.</span></div>
+        <div style="display:flex;gap:9px;align-items:flex-start"><span style="flex:none;font:600 9px 'IBM Plex Mono';letter-spacing:.06em;padding:3px 7px;border-radius:5px;background:#EAF3FB;color:#0076CE">USER</span><span style="font:400 11.5px/1.5 'Hanken Grotesk';color:#4A5765">Ranked evidence: 18% YoY services growth, margin expansion, 3 risk flags.</span></div>
+        <div style="display:flex;gap:9px;align-items:flex-start"><span style="flex:none;font:600 9px 'IBM Plex Mono';letter-spacing:.06em;padding:3px 7px;border-radius:5px;background:#E3F5EC;color:#0b7a52">ASSISTANT</span><span style="font:400 11.5px/1.5 'Hanken Grotesk';color:#2A3542">Acme's Q3 signals a services-led inflection. Drafting executive summary…</span></div>
+      </div>
+
+      <div style="display:flex;gap:7px;margin-top:14px;flex-wrap:wrap">
+        <span style="font:500 10px 'IBM Plex Mono';color:#62707E;background:#F1F4F8;border:1px solid #DFE5EC;border-radius:6px;padding:4px 9px">draft_brief</span>
+        <span style="font:500 10px 'IBM Plex Mono';color:#62707E;background:#F1F4F8;border:1px solid #DFE5EC;border-radius:6px;padding:4px 9px">cite_source</span>
+        <span style="font:500 10px 'IBM Plex Mono';color:#62707E;background:#F1F4F8;border:1px solid #DFE5EC;border-radius:6px;padding:4px 9px">handoff_critic</span>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+</div>
+<p class="dv-next">Try next: "build out <a class="dv-oid" href="#1a">1a</a>'s launch/setup screen" · "give <a class="dv-oid" href="#1b">1b</a> a dark mode too" · "merge them — <a class="dv-oid" href="#1b">1b</a> mesh inside <a class="dv-oid" href="#1a">1a</a>'s dark shell" · "make the state colors tweakable"</p>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;runningColor&quot;: {&quot;editor&quot;: &quot;color&quot;, &quot;default&quot;: &quot;#F2A81E&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Agent state colors&quot;, &quot;options&quot;: [&quot;#F2A81E&quot;, &quot;#2E93E6&quot;, &quot;#E0A800&quot;, &quot;#F97316&quot;]},
+  &quot;completedColor&quot;: {&quot;editor&quot;: &quot;color&quot;, &quot;default&quot;: &quot;#18A673&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Agent state colors&quot;, &quot;options&quot;: [&quot;#18A673&quot;, &quot;#22C55E&quot;, &quot;#0EA5A5&quot;, &quot;#16A34A&quot;]},
+  &quot;erroredColor&quot;: {&quot;editor&quot;: &quot;color&quot;, &quot;default&quot;: &quot;#E23D3D&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Agent state colors&quot;, &quot;options&quot;: [&quot;#E23D3D&quot;, &quot;#EF4444&quot;, &quot;#DC2626&quot;, &quot;#F43F5E&quot;]},
+  &quot;idleColor&quot;: {&quot;editor&quot;: &quot;color&quot;, &quot;default&quot;: &quot;#17293F&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Agent state colors&quot;, &quot;options&quot;: [&quot;#17293F&quot;, &quot;#1E293B&quot;, &quot;#243244&quot;, &quot;#0F1F33&quot;]}
+}">
+class Component extends DCLogic {
+  state = { now: 0, cumCompleted: 0, cumErrored: 0, history: [], view: 'landing', concurrency: 10, sim: 'swarm', task: '', launched: false, cancelOpen: false, scopeMode: 'all', scopeSel: [0, 1, 2, 3, 4] };
+
+  allSims() { return { swarm: ['Coordinator', 'Researcher', 'Analyst', 'Writer', 'Critic'], orchestrator: ['Hub', 'Planner', 'Worker A', 'Worker B', 'Reducer'], chatdev: ['CEO', 'CTO', 'Programmer', 'Reviewer', 'Tester', 'Designer', 'CPO'], metagpt: ['Product Manager', 'Architect', 'Project Manager', 'Engineer', 'QA'], hyperagent: ['Planner', 'Navigator', 'Editor', 'Executor'] }; }
+  currentRoster() { return this.allSims()[this.state.sim] || this.allSims().swarm; }
+  scopeIndices() { const r = this.currentRoster(); if (this.state.scopeMode === 'all') return r.map((_, i) => i); return (this.state.scopeSel || []).filter((i) => i < r.length); }
+  isInScope(i) { return this.scopeIndices().indexOf(i) !== -1; }
+  toggleAgent(i) { this.setState((s) => { const cur = (s.scopeSel || []).slice(); const at = cur.indexOf(i); if (at === -1) cur.push(i); else cur.splice(at, 1); return { scopeSel: cur, scopeMode: 'select' }; }); }
+
+  componentDidMount() {
+    this.mount = Date.now();
+    const C = 26;
+    const W = [[0,3],[3,5],[4,6],[9,5],[14,4]];
+    this.timer = setInterval(() => {
+      this.setState((s) => {
+        const now = s.now + 1;
+        let done = 0, err = 0;
+        for (let i = 0; i < 120; i++) {
+          const localT = (now + i * 7) % C;
+          const errInst = i % 9 === 0;
+          const errIdx = i % 2 ? 4 : 2;
+          if (!errInst && localT === 18) done++;
+          if (errInst) {
+            const e = W[errIdx][0] + W[errIdx][1];
+            if (localT === e) err++;
+          }
+        }
+        const history = [...s.history, done].slice(-46);
+        return { now, cumCompleted: s.cumCompleted + done, cumErrored: s.cumErrored + err, history };
+      });
+    }, 550);
+  }
+
+  componentWillUnmount() { clearInterval(this.timer); }
+
+  agentStates(i, now) {
+    const C = 26;
+    const W = [[0,3],[3,5],[4,6],[9,5],[14,4]];
+    const localT = (now + i * 7) % C;
+    const errInst = i % 9 === 0;
+    const errIdx = i % 2 ? 4 : 2;
+    return W.map((w, a) => {
+      const s = w[0], e = w[0] + w[1];
+      if (localT < s) return 'ns';
+      if (localT < e) return 'run';
+      return (errInst && a === errIdx) ? 'err' : 'done';
+    });
+  }
+
+  dominant(sts) {
+    if (sts.indexOf('err') >= 0) return 'err';
+    if (sts.indexOf('run') >= 0) return 'run';
+    if (sts.every((s) => s === 'done')) return 'done';
+    if (sts.every((s) => s === 'ns')) return 'ns';
+    return 'run';
+  }
+
+  buildGrid(now) {
+    const p = this.props || {};
+    const map = { ns: p.idleColor || '#17293f', run: p.runningColor || '#F2A81E', done: p.completedColor || '#18A673', err: p.erroredColor || '#E23D3D' };
+    const cells = [];
+    for (let i = 0; i < 120; i++) {
+      const dom = this.dominant(this.agentStates(i, now));
+      const st = { width: '24px', height: '24px', borderRadius: '5px', background: map[dom], border: '1px solid rgba(255,255,255,0.06)' };
+      if (dom === 'run') { st.animation = 'ascellpulse 1.3s ease-in-out infinite'; st.boxShadow = '0 0 9px rgba(242,168,30,0.6)'; }
+      if (dom === 'err') { st.boxShadow = '0 0 9px rgba(226,61,61,0.6)'; }
+      cells.push(React.createElement('div', { key: i, style: st, title: 'Instance #' + String(i + 1).padStart(3, '0') }));
+    }
+    return React.createElement('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(20, 24px)', gap: '6px' } }, cells);
+  }
+
+  buildMesh(now, dark) {
+    const focus = 12;
+    const sts = this.agentStates(focus, now);
+    const p = this.props || {};
+    const rc = p.runningColor || '#F2A81E', dc2 = p.completedColor || '#18A673', ec = p.erroredColor || '#E23D3D';
+    const map = dark
+      ? { ns: '#1C3454', run: rc, done: dc2, err: ec }
+      : { ns: '#E3E9F1', run: rc, done: dc2, err: ec };
+    const coldEdge = dark ? '#33475F' : '#C7D3E2';
+    const nodeStroke = dark ? '#0A1727' : '#fff';
+    const idleText = dark ? '#8AA0B8' : '#7C8A99';
+    const labelFill = dark ? '#C6D4E4' : '#33414F';
+    const outFill = dark ? '#122237' : '#EDF1F6';
+    const outStroke = dark ? '#2A3E58' : '#CBD6E4';
+    const outText = dark ? '#4E637E' : '#A9B6C6';
+    const pos = [[250, 178], [250, 55], [402, 178], [250, 300], [98, 178]];
+    const roster = this.currentRoster();
+    const names = pos.map((_, i) => roster[i] || '');
+    const nCount = Math.min(pos.length, roster.length);
+    const inScope = (i) => this.state.scopeMode === 'all' || (this.state.scopeSel || []).indexOf(i) !== -1;
+    const edges = [[0, 1], [0, 2], [0, 3], [0, 4], [1, 2], [2, 3], [3, 4], [4, 1]];
+    const kids = [];
+    edges.forEach((e, k) => {
+      if (e[0] >= nCount || e[1] >= nCount) return;
+      const a = pos[e[0]], b = pos[e[1]];
+      const bothIn = inScope(e[0]) && inScope(e[1]);
+      const hot = bothIn && (sts[e[0]] === 'run' || sts[e[1]] === 'run');
+      kids.push(React.createElement('line', {
+        key: 'e' + k, x1: a[0], y1: a[1], x2: b[0], y2: b[1],
+        stroke: hot ? (dark ? '#3B9BEA' : '#0076CE') : coldEdge, strokeWidth: hot ? 2.4 : 1.6,
+        strokeDasharray: '6 7', strokeLinecap: 'round',
+        style: hot ? { animation: 'asedgeflow 0.9s linear infinite', opacity: 0.95 } : { opacity: bothIn ? 0.55 : 0.16 }
+      }));
+    });
+    pos.forEach((p, n) => {
+      if (n >= nCount) return;
+      const scoped = inScope(n);
+      const state = sts[n];
+      if (scoped && state === 'run') {
+        kids.push(React.createElement('circle', { key: 'ping' + n, cx: p[0], cy: p[1], r: 29, fill: 'none', stroke: rc, strokeWidth: 2, style: { transformBox: 'fill-box', transformOrigin: 'center', animation: 'asping 1.6s ease-out infinite' } }));
+      }
+      kids.push(React.createElement('circle', { key: 'n' + n, cx: p[0], cy: p[1], r: 28, fill: scoped ? map[state] : outFill, stroke: scoped ? nodeStroke : outStroke, strokeWidth: 3, strokeDasharray: scoped ? undefined : '4 4', style: { filter: scoped ? 'drop-shadow(0 2px 6px rgba(6,16,30,0.35))' : 'none' } }));
+      kids.push(React.createElement('text', { key: 't' + n, x: p[0], y: p[1] + 4, textAnchor: 'middle', style: { font: "600 10.5px 'Hanken Grotesk',sans-serif", fill: !scoped ? outText : (state === 'ns' ? idleText : '#ffffff') } }, !scoped ? 'OUT' : (state === 'run' ? 'RUN' : state === 'done' ? 'DONE' : state === 'err' ? 'ERR' : 'IDLE')));
+      kids.push(React.createElement('text', { key: 'l' + n, x: p[0], y: p[1] + 47, textAnchor: 'middle', style: { font: "600 12px 'Hanken Grotesk',sans-serif", fill: scoped ? labelFill : outText } }, names[n]));
+    });
+    return React.createElement('svg', { viewBox: '0 0 500 355', style: { width: '100%', maxWidth: '560px', height: 'auto', display: 'block' } }, kids);
+  }
+
+  buildSpark(history) {
+    const w = 132, h = 34, max = Math.max(3, ...history);
+    if (history.length < 2) return React.createElement('svg', { viewBox: '0 0 ' + w + ' ' + h, style: { width: '100%', height: '34px', display: 'block' } });
+    const pts = history.map((v, i) => {
+      const x = (i / (history.length - 1)) * w;
+      const y = h - (v / max) * (h - 5) - 2.5;
+      return x.toFixed(1) + ',' + y.toFixed(1);
+    }).join(' ');
+    return React.createElement('svg', { viewBox: '0 0 ' + w + ' ' + h, preserveAspectRatio: 'none', style: { width: '100%', height: '34px', display: 'block' } },
+      React.createElement('polyline', { points: pts, fill: 'none', stroke: '#3B9BEA', strokeWidth: 2, strokeLinejoin: 'round', strokeLinecap: 'round' })
+    );
+  }
+
+  navTabStyle(active) { return { font: "600 13px 'Hanken Grotesk',sans-serif", color: active ? '#fff' : '#8AA0B8', background: active ? '#0076CE' : 'transparent', borderRadius: '7px', padding: '8px 18px', cursor: 'pointer', border: 'none' }; }
+  concStyle(active) { return { font: "600 13px 'IBM Plex Mono',monospace", color: active ? '#fff' : '#62707E', background: active ? '#0076CE' : 'transparent', borderRadius: '8px', padding: '9px 18px', cursor: 'pointer', border: 'none' }; }
+  simCardStyle(active) { return { textAlign: 'left', background: active ? '#EAF3FB' : '#fff', border: active ? '1.5px solid #0076CE' : '1px solid #e2e8f0', borderRadius: '12px', padding: '15px 16px', cursor: 'pointer', color: '#12212F', boxShadow: active ? '0 4px 14px rgba(0,118,206,.14)' : 'none' }; }
+
+  renderVals() {
+    const now = this.state.now;
+    let active = 0;
+    for (let i = 0; i < 120; i++) {
+      if (this.dominant(this.agentStates(i, now)) === 'run') active++;
+    }
+    const hist = this.state.history;
+    const avg = hist.length ? hist.reduce((a, b) => a + b, 0) / hist.length : 0;
+    const throughput = Math.round(avg * (60 / 0.55));
+    const secs = this.mount ? Math.floor((Date.now() - this.mount) / 1000) : 0;
+    const mm = String(Math.floor(secs / 60)).padStart(2, '0');
+    const ss = String(secs % 60).padStart(2, '0');
+    const st = this.state;
+    const tabsDef = [['Setup', 'launch'], ['Live Run', 'live'], ['Parallel', 'parallel'], ['Context', 'context']];
+    const tabs = tabsDef.map((t) => ({ label: t[0], active: st.view === t[1], go: () => this.setState({ view: t[1] }), style: this.navTabStyle(st.view === t[1]) }));
+    const concOptions = [1, 2, 5, 10, 100, 1000].map((n) => ({ n, active: st.concurrency === n, pick: () => this.setState({ concurrency: n }), style: this.concStyle(st.concurrency === n) }));
+    const simsDef = [
+      ['swarm', 'Swarm', 'mesh', 5, 'Coordinator · Researcher · Analyst · Writer · Critic'],
+      ['orchestrator', 'Orchestrator', 'hub-and-spoke', 5, 'Hub · Planner · Worker A · Worker B · Reducer'],
+      ['chatdev', 'ChatDev', 'chat chain', 7, 'CEO · CTO · Programmer · Reviewer · Tester · Designer · CPO'],
+      ['metagpt', 'MetaGPT', 'pipeline', 5, 'Product Manager · Architect · Project Manager · Engineer · QA'],
+      ['hyperagent', 'HyperAgent', 'planner-executor', 4, 'Planner · Navigator · Editor · Executor']
+    ];
+    const simOptions = simsDef.map((s) => ({ id: s[0], label: s[1], topo: s[2], agents: s[3], roster: s[4], active: st.sim === s[0], pick: () => this.setState({ sim: s[0] }), style: this.simCardStyle(st.sim === s[0]) }));
+    const selSim = simsDef.find((s) => s[0] === st.sim) || simsDef[0];
+    const roster = this.currentRoster();
+    const scopeIdx = this.scopeIndices();
+    const scopeAll = st.scopeMode === 'all';
+    const scopeCount = scopeAll ? roster.length : scopeIdx.length;
+    const scopeChips = roster.map((nm, i) => { const on = scopeAll || scopeIdx.indexOf(i) !== -1; return { name: nm, on, toggle: () => this.toggleAgent(i), style: { display: 'flex', alignItems: 'center', gap: '7px', background: on ? '#EAF3FB' : '#fff', border: on ? '1.5px solid #0076CE' : '1px solid #d7e2ee', borderRadius: '999px', padding: '8px 14px 8px 11px', cursor: 'pointer', font: "600 12.5px 'Hanken Grotesk',sans-serif", color: on ? '#0076CE' : '#62707E' }, dot: { width: '9px', height: '9px', borderRadius: '3px', background: on ? '#0076CE' : '#cbd6e4', display: 'inline-block' } }; });
+    const scopeModeAll = { font: "600 12.5px 'Hanken Grotesk',sans-serif", color: scopeAll ? '#fff' : '#62707E', background: scopeAll ? '#0076CE' : 'transparent', borderRadius: '8px', padding: '8px 16px', cursor: 'pointer', border: 'none' };
+    const scopeModeSel = { font: "600 12.5px 'Hanken Grotesk',sans-serif", color: !scopeAll ? '#fff' : '#62707E', background: !scopeAll ? '#0076CE' : 'transparent', borderRadius: '8px', padding: '8px 16px', cursor: 'pointer', border: 'none' };
+    const pill = (s) => s === 'running' ? { c: '#F2A81E', b: 'rgba(242,168,30,.16)' } : s === 'completed' ? { c: '#37c592', b: 'rgba(24,166,115,.16)' } : s === 'failed' ? { c: '#f26060', b: 'rgba(226,61,61,.16)' } : { c: '#8AA0B8', b: 'rgba(255,255,255,.06)' };
+    const recentRuns = [['4f2a91c8', 'Swarm', '1000', 'running', 'now'], ['b7e04d12', 'MetaGPT', '10', 'completed', '12m ago'], ['9c14aa87', 'ChatDev', '100', 'completed', '1h ago'], ['2a83f0e5', 'Swarm', '5', 'failed', '2h ago']].map((r) => { const pk = pill(r[3]); return { id: r[0].slice(0, 8), sim: r[1], n: r[2], status: r[3], ago: r[4], pillStyle: { font: "600 9.5px 'IBM Plex Mono',monospace", letterSpacing: '.05em', textTransform: 'uppercase', color: pk.c, background: pk.b, borderRadius: '5px', padding: '3px 9px' } }; });
+    return {
+      gridEl: this.buildGrid(now),
+      meshEl: this.buildMesh(now),
+      sparkEl: this.buildSpark(hist),
+      gridEl2: this.buildGrid(now),
+      meshEl2: this.buildMesh(now),
+      sparkEl2: this.buildSpark(hist),
+      gridEl3: this.buildGrid(now),
+      meshEl3: this.buildMesh(now, true),
+      sparkEl3: this.buildSpark(hist),
+      activeCount: active,
+      completedTotal: (2841 + this.state.cumCompleted).toLocaleString(),
+      erroredTotal: 60 + this.state.cumErrored,
+      throughput: throughput,
+      elapsed: mm + ':' + ss,
+      runId: '4f2a91c8',
+      isLaunch: st.view === 'launch',
+      isLive: st.view === 'live',
+      isParallel: st.view === 'parallel',
+      isContext: st.view === 'context',
+      notLaunch: st.view !== 'launch',
+      tabs: tabs,
+      concOptions: concOptions,
+      simOptions: simOptions,
+      concurrency: st.concurrency,
+      selSimLabel: selSim[1],
+      scopeChips: scopeChips,
+      scopeCount: scopeCount,
+      rosterCount: roster.length,
+      scopeAll: scopeAll,
+      scopeSelect: !scopeAll,
+      scopeSummary: scopeAll ? ('All ' + roster.length + ' agents') : (scopeCount + ' of ' + roster.length + ' agents'),
+      setScopeAll: () => this.setState({ scopeMode: 'all' }),
+      setScopeSelect: () => this.setState((s) => ({ scopeMode: 'select', scopeSel: (s.scopeSel && s.scopeSel.length) ? s.scopeSel : roster.map((_, i) => i) })),
+      routeLabel: st.concurrency <= 10 ? 'Live Run · watch the mesh' : 'Parallel · grid at scale',
+      task: st.task,
+      setTask: (e) => this.setState({ task: e.target.value }),
+      launch: () => this.setState((s) => ({ launched: true, view: s.concurrency <= 10 ? 'live' : 'parallel' })),
+      newRun: () => this.setState({ view: 'launch' }),
+      goContext: () => this.setState({ view: 'context' }),
+      goLive: () => this.setState({ view: 'live' }),
+      goParallel: () => this.setState({ view: 'parallel' }),
+      goHome: () => this.setState({ view: 'landing' }),
+      isLanding: st.view === 'landing',
+      running: st.view === 'live' || st.view === 'parallel' || st.view === 'context',
+      recentRuns: recentRuns,
+      cancelOpen: st.cancelOpen,
+      openCancel: () => this.setState({ cancelOpen: true }),
+      closeCancel: () => this.setState({ cancelOpen: false }),
+      confirmCancel: () => this.setState({ cancelOpen: false, view: 'landing' })
+    };
+  }
+}
+</script>
+</body>
+</html>
