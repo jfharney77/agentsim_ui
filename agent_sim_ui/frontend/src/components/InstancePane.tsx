@@ -35,28 +35,31 @@ export function InstancePane({ instance }: InstancePaneProps) {
     }
   };
 
+  // Plain colored status words — no highlight boxes (Dell clean design).
   const statusColors: Record<string, string> = {
-    pending: "bg-gray-200 text-gray-700",
-    running: "bg-yellow-200 text-yellow-800",
-    completed: "bg-green-200 text-green-800",
-    failed: "bg-red-200 text-red-800",
-    cancelled: "bg-gray-300 text-gray-700",
+    pending: "text-[#8593A1]",
+    running: "text-state-running",
+    completed: "text-state-completed",
+    failed: "text-state-errored",
+    cancelled: "text-[#8593A1]",
   };
 
   const shortId = instance.instance_id.slice(0, 8);
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+    <div className="bg-white rounded-xl p-6 shadow-light-card border border-[#e2e8f0]">
       <div className="flex items-center justify-between mb-4">
         <div>
-          <h3 className="font-semibold text-lg">Instance #{instance.index + 1}</h3>
-          <p className="text-sm text-gray-600 dark:text-gray-400">
+          <h3 className="font-semibold text-lg text-[#12212F]">
+            Instance #{instance.index + 1}
+          </h3>
+          <p className="text-sm text-[#62707E]">
             ID: <span className="font-mono text-xs">{shortId}</span>
           </p>
         </div>
         <span
-          className={`px-3 py-1 rounded-full text-xs font-medium ${
-            statusColors[instance.status] || "bg-gray-200 text-gray-700"
+          className={`text-xs font-semibold ${
+            statusColors[instance.status] || "text-[#8593A1]"
           }`}
         >
           {instance.status}
@@ -76,10 +79,10 @@ export function InstancePane({ instance }: InstancePaneProps) {
       <button
         type="button"
         onClick={handleLogClick}
-        className="flex items-center gap-2 text-sm text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition"
+        className="flex items-center gap-2 text-sm text-dell hover:text-dell-deep transition"
       >
         <FileText className="w-4 h-4" />
-        View Log
+        View log
       </button>
 
       {showLog && (

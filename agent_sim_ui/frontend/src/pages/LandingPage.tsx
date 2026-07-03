@@ -59,13 +59,14 @@ const QUICK_LINKS = [
   { icon: <FileText className="w-[17px] h-[17px]" />, label: "Docs & API", to: null, highlight: false },
 ];
 
-function statusPill(status: string) {
+// Plain colored status words — no highlight boxes (Dell clean design).
+function statusColor(status: string) {
   const map: Record<string, string> = {
-    running: "bg-state-running/[.16] text-state-running",
-    done: "bg-state-completed/[.16] text-state-completed",
-    error: "bg-state-errored/[.16] text-[#f28a8a]",
+    running: "text-state-running",
+    done: "text-state-completed",
+    error: "text-state-errored",
   };
-  return map[status] || "bg-white/10 text-[#8AA0B8]";
+  return map[status] || "text-[#8AA0B8]";
 }
 
 export function LandingPage() {
@@ -90,10 +91,7 @@ export function LandingPage() {
       <div className="px-[26px] pt-[58px] pb-[54px]">
         <div className="max-w-[1060px] mx-auto">
           <div className="text-center mb-11">
-            <div className="text-[12px] font-mono font-semibold tracking-[.28em] uppercase text-[#5f7da0] mb-4">
-              Agentic mesh simulation
-            </div>
-            <h1 className="text-[44px] leading-[1.06] font-extrabold mb-4 tracking-tight">
+            <h1 className="text-[46px] leading-[1.15] font-light mb-4">
               Watch agents think, at any scale.
             </h1>
             <p className="text-[16px] leading-[1.6] text-[#8AA0B8] max-w-[640px] mx-auto mb-7">
@@ -118,7 +116,7 @@ export function LandingPage() {
                   />
                 </div>
                 <div className="flex items-center justify-between mt-1.5">
-                  <span className="text-[12px] font-mono text-[#9aa7b4]">
+                  <span className="text-[12px] text-[#9aa7b4]">
                     {task.length}/{TASK_MAX}
                   </span>
                   <div className="flex items-center gap-3.5">
@@ -160,10 +158,10 @@ export function LandingPage() {
           {/* Light content band */}
           <div className="bg-band rounded-[18px] px-7 pt-[26px] pb-7">
             <div className="flex items-baseline justify-between mb-5">
-              <div className="text-[20px] font-extrabold text-[#12212F]">
+              <div className="text-[24px] font-normal text-[#12212F]">
                 Jump back in
               </div>
-              <span className="text-[12px] font-mono font-medium text-dell">
+              <span className="text-[12px] text-[#62707E]">
                 {simCount ?? 5} simulators · 1 run active · anthropic
               </span>
             </div>
@@ -186,7 +184,7 @@ export function LandingPage() {
                       <div className="text-[12px] leading-[1.55] text-[#62707E] mb-3">
                         {card.desc}
                       </div>
-                      <div className="text-[12px] font-mono font-semibold text-dell">
+                      <div className="text-[12px] font-semibold text-dell">
                         Open →
                       </div>
                     </button>
@@ -202,19 +200,17 @@ export function LandingPage() {
                       key={run.id}
                       className="grid grid-cols-[82px_1fr_auto_auto] gap-3.5 items-center py-2.5 border-t border-[#eef2f7]"
                     >
-                      <span className="text-[12px] font-mono font-medium text-dell">
+                      <span className="text-[12px] font-medium text-dell">
                         {run.id}
                       </span>
                       <span className="text-[12px] font-medium text-[#4A5765]">
                         {run.sim} · {run.n}×
                       </span>
-                      <span className="text-[11px] font-mono text-[#8593A1]">
+                      <span className="text-[11px] text-[#8593A1]">
                         {run.ago}
                       </span>
                       <span
-                        className={`text-[9.5px] font-mono font-semibold uppercase tracking-[.06em] rounded px-[7px] py-0.5 ${statusPill(
-                          run.status
-                        )}`}
+                        className={`text-[11px] font-semibold ${statusColor(run.status)}`}
                       >
                         {run.status}
                       </span>
@@ -225,7 +221,7 @@ export function LandingPage() {
 
               {/* Right: blue icon rail */}
               <div>
-                <div className="text-[11px] font-mono font-bold tracking-[.1em] uppercase text-[#8593A1] mb-[11px]">
+                <div className="text-[13px] font-bold text-[#12212F] mb-[11px]">
                   Quick links
                 </div>
                 {QUICK_LINKS.map((link) => (

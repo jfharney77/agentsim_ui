@@ -1,16 +1,15 @@
 import { useState, useEffect, useRef } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { X, ArrowLeft } from "lucide-react";
+import { useParams } from "react-router-dom";
 import { api } from "../lib/api";
 import type { InstanceDescriptor, StateChangeEvent } from "../types/api";
 import { InstancePane } from "../components/InstancePane";
 import { LiveMesh } from "../components/LiveMesh";
+import { AppShell } from "../components/AppShell";
 import { AgentState } from "../types/api";
 import { AGENT_STATE_COLORS, AGENT_STATE_LABELS } from "../lib/constants";
 
 export function RunView() {
   const { runGroupId } = useParams<{ runGroupId: string }>();
-  const navigate = useNavigate();
   const [instances, setInstances] = useState<InstanceDescriptor[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -119,7 +118,7 @@ export function RunView() {
   }, [runGroupId, usePolling]);
 
   const handleCancel = async () => {
-    if (!runGroupId) return;
+    if (!runGroupId || cancelling) return;
     setCancelling(true);
     try {
       await api.cancelRun(runGroupId);
@@ -135,51 +134,36 @@ export function RunView() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-gray-600">Loading run...</div>
-      </div>
+      <AppShell activeTab="live">
+        <div className="bg-band min-h-[calc(100vh-97px)] flex items-center justify-center">
+          <div className="text-[#62707E]">Loading run…</div>
+        </div>
+      </AppShell>
     );
   }
 
   if (error) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-red-600">Error: {error}</div>
-      </div>
+      <AppShell activeTab="live">
+        <div className="bg-band min-h-[calc(100vh-97px)] flex items-center justify-center">
+          <div className="text-state-errored">Error: {error}</div>
+        </div>
+      </AppShell>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-8">
+    <AppShell activeTab="live" running onCancel={handleCancel}>
+      <div className="bg-band min-h-[calc(100vh-97px)] p-8">
       <div className="max-w-7xl mx-auto">
-        <header className="mb-8 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <button
-              type="button"
-              onClick={() => navigate("/")}
-              className="p-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-full transition"
-            >
-              <ArrowLeft className="w-5 h-5" />
-            </button>
-            <div>
-              <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
-                Run: {runGroupId?.slice(0, 8)}
-              </h1>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                {instances.length} instance{instances.length !== 1 ? "s" : ""}
-                {usePolling && " (polling mode)"}
-              </p>
-            </div>
-          </div>
-          <button
-            type="button"
-            onClick={handleCancel}
-            disabled={cancelling}
-            className="flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-md font-medium transition disabled:opacity-50"
-          >
-            {cancelling ? "Cancelling..." : "Cancel Run"}
-            <X className="w-4 h-4" />
-          </button>
+        <header className="mb-6 flex items-baseline gap-4">
+          <h1 className="text-[24px] font-normal text-[#12212F]">
+            Run {runGroupId?.slice(0, 8)}
+          </h1>
+          <p className="text-sm text-[#62707E]">
+            {instances.length} instance{instances.length !== 1 ? "s" : ""}
+            {usePolling && " (polling mode)"}
+          </p>
         </header>
 
         {/* Legend */}
@@ -187,10 +171,10 @@ export function RunView() {
           {Object.entries(AGENT_STATE_COLORS).map(([state, color]) => (
             <div key={state} className="flex items-center gap-2">
               <div
-                className="w-4 h-4 rounded-full border border-gray-300"
+                className="w-4 h-4 rounded-full border border-[#D2D2D2]"
                 style={{ backgroundColor: color }}
               />
-              <span className="text-gray-700 dark:text-gray-300">
+              <span className="text-[#62707E]">
                 {AGENT_STATE_LABELS[state as keyof typeof AGENT_STATE_LABELS]}
               </span>
             </div>
@@ -221,7 +205,7 @@ export function RunView() {
                 </div>
                 <div className="flex gap-3">
                   <div className="rounded-lg bg-white/[.04] px-4 py-2 text-center min-w-[92px]">
-                    <div className="text-[11px] font-mono uppercase tracking-[.1em] text-[#7E93AB]">
+                    <div className="text-[11px] text-[#7E93AB]">
                       Agents done
                     </div>
                     <div className="text-[18px] font-bold text-[#37c592]">
@@ -230,13 +214,13 @@ export function RunView() {
                     </div>
                   </div>
                   <div className="rounded-lg bg-white/[.04] px-4 py-2 text-center min-w-[92px]">
-                    <div className="text-[11px] font-mono uppercase tracking-[.1em] text-[#7E93AB]">
+                    <div className="text-[11px] text-[#7E93AB]">
                       Active
                     </div>
                     <div className="text-[18px] font-bold text-[#F2A81E]">{active}</div>
                   </div>
                   <div className="rounded-lg bg-white/[.04] px-4 py-2 text-center min-w-[92px]">
-                    <div className="text-[11px] font-mono uppercase tracking-[.1em] text-[#7E93AB]">
+                    <div className="text-[11px] text-[#7E93AB]">
                       Scope
                     </div>
                     <div className="text-[18px] font-bold text-[#E9EFF6]">
@@ -259,6 +243,7 @@ export function RunView() {
           ))}
         </div>
       </div>
-    </div>
+      </div>
+    </AppShell>
   );
 }

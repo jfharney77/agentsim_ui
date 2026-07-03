@@ -7,8 +7,10 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["Hanken Grotesk", "Segoe UI", "system-ui", "sans-serif"],
-        mono: ["IBM Plex Mono", "ui-monospace", "monospace"],
+        // Dell Support runs on Roboto; no serif (or serif-flavored mono) anywhere.
+        sans: ["Roboto", "Helvetica Neue", "Segoe UI", "Arial", "sans-serif"],
+        // True monospace is reserved for functional text (logs, raw ids).
+        mono: ["ui-monospace", "SFMono-Regular", "Consolas", "monospace"],
       },
       colors: {
         // Brand / Dell

@@ -46,12 +46,10 @@ export function AppShell({
       <div className="flex items-center gap-[22px] px-[26px] py-[11px] bg-white border-b border-[#e6ebf1]">
         <div
           onClick={() => navigate("/")}
-          className="flex items-center gap-[9px] cursor-pointer flex-none"
+          className="flex items-center gap-3 cursor-pointer flex-none"
         >
-          <div className="w-[26px] h-[26px] rounded-full border-2 border-dell flex items-center justify-center">
-            <div className="w-2 h-2 rounded-full bg-dell" />
-          </div>
-          <span className="text-[16px] font-extrabold text-dell tracking-tight">
+          <img src="/delllogo.png" alt="Dell Technologies" className="h-[22px] w-auto" />
+          <span className="text-[16px] font-bold text-dell">
             AgentSim
             <span className="text-[#5b6b7b] font-medium"> Console</span>
           </span>
@@ -93,9 +91,7 @@ export function AppShell({
           <div className="w-[34px] h-[34px] rounded-full border-2 border-dell bg-dell/[.14] flex items-center justify-center">
             <div className="w-2.5 h-2.5 rounded-full bg-dell" />
           </div>
-          <div className="text-[15px] font-extrabold tracking-[.16em] leading-none">
-            AGENTSIM
-          </div>
+          <div className="text-[15px] font-bold leading-none">AgentSim</div>
         </div>
 
         <div className="flex gap-[3px] bg-white/5 border border-white/[.09] rounded-[11px] p-1">
@@ -122,11 +118,11 @@ export function AppShell({
           {running && (
             <div className="flex items-center gap-2">
               <span className="w-[9px] h-[9px] rounded-full bg-state-completed shadow-[0_0_8px_#18A673] animate-as-blink inline-block" />
-              <span className="text-[12px] font-mono font-semibold tracking-[.14em] text-[#dfe8f1]">
+              <span className="text-[12px] font-semibold text-[#dfe8f1]">
                 LIVE
               </span>
               {elapsed && (
-                <span className="text-[12px] font-mono font-medium text-[#8AA0B8]">
+                <span className="text-[12px] font-medium text-[#8AA0B8]">
                   {elapsed}
                 </span>
               )}

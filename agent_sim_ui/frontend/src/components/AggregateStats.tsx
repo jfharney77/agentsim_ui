@@ -21,26 +21,31 @@ export function AggregateStats({ instances }: AggregateStatsProps) {
   const totalAgents = Object.values(byAgentState).reduce((sum, count) => sum + count, 0);
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg p-4 shadow-sm border border-gray-200 dark:border-gray-700">
-      <h3 className="font-semibold mb-3">Aggregate Stats</h3>
-      
+    <div className="bg-white rounded-xl p-4 shadow-light-card border border-[#e2e8f0]">
+      <h3 className="font-semibold text-[#12212F] mb-3">Aggregate stats</h3>
+
       <div className="mb-4">
-        <h4 className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">Instance Status</h4>
-        <div className="flex flex-wrap gap-2">
+        <h4 className="text-[13px] font-bold text-[#12212F] mb-2">
+          Instance status
+        </h4>
+        <div className="flex flex-wrap gap-x-5 gap-y-1">
           {Object.entries(byStatus).map(([status, count]) => (
-            <span key={status} className="px-2 py-1 rounded text-xs bg-gray-100 dark:bg-gray-700">
-              {status}: {count}
+            <span key={status} className="text-xs text-[#62707E]">
+              {status}: <span className="font-semibold text-[#12212F]">{count}</span>
             </span>
           ))}
         </div>
       </div>
 
       <div>
-        <h4 className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">Agent States ({totalAgents} total)</h4>
-        <div className="flex flex-wrap gap-2">
+        <h4 className="text-[13px] font-bold text-[#12212F] mb-2">
+          Agent states ({totalAgents} total)
+        </h4>
+        <div className="flex flex-wrap gap-x-5 gap-y-1">
           {Object.entries(byAgentState).map(([state, count]) => (
-            <span key={state} className="px-2 py-1 rounded text-xs bg-gray-100 dark:bg-gray-700">
-              {AGENT_STATE_LABELS[state as keyof typeof AGENT_STATE_LABELS]}: {count}
+            <span key={state} className="text-xs text-[#62707E]">
+              {AGENT_STATE_LABELS[state as keyof typeof AGENT_STATE_LABELS]}:{" "}
+              <span className="font-semibold text-[#12212F]">{count}</span>
             </span>
           ))}
         </div>

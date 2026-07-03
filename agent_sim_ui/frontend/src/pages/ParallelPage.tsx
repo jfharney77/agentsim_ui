@@ -1,16 +1,15 @@
 import { useState, useEffect, useRef } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { ArrowLeft, X } from "lucide-react";
+import { useParams } from "react-router-dom";
 import { api } from "../lib/api";
 import type { InstanceDescriptor, StateChangeEvent, Simulator } from "../types/api";
 import { CompactInstanceCell } from "../components/CompactInstanceCell";
 import { AggregateStats } from "../components/AggregateStats";
 import { InstancePane } from "../components/InstancePane";
+import { AppShell } from "../components/AppShell";
 
 const CONCURRENCY_OPTIONS = [1, 2, 5, 10, 100, 1000] as const;
 
 export function ParallelPage() {
-  const navigate = useNavigate();
   // When launched from Setup, the run group arrives as a route param and we
   // skip the built-in picker, jumping straight to the live grid.
   const { runGroupId: routeRunGroupId } = useParams<{ runGroupId?: string }>();
@@ -119,7 +118,7 @@ export function ParallelPage() {
   };
 
   const handleCancel = async () => {
-    if (!runGroupId) return;
+    if (!runGroupId || cancelling) return;
     setCancelling(true);
     try {
       await api.cancelRun(runGroupId);
@@ -138,44 +137,40 @@ export function ParallelPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-gray-600">Loading simulators...</div>
-      </div>
+      <AppShell activeTab="parallel">
+        <div className="bg-band min-h-[calc(100vh-97px)] flex items-center justify-center">
+          <div className="text-[#62707E]">Loading simulators…</div>
+        </div>
+      </AppShell>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-8">
+    <AppShell
+      activeTab="parallel"
+      running={!!runGroupId}
+      onCancel={handleCancel}
+    >
+      <div className="bg-band min-h-[calc(100vh-97px)] p-8">
       <div className="max-w-7xl mx-auto">
-        <header className="mb-8 flex items-center gap-4">
-          <button
-            type="button"
-            onClick={() => navigate("/")}
-            className="p-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-full transition"
-          >
-            <ArrowLeft className="w-5 h-5" />
-          </button>
-          <div>
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
-              Parallel Sim
-            </h1>
-            <p className="text-sm text-gray-600 dark:text-gray-400">
-              Launch 1–1000 instances at scale
-            </p>
-          </div>
+        <header className="mb-6 flex items-baseline gap-4">
+          <h1 className="text-[24px] font-normal text-[#12212F]">Parallel</h1>
+          <p className="text-sm text-[#62707E]">
+            Launch 1–1000 instances at scale
+          </p>
         </header>
 
         {!runGroupId ? (
-          <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+          <div className="bg-white rounded-xl p-6 shadow-light-card border border-[#e2e8f0]">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-[13px] font-bold text-[#12212F] mb-2">
                   Simulator
                 </label>
                 <select
                   value={selectedId || ""}
                   onChange={(e) => setSelectedId(e.target.value || null)}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+                  className="w-full px-3 py-2 border border-[#cdd6e0] rounded-md bg-white text-[#12212F] outline-none focus:border-dell"
                 >
                   <option value="">Select a simulator</option>
                   {simulators.map((sim) => (
@@ -187,13 +182,13 @@ export function ParallelPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-[13px] font-bold text-[#12212F] mb-2">
                   Concurrency
                 </label>
                 <select
                   value={concurrency}
                   onChange={(e) => setConcurrency(Number(e.target.value))}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+                  className="w-full px-3 py-2 border border-[#cdd6e0] rounded-md bg-white text-[#12212F] outline-none focus:border-dell"
                 >
                   {CONCURRENCY_OPTIONS.map((c) => (
                     <option key={c} value={c}>
@@ -205,15 +200,15 @@ export function ParallelPage() {
             </div>
 
             <div className="mb-6">
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Task Prompt (optional)
+              <label className="block text-[13px] font-bold text-[#12212F] mb-2">
+                Task prompt <span className="font-normal text-[#8593A1]">(optional)</span>
               </label>
               <input
                 type="text"
                 value={taskPrompt}
                 onChange={(e) => setTaskPrompt(e.target.value)}
-                placeholder="Leave empty for default task"
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+                placeholder="Leave empty for the default task"
+                className="w-full px-3 py-2 border border-[#cdd6e0] rounded-md bg-white text-[#12212F] outline-none focus:border-dell"
               />
             </div>
 
@@ -223,34 +218,37 @@ export function ParallelPage() {
               disabled={!canLaunch}
               className={`px-6 py-2 rounded-md font-medium transition-colors ${
                 canLaunch
-                  ? "bg-blue-600 hover:bg-blue-700 text-white"
-                  : "bg-gray-300 dark:bg-gray-600 text-gray-500 dark:text-gray-400 cursor-not-allowed"
+                  ? "bg-dell hover:bg-dell-deep text-white"
+                  : "bg-[#EEF2F7] text-[#8593A1] cursor-not-allowed"
               }`}
             >
-              {launching ? "Launching..." : "Launch"}
+              {launching ? "Launching…" : "Launch"}
             </button>
 
             {showConfirm && (
               <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-                <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-xl max-w-md">
-                  <h3 className="text-lg font-semibold mb-2">Confirm Large Launch</h3>
-                  <p className="text-gray-600 dark:text-gray-400 mb-4">
-                    You are about to launch {concurrency} instances. This may consume significant resources.
+                <div className="bg-white rounded-xl p-6 shadow-xl max-w-md border border-[#e2e8f0]">
+                  <h3 className="text-lg font-semibold text-[#12212F] mb-2">
+                    Launch {concurrency} instances?
+                  </h3>
+                  <p className="text-[#62707E] mb-4">
+                    Each instance runs the full simulator and consumes provider
+                    tokens. Confirm to launch, or go back and lower the count.
                   </p>
                   <div className="flex gap-2 justify-end">
                     <button
                       type="button"
                       onClick={() => setShowConfirm(false)}
-                      className="px-4 py-2 bg-gray-200 dark:bg-gray-700 rounded-md hover:bg-gray-300 dark:hover:bg-gray-600 transition"
+                      className="px-4 py-2 bg-white border border-dell text-dell rounded-md hover:bg-[#EAF3FB] transition"
                     >
-                      Cancel
+                      Go back
                     </button>
                     <button
                       type="button"
                       onClick={handleLaunch}
-                      className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
+                      className="px-4 py-2 bg-dell text-white rounded-md hover:bg-dell-deep transition"
                     >
-                      Confirm
+                      Launch
                     </button>
                   </div>
                 </div>
@@ -258,7 +256,7 @@ export function ParallelPage() {
             )}
 
             {error && (
-              <div className="mt-4 p-3 bg-red-50 dark:bg-red-950 border border-red-200 dark:border-red-800 rounded-md text-red-700 dark:text-red-300 text-sm">
+              <div className="mt-4 p-3 bg-[#FDEDEF] border border-[#f3c2c9] rounded-md text-state-errored text-sm">
                 {error}
               </div>
             )}
@@ -267,36 +265,25 @@ export function ParallelPage() {
           <div>
             <div className="flex items-center justify-between mb-6">
               <div>
-                <h2 className="text-xl font-semibold">
-                  Run: {runGroupId.slice(0, 8)}
+                <h2 className="text-xl font-medium text-[#12212F]">
+                  Run {runGroupId.slice(0, 8)}
                 </h2>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-sm text-[#62707E]">
                   {instances.length} instance{instances.length !== 1 ? "s" : ""}
                   {usePolling && " (polling mode)"}
                 </p>
               </div>
-              <div className="flex gap-2">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setRunGroupId(null);
-                    setInstances([]);
-                    setDrillInInstance(null);
-                  }}
-                  className="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-md font-medium transition"
-                >
-                  New Run
-                </button>
-                <button
-                  type="button"
-                  onClick={handleCancel}
-                  disabled={cancelling}
-                  className="flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-md font-medium transition disabled:opacity-50"
-                >
-                  {cancelling ? "Cancelling..." : "Cancel"}
-                  <X className="w-4 h-4" />
-                </button>
-              </div>
+              <button
+                type="button"
+                onClick={() => {
+                  setRunGroupId(null);
+                  setInstances([]);
+                  setDrillInInstance(null);
+                }}
+                className="px-4 py-2 bg-white border border-dell text-dell hover:bg-[#EAF3FB] rounded-md font-medium transition"
+              >
+                New run
+              </button>
             </div>
 
             <AggregateStats instances={instances} />
@@ -306,7 +293,7 @@ export function ParallelPage() {
                 <button
                   type="button"
                   onClick={() => setDrillInInstance(null)}
-                  className="mb-4 text-sm text-blue-600 dark:text-blue-400 hover:underline"
+                  className="mb-4 text-sm text-dell hover:underline"
                 >
                   ← Back to grid
                 </button>
@@ -314,7 +301,9 @@ export function ParallelPage() {
               </div>
             ) : (
               <div className="mt-6">
-                <h3 className="font-semibold mb-3">Instances ({instances.length})</h3>
+                <h3 className="font-semibold text-[#12212F] mb-3">
+                  Instances ({instances.length})
+                </h3>
                 <div className="grid grid-cols-10 sm:grid-cols-15 md:grid-cols-20 lg:grid-cols-25 gap-1">
                   {instances.map((instance) => {
                     const agentStates = instance.agents.reduce((acc, agent) => {
@@ -337,6 +326,7 @@ export function ParallelPage() {
           </div>
         )}
       </div>
-    </div>
+      </div>
+    </AppShell>
   );
 }
