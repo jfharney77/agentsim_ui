@@ -13,13 +13,20 @@ Resilience (SIM-UI-101 acceptance criteria):
 
 from __future__ import annotations
 
+import json
 import logging
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Dict, List, Optional
 
 from ..config import Settings, get_settings
-from ..models import AgentDescriptor, LaunchKind, LaunchSpec, Simulator
+from ..models import (
+    AgentDescriptor,
+    LaunchKind,
+    LaunchSpec,
+    Simulator,
+    WorkflowDescriptor,
+)
 from .resolvers import (
     AgentResolver,
     ChatDevResolver,
@@ -44,6 +51,10 @@ class SimulatorDefinition:
     resolver: AgentResolver
     fallback_roles: List[str]
     launch_factory: "callable"  # (repo_root, sim_path) -> LaunchSpec
+    # Built-in named agent subsets; overridden by a workflows.json in the
+    # simulator directory. agent_ids referencing agents missing from the
+    # resolved roster are dropped at build time.
+    default_workflows: List[WorkflowDescriptor] = field(default_factory=list)
 
 
 # ---------------------------------------------------------------------------
@@ -129,6 +140,24 @@ _DEFINITIONS: List[SimulatorDefinition] = [
             "Software Test Engineer",
         ],
         launch_factory=_python_launch("run_chatdev_sim.py"),
+        default_workflows=[
+            WorkflowDescriptor(
+                id="build_and_test",
+                name="Build & test",
+                description="Implementation loop: code, review, verify.",
+                agent_ids=["programmer", "code_reviewer", "software_test_engineer"],
+            ),
+            WorkflowDescriptor(
+                id="leadership_review",
+                name="Leadership review",
+                description="Executive alignment on product and architecture.",
+                agent_ids=[
+                    "chief_executive_officer",
+                    "chief_product_officer",
+                    "chief_technology_officer",
+                ],
+            ),
+        ],
     ),
     SimulatorDefinition(
         id="metagpt",
@@ -145,6 +174,20 @@ _DEFINITIONS: List[SimulatorDefinition] = [
             "QA Engineer",
         ],
         launch_factory=_python_launch("run_metagpt_sim.py"),
+        default_workflows=[
+            WorkflowDescriptor(
+                id="planning",
+                name="Planning",
+                description="PRD → system design → task breakdown.",
+                agent_ids=["product_manager", "architect", "project_manager"],
+            ),
+            WorkflowDescriptor(
+                id="delivery",
+                name="Delivery",
+                description="Implementation and QA only.",
+                agent_ids=["engineer", "qa_engineer"],
+            ),
+        ],
     ),
     SimulatorDefinition(
         id="manual-swarm",
@@ -157,6 +200,14 @@ _DEFINITIONS: List[SimulatorDefinition] = [
         launch_factory=_bash_launch(
             "scripts/manual/start_swarm.sh", "scripts/manual/run_swarm.sh"
         ),
+        default_workflows=[
+            WorkflowDescriptor(
+                id="research_pipeline",
+                name="Research pipeline",
+                description="Researcher → Analyst → Writer.",
+                agent_ids=["researcher", "analyst", "writer"],
+            ),
+        ],
     ),
     SimulatorDefinition(
         id="manual-orchestrator",
@@ -169,6 +220,14 @@ _DEFINITIONS: List[SimulatorDefinition] = [
         launch_factory=_bash_launch(
             "scripts/manual/start_orchestrator.sh", "scripts/manual/run_orchestrator.sh"
         ),
+        default_workflows=[
+            WorkflowDescriptor(
+                id="research_pipeline",
+                name="Research pipeline",
+                description="Researcher → Analyst → Writer.",
+                agent_ids=["researcher", "analyst", "writer"],
+            ),
+        ],
     ),
     SimulatorDefinition(
         id="hyperagent",
@@ -179,6 +238,14 @@ _DEFINITIONS: List[SimulatorDefinition] = [
         resolver=HyperAgentResolver(),
         fallback_roles=["planner", "navigator", "editor", "executor"],
         launch_factory=_hyperagent_launch(),
+        default_workflows=[
+            WorkflowDescriptor(
+                id="code_change",
+                name="Code change",
+                description="Navigate the repo, edit, and execute — no planner.",
+                agent_ids=["navigator", "editor", "executor"],
+            ),
+        ],
     ),
 ]
 
@@ -256,9 +323,56 @@ class SimulatorRegistry(SimulatorRegistryInterface):
                 topology=defn.topology,
                 launch=launch,
                 agents=agents,
+                workflows=self._resolve_workflows(defn, sim_path, agents),
             )
 
         return result
+
+    @staticmethod
+    def _resolve_workflows(
+        defn: SimulatorDefinition, sim_path: Path, agents: List[AgentDescriptor]
+    ) -> List[WorkflowDescriptor]:
+        """Predefined workflows for a simulator (SIM-UI-101).
+
+        A ``workflows.json`` in the simulator directory overrides the built-in
+        defaults, so meshes can define their runnable sub-graphs ahead of time:
+
+            [{"id": "research_pipeline", "name": "Research pipeline",
+              "description": "...", "agent_ids": ["researcher", "analyst"]}]
+
+        agent_ids not present in the resolved roster are dropped; a workflow
+        left with no agents (or an unparseable file) is skipped with a warning
+        rather than crashing discovery.
+        """
+        candidates: List[WorkflowDescriptor] = list(defn.default_workflows)
+        wf_file = sim_path / "workflows.json"
+        if wf_file.is_file():
+            try:
+                raw = json.loads(wf_file.read_text(encoding="utf-8"))
+                candidates = [WorkflowDescriptor(**item) for item in raw]
+            except Exception as exc:  # noqa: BLE001 - resilience per SIM-UI-101
+                logger.warning(
+                    "Ignoring malformed workflows.json for '%s' (%s); "
+                    "using built-in workflows.",
+                    defn.id,
+                    exc,
+                )
+
+        roster_ids = {a.agent_id for a in agents}
+        workflows: List[WorkflowDescriptor] = []
+        for wf in candidates:
+            known = [aid for aid in wf.agent_ids if aid in roster_ids]
+            if dropped := set(wf.agent_ids) - roster_ids:
+                logger.warning(
+                    "Workflow '%s' of '%s' references unknown agents %s; dropping them.",
+                    wf.id,
+                    defn.id,
+                    sorted(dropped),
+                )
+            if not known:
+                continue
+            workflows.append(wf.model_copy(update={"agent_ids": known}))
+        return workflows
 
     @staticmethod
     def _resolve_agents(

@@ -4,32 +4,49 @@ import { AgentState } from "../types/api";
 /**
  * Live mesh graph for a single instance (design handoff — Live Run screen).
  *
- * Up to five nodes are placed on a fixed layout (Coordinator/Hub center, the
- * rest around it) and labeled with the instance's agent roster. Nodes are
- * filled by agent state; "hot" edges (both endpoints in scope, one running)
- * animate a flowing dash. Out-of-scope agents (``in_scope === false``) render
- * as a dashed, muted circle labeled OUT, their edges fade, and they are
- * excluded from active/done tallies.
+ * The whole roster is always drawn: the first agent (Coordinator/Hub) sits at
+ * the center and the rest spread evenly on a ring around it, so a dozen-agent
+ * mesh is fully visible. Nodes are filled by agent state; "hot" edges (both
+ * endpoints in scope, one running) animate a flowing dash. Out-of-scope
+ * agents (``in_scope === false``) render as a dashed, muted circle labeled
+ * OUT, their edges fade, and they are excluded from active/done tallies.
  */
 
-// Fixed node positions (viewBox 0 0 500 355): center, top, right, bottom, left.
-const POS: readonly [number, number][] = [
+// Hand-tuned positions for the classic ≤5-agent layout (viewBox 500×355):
+// center, top, right, bottom, left — matches the design prototype exactly.
+const POS5: readonly [number, number][] = [
   [250, 178],
   [250, 55],
   [402, 178],
   [250, 300],
   [98, 178],
 ];
-const EDGES: readonly [number, number][] = [
-  [0, 1],
-  [0, 2],
-  [0, 3],
-  [0, 4],
-  [1, 2],
-  [2, 3],
-  [3, 4],
-  [4, 1],
-];
+
+/** Node positions for n agents: prototype layout up to 5, hub + ring beyond. */
+function layoutPositions(n: number): [number, number][] {
+  if (n <= POS5.length) return POS5.slice(0, n) as [number, number][];
+  const cx = 250;
+  const cy = 215;
+  const radius = 155;
+  const points: [number, number][] = [[cx, cy]];
+  for (let i = 0; i < n - 1; i++) {
+    const angle = -Math.PI / 2 + (i * 2 * Math.PI) / (n - 1);
+    points.push([cx + radius * Math.cos(angle), cy + radius * Math.sin(angle)]);
+  }
+  return points;
+}
+
+/** Spokes from the hub to every satellite, plus a ring between neighbors. */
+function layoutEdges(n: number): [number, number][] {
+  const edges: [number, number][] = [];
+  for (let i = 1; i < n; i++) edges.push([0, i]);
+  if (n > 3) {
+    for (let i = 1; i < n; i++) edges.push([i, i === n - 1 ? 1 : i + 1]);
+  } else if (n === 3) {
+    edges.push([1, 2]);
+  }
+  return edges;
+}
 
 const NODE_FILL: Record<AgentState, string> = {
   [AgentState.NOT_STARTED]: "#1C3454",
@@ -54,15 +71,17 @@ const OUT_STROKE = "#2A3E58";
 const OUT_TEXT = "#4E637E";
 
 export function LiveMesh({ instance }: { instance: InstanceDescriptor }) {
-  // Backend emits agents in roster order; only the first five map onto the layout.
-  const nodes = instance.agents.slice(0, POS.length);
-  const nCount = Math.min(POS.length, nodes.length);
+  // Backend emits agents in roster order; the whole mesh is always drawn.
+  const nodes = instance.agents;
+  const nCount = nodes.length;
+  const POS = layoutPositions(nCount);
+  const EDGES = layoutEdges(nCount);
   const inScope = (i: number) => nodes[i]?.in_scope !== false;
   const stateOf = (i: number) => nodes[i]?.state ?? AgentState.NOT_STARTED;
 
   return (
     <svg
-      viewBox="0 0 500 355"
+      viewBox={nCount <= 5 ? "0 0 500 355" : "0 0 500 445"}
       style={{ width: "100%", maxWidth: 560, height: "auto", display: "block" }}
     >
       {EDGES.map(([ai, bi], k) => {

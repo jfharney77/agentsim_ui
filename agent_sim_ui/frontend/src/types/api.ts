@@ -40,6 +40,14 @@ export interface LaunchSpec {
   env_required: string[];
 }
 
+/** A predefined named subset of a simulator's mesh, runnable via agent_scope. */
+export interface WorkflowDescriptor {
+  id: string;
+  name: string;
+  description: string;
+  agent_ids: string[];
+}
+
 export interface Simulator {
   id: string;
   name: string;
@@ -47,6 +55,7 @@ export interface Simulator {
   topology: string;
   launch: LaunchSpec;
   agents: AgentDescriptor[];
+  workflows: WorkflowDescriptor[];
 }
 
 export interface LaunchRequest {

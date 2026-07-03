@@ -59,6 +59,23 @@ class AgentDescriptor(BaseModel):
     metadata: Dict[str, Any] = Field(default_factory=dict, description="Tooltip metadata")
 
 
+class WorkflowDescriptor(BaseModel):
+    """A predefined named subset of a simulator's mesh (SIM-UI-101).
+
+    Workflows let a large mesh expose curated sub-graphs (e.g. a
+    researcher→analyst→writer pipeline inside a mesh that also holds an
+    escalation agent). Launching a workflow sends its ``agent_ids`` as
+    ``LaunchRequest.agent_scope``; the rest of the mesh renders as OUT.
+    """
+
+    id: str = Field(..., description="Slugified stable id, e.g. 'research_pipeline'")
+    name: str = Field(..., description="Human-readable name, e.g. 'Research pipeline'")
+    description: str = Field("", description="One-line summary for the picker")
+    agent_ids: List[str] = Field(
+        ..., description="Roster agent_ids that are in scope for this workflow"
+    )
+
+
 class LaunchSpec(BaseModel):
     """Everything the launcher (SIM-UI-102) needs to start one instance."""
 
@@ -103,6 +120,10 @@ class Simulator(BaseModel):
     topology: str
     launch: LaunchSpec
     agents: List[AgentDescriptor] = Field(default_factory=list)
+    workflows: List[WorkflowDescriptor] = Field(
+        default_factory=list,
+        description="Predefined agent subsets runnable via agent_scope",
+    )
 
 
 # ---------------------------------------------------------------------------
