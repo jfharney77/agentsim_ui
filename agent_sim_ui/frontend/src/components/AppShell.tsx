@@ -46,13 +46,13 @@ export function AppShell({
       <div className="flex items-center gap-[22px] px-[26px] py-[11px] bg-white border-b border-[#e6ebf1]">
         <div
           onClick={() => navigate("/")}
-          className="flex items-center gap-3 cursor-pointer flex-none"
+          className="flex items-center cursor-pointer flex-none"
         >
-          <img src="/delllogo.png" alt="Dell Technologies" className="h-[22px] w-auto" />
-          <span className="text-[16px] font-bold text-dell">
-            AgentSim
-            <span className="text-[#5b6b7b] font-medium"> Console</span>
-          </span>
+          <img
+            src="/delllogo2.png"
+            alt="Dell Technologies"
+            className="h-[26px] w-auto"
+          />
         </div>
 
         <div className="flex-1 max-w-[560px] flex items-center bg-white border border-[#cdd6e0] rounded-md overflow-hidden">
