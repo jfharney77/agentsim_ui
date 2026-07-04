@@ -54,6 +54,23 @@ const NODE_FILL: Record<AgentState, string> = {
   [AgentState.COMPLETED]: "#18A673",
   [AgentState.ERRORED]: "#E23D3D",
 };
+
+// Lighter center for each state's radial gradient (edge stays the state color).
+const NODE_FILL_LIGHT: Record<AgentState, string> = {
+  [AgentState.NOT_STARTED]: "#33507C",
+  [AgentState.RUNNING]: "#FFC65A",
+  [AgentState.COMPLETED]: "#33C892",
+  [AgentState.ERRORED]: "#F06B6B",
+};
+
+const GRADIENT_ID: Record<AgentState, string> = {
+  [AgentState.NOT_STARTED]: "as-mesh-grad-idle",
+  [AgentState.RUNNING]: "as-mesh-grad-running",
+  [AgentState.COMPLETED]: "as-mesh-grad-done",
+  [AgentState.ERRORED]: "as-mesh-grad-err",
+};
+
+const GLOW_FILTER_ID = "as-mesh-glow-running";
 const NODE_WORD: Record<AgentState, string> = {
   [AgentState.NOT_STARTED]: "IDLE",
   [AgentState.RUNNING]: "RUN",
@@ -84,6 +101,27 @@ export function LiveMesh({ instance }: { instance: InstanceDescriptor }) {
       viewBox={nCount <= 5 ? "0 0 500 355" : "0 0 500 445"}
       style={{ width: "100%", maxWidth: 560, height: "auto", display: "block" }}
     >
+      <defs>
+        {(Object.keys(GRADIENT_ID) as AgentState[]).map((state) => (
+          <radialGradient
+            key={GRADIENT_ID[state]}
+            id={GRADIENT_ID[state]}
+            cx="38%"
+            cy="32%"
+            r="75%"
+          >
+            <stop offset="0%" stopColor={NODE_FILL_LIGHT[state]} />
+            <stop offset="100%" stopColor={NODE_FILL[state]} />
+          </radialGradient>
+        ))}
+        <filter id={GLOW_FILTER_ID} x="-60%" y="-60%" width="220%" height="220%">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur" />
+          <feMerge>
+            <feMergeNode in="blur" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
+      </defs>
       {EDGES.map(([ai, bi], k) => {
         if (ai >= nCount || bi >= nCount) return null;
         const a = POS[ai];
@@ -93,22 +131,47 @@ export function LiveMesh({ instance }: { instance: InstanceDescriptor }) {
           bothIn &&
           (stateOf(ai) === AgentState.RUNNING ||
             stateOf(bi) === AgentState.RUNNING);
+        // Ring edges (satellite→satellite) bow slightly outward via a
+        // quadratic bezier; spokes from the hub stay straight.
+        const isRing = ai !== 0 && bi !== 0;
+        const style = hot
+          ? { animation: "as-edge-flow 0.9s linear infinite", opacity: 0.95 }
+          : { opacity: bothIn ? 0.55 : 0.16 };
+        if (!isRing) {
+          return (
+            <line
+              key={`e${k}`}
+              x1={a[0]}
+              y1={a[1]}
+              x2={b[0]}
+              y2={b[1]}
+              stroke={hot ? HOT_EDGE : COLD_EDGE}
+              strokeWidth={hot ? 2.4 : 1.6}
+              strokeDasharray="6 7"
+              strokeLinecap="round"
+              style={style}
+            />
+          );
+        }
+        const mx = (a[0] + b[0]) / 2;
+        const my = (a[1] + b[1]) / 2;
+        const dx = b[0] - a[0];
+        const dy = b[1] - a[1];
+        const len = Math.hypot(dx, dy) || 1;
+        // Small perpendicular bow, capped so short edges stay subtle.
+        const bow = Math.min(14, len * 0.09);
+        const cx = mx + (dy / len) * bow;
+        const cy = my - (dx / len) * bow;
         return (
-          <line
+          <path
             key={`e${k}`}
-            x1={a[0]}
-            y1={a[1]}
-            x2={b[0]}
-            y2={b[1]}
+            d={`M ${a[0]} ${a[1]} Q ${cx} ${cy} ${b[0]} ${b[1]}`}
+            fill="none"
             stroke={hot ? HOT_EDGE : COLD_EDGE}
             strokeWidth={hot ? 2.4 : 1.6}
             strokeDasharray="6 7"
             strokeLinecap="round"
-            style={
-              hot
-                ? { animation: "as-edge-flow 0.9s linear infinite", opacity: 0.95 }
-                : { opacity: bothIn ? 0.55 : 0.16 }
-            }
+            style={style}
           />
         );
       })}
@@ -137,14 +200,16 @@ export function LiveMesh({ instance }: { instance: InstanceDescriptor }) {
               cx={p[0]}
               cy={p[1]}
               r={28}
-              fill={scoped ? NODE_FILL[state] : OUT_FILL}
+              fill={scoped ? `url(#${GRADIENT_ID[state]})` : OUT_FILL}
               stroke={scoped ? NODE_STROKE : OUT_STROKE}
               strokeWidth={3}
               strokeDasharray={scoped ? undefined : "4 4"}
               style={{
-                filter: scoped
-                  ? "drop-shadow(0 2px 6px rgba(6,16,30,0.35))"
-                  : "none",
+                filter: !scoped
+                  ? "none"
+                  : state === AgentState.RUNNING
+                  ? `url(#${GLOW_FILTER_ID})`
+                  : "drop-shadow(0 2px 6px rgba(6,16,30,0.35))",
               }}
             />
             <text
@@ -152,7 +217,7 @@ export function LiveMesh({ instance }: { instance: InstanceDescriptor }) {
               y={p[1] + 4}
               textAnchor="middle"
               style={{
-                font: "600 10.5px 'Hanken Grotesk',sans-serif",
+                font: "600 10.5px Roboto,sans-serif",
                 fill: !scoped
                   ? OUT_TEXT
                   : state === AgentState.NOT_STARTED
@@ -167,7 +232,7 @@ export function LiveMesh({ instance }: { instance: InstanceDescriptor }) {
               y={p[1] + 47}
               textAnchor="middle"
               style={{
-                font: "600 12px 'Hanken Grotesk',sans-serif",
+                font: "600 12px Roboto,sans-serif",
                 fill: scoped ? LABEL_FILL : OUT_TEXT,
               }}
             >

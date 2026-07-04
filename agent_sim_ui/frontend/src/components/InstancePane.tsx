@@ -46,8 +46,13 @@ export function InstancePane({ instance }: InstancePaneProps) {
 
   const shortId = instance.instance_id.slice(0, 8);
 
+  const totalAgents = instance.agents.length;
+  const completedAgents = instance.agents.filter((a) => a.state === "completed").length;
+  const hasErrored = instance.agents.some((a) => a.state === "errored");
+  const progressPct = totalAgents > 0 ? (completedAgents / totalAgents) * 100 : 0;
+
   return (
-    <div className="bg-white rounded-xl p-6 shadow-light-card border border-[#e2e8f0]">
+    <div className="bg-white rounded-xl p-6 shadow-light-card border border-[#e2e8f0] transition-all hover:shadow-[0_4px_14px_rgba(0,118,206,.12)] hover:border-[#cdd6e0]">
       <div className="flex items-center justify-between mb-4">
         <div>
           <h3 className="font-semibold text-lg text-[#12212F]">
@@ -64,6 +69,15 @@ export function InstancePane({ instance }: InstancePaneProps) {
         >
           {instance.status}
         </span>
+      </div>
+
+      <div className="h-1 rounded-full bg-[#EEF2F7] mb-4">
+        <div
+          className={`h-1 rounded-full transition-all duration-500 ${
+            hasErrored ? "bg-[#E23D3D]" : "bg-[#18A673]"
+          }`}
+          style={{ width: `${progressPct}%` }}
+        />
       </div>
 
       <div className="flex flex-wrap gap-3 justify-center mb-4">

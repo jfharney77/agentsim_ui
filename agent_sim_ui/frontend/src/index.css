@@ -53,3 +53,61 @@ body {
 .animate-as-blink {
   animation: as-blink 1.4s ease-in-out infinite;
 }
+
+/* --- Global graphics polish --- */
+
+/* Page entrance: fade + rise */
+@keyframes as-page-fade {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.page-fade {
+  animation: as-page-fade 240ms ease-out both;
+}
+
+/* Respect reduced-motion preferences for all animations/transitions */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* App-wide webkit scrollbars */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #c3cedb;
+  border-radius: 9999px;
+}
+.dark-scroll::-webkit-scrollbar-thumb {
+  background-color: #2a3e58;
+}
+
+/* Visible keyboard focus */
+:focus-visible {
+  outline: 2px solid #0076ce;
+  outline-offset: 2px;
+}
+
+/* Nicer text wrapping for prose */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: pretty;
+}

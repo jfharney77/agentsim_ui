@@ -1,6 +1,20 @@
 import { InstanceStatus, AgentState } from "../types/api";
 import { AGENT_STATE_LABELS } from "../lib/constants";
 
+const AGENT_STATE_ORDER: AgentState[] = [
+  AgentState.NOT_STARTED,
+  AgentState.RUNNING,
+  AgentState.COMPLETED,
+  AgentState.ERRORED,
+];
+
+const AGENT_STATE_BAR_COLORS: Record<AgentState, string> = {
+  [AgentState.NOT_STARTED]: "#E3E9F1",
+  [AgentState.RUNNING]: "#F2A81E",
+  [AgentState.COMPLETED]: "#18A673",
+  [AgentState.ERRORED]: "#E23D3D",
+};
+
 interface AggregateStatsProps {
   instances: Array<{ status: InstanceStatus; agents: Array<{ state: AgentState }> }>;
 }
@@ -41,6 +55,24 @@ export function AggregateStats({ instances }: AggregateStatsProps) {
         <h4 className="text-[13px] font-bold text-[#12212F] mb-2">
           Agent states ({totalAgents} total)
         </h4>
+        {totalAgents > 0 && (
+          <div className="flex h-[10px] w-full overflow-hidden rounded-full mb-2">
+            {AGENT_STATE_ORDER.map((state) => {
+              const count = byAgentState[state] || 0;
+              if (count === 0) return null;
+              return (
+                <div
+                  key={state}
+                  className="h-full transition-all duration-500"
+                  style={{
+                    width: `${(count / totalAgents) * 100}%`,
+                    backgroundColor: AGENT_STATE_BAR_COLORS[state],
+                  }}
+                />
+              );
+            })}
+          </div>
+        )}
         <div className="flex flex-wrap gap-x-5 gap-y-1">
           {Object.entries(byAgentState).map(([state, count]) => (
             <span key={state} className="text-xs text-[#62707E]">

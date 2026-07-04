@@ -1,5 +1,5 @@
+import type { CSSProperties } from "react";
 import { InstanceStatus } from "../types/api";
-import { AGENT_STATE_COLORS } from "../lib/constants";
 
 interface CompactInstanceCellProps {
   index: number;
@@ -8,33 +8,44 @@ interface CompactInstanceCellProps {
   onClick: () => void;
 }
 
-const STATUS_COLORS: Record<InstanceStatus, string> = {
-  pending: "#e5e7eb", // gray-200
-  running: "#fef08a", // yellow-200
-  completed: "#bbf7d0", // green-200
-  failed: "#fecaca", // red-200
-  cancelled: "#d1d5db", // gray-300
+type DominantState = "errored" | "running" | "completed" | "idle";
+
+const CELL_COLORS: Record<DominantState, string> = {
+  errored: "#E23D3D",
+  running: "#F2A81E",
+  completed: "#18A673",
+  idle: "#E3E9F1",
 };
 
 export function CompactInstanceCell({ index, status, agentStates, onClick }: CompactInstanceCellProps) {
-  const dominantState = Object.values(agentStates).reduce((acc, state) => {
+  const dominantState: DominantState = Object.values(agentStates).reduce<DominantState>((acc, state) => {
     if (state === "errored") return "errored";
     if (state === "running" && acc !== "errored") return "running";
     if (state === "completed" && acc !== "errored" && acc !== "running") return "completed";
     return acc;
-  }, "not_started");
+  }, "idle");
 
-  const bgColor = dominantState !== "not_started" ? AGENT_STATE_COLORS[dominantState as keyof typeof AGENT_STATE_COLORS] : STATUS_COLORS[status];
+  const style: CSSProperties = {
+    backgroundColor: CELL_COLORS[dominantState],
+    borderRadius: 5,
+    border: dominantState === "idle" ? "1px solid #d7e2ee" : "1px solid transparent",
+    transition: "background-color 0.3s ease, box-shadow 0.3s ease",
+  };
+
+  if (dominantState === "running") {
+    style.animation = "as-cell-pulse 1.3s ease-in-out infinite";
+    style.boxShadow = "0 0 8px rgba(242, 168, 30, 0.45)";
+  } else if (dominantState === "errored") {
+    style.boxShadow = "0 0 8px rgba(226, 61, 61, 0.45)";
+  }
 
   return (
     <button
       type="button"
       onClick={onClick}
-      className="w-12 h-12 rounded border border-gray-300 hover:border-blue-500 transition-colors relative"
-      style={{ backgroundColor: bgColor }}
+      className="w-12 h-12"
+      style={style}
       title={`Instance #${index + 1} - ${status}`}
-    >
-      <span className="text-xs font-medium text-gray-700">{index + 1}</span>
-    </button>
+    />
   );
 }

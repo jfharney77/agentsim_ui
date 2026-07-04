@@ -88,8 +88,12 @@ export function LandingPage() {
   return (
     <AppShell>
       {/* Dark hero */}
-      <div className="px-[26px] pt-[58px] pb-[54px]">
-        <div className="max-w-[1060px] mx-auto">
+      <div className="relative px-[26px] pt-[58px] pb-[54px]">
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 pointer-events-none [background:radial-gradient(600px_300px_at_50%_30%,rgba(0,118,206,.18),transparent_70%)]"
+        />
+        <div className="relative max-w-[1060px] mx-auto">
           <div className="text-center mb-11">
             <h1 className="text-[46px] leading-[1.15] font-light mb-4">
               Watch agents think, at any scale.
@@ -102,7 +106,7 @@ export function LandingPage() {
 
             {/* Ask box */}
             <div className="max-w-[780px] mx-auto text-left">
-              <div className="bg-white rounded-[18px] px-5 pt-[18px] pb-[14px] shadow-ask">
+              <div className="bg-white rounded-[18px] px-5 pt-[18px] pb-[14px] shadow-ask transition-shadow focus-within:shadow-[0_14px_44px_rgba(0,0,0,.38),0_0_0_2px_rgba(0,118,206,.35)]">
                 <div className="flex items-start gap-[11px] min-h-[64px]">
                   <Sparkles className="w-[18px] h-[18px] mt-0.5 text-[#7b5cf0] flex-none" />
                   <input
@@ -124,7 +128,7 @@ export function LandingPage() {
                     <button
                       type="button"
                       onClick={submitTask}
-                      className="w-[38px] h-[38px] rounded-full border-none text-white flex items-center justify-center cursor-pointer bg-[linear-gradient(135deg,#5b8def,#a86ad6,#e59ac0)]"
+                      className="w-[38px] h-[38px] rounded-full border-none text-white flex items-center justify-center cursor-pointer bg-[linear-gradient(135deg,#5b8def,#a86ad6,#e59ac0)] transition-transform hover:scale-105"
                     >
                       <ArrowRight className="w-[18px] h-[18px]" />
                     </button>
@@ -139,7 +143,7 @@ export function LandingPage() {
                     key={pill.label}
                     type="button"
                     onClick={() => navigate(pill.to)}
-                    className="text-white text-[13px] font-semibold px-5 py-[11px] rounded-full cursor-pointer border-[1.6px] border-transparent [background:linear-gradient(#0A1727,#0A1727)_padding-box,linear-gradient(95deg,#2E93E6,#a24fd0)_border-box]"
+                    className="text-white text-[13px] font-semibold px-5 py-[11px] rounded-full cursor-pointer border-[1.6px] border-transparent [background:linear-gradient(#0A1727,#0A1727)_padding-box,linear-gradient(95deg,#2E93E6,#a24fd0)_border-box] transition-[filter] hover:brightness-110"
                   >
                     {pill.label}
                   </button>
