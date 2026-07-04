@@ -64,19 +64,19 @@ export function AppShell({
           />
           <button
             type="button"
-            className="border-none bg-[#f3f6fa] border-l border-[#e2e8f0] px-3 h-[34px] cursor-pointer flex items-center"
+            className="border-none bg-[#f3f6fa] border-l border-[#e2e8f0] px-3 h-[34px] cursor-pointer flex items-center hover:bg-[#e9eef5] transition-colors"
           >
             <Search className="w-4 h-4 text-dell" strokeWidth={2} />
           </button>
         </div>
 
         <div className="flex items-center gap-5 flex-none text-[13px] font-medium text-[#3d4a57]">
-          <span className="hidden sm:flex items-center gap-1.5 cursor-pointer">
+          <span className="hidden sm:flex items-center gap-1.5 cursor-pointer hover:text-dell transition-colors">
             <Globe className="w-[15px] h-[15px]" strokeWidth={1.7} />
             US/EN ▾
           </span>
-          <span className="hidden sm:inline cursor-pointer">Docs</span>
-          <span className="flex items-center gap-1.5 cursor-pointer">
+          <span className="hidden sm:inline cursor-pointer hover:text-dell transition-colors">Docs</span>
+          <span className="flex items-center gap-1.5 cursor-pointer hover:text-dell transition-colors">
             <User className="w-[15px] h-[15px]" strokeWidth={1.7} />
             Sign in ▾
           </span>
@@ -89,7 +89,13 @@ export function AppShell({
           onClick={() => navigate("/")}
           className="flex items-center gap-[13px] cursor-pointer transition-opacity hover:opacity-85"
         >
-          <div className="w-[34px] h-[34px] rounded-full border-2 border-dell bg-dell/[.14] flex items-center justify-center">
+          <div className="relative w-[34px] h-[34px] rounded-full border-2 border-dell bg-dell/[.14] flex items-center justify-center">
+            {running && (
+              <span
+                className="absolute inset-0 rounded-full border-2 border-dell"
+                style={{ animation: "as-ping 1.6s ease-out infinite" }}
+              />
+            )}
             <div className="w-2.5 h-2.5 rounded-full bg-dell" />
           </div>
           <div className="text-[15px] font-bold leading-none">AgentSim</div>

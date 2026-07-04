@@ -91,11 +91,11 @@ export function ContextViewer({ instanceId, agentId, agentName, onClose }: Conte
 
   return (
     <div
-      className="fixed inset-0 flex items-center justify-center z-50 p-4"
+      className="page-fade fixed inset-0 flex items-center justify-center z-50 p-4"
       style={{ background: "rgba(6,16,30,.74)" }}
     >
       <div
-        className="rounded-[13px] border border-white/10 shadow-xl w-full max-w-4xl max-h-[80vh] flex flex-col overflow-hidden"
+        className="rounded-[13px] border border-white/10 shadow-[0_30px_70px_rgba(0,0,0,.5)] w-full max-w-4xl max-h-[80vh] flex flex-col overflow-hidden"
         style={{ background: "#10233C" }}
       >
         <div style={{ height: 3, background: "#0076CE", flexShrink: 0 }} />
@@ -136,15 +136,26 @@ export function ContextViewer({ instanceId, agentId, agentName, onClose }: Conte
 
               <div className="space-y-3">
                 {context.messages.map((msg: any, i: number) => (
-                  <div key={i} className="flex flex-col gap-1">
-                    <span
-                      className="text-[12px] font-semibold lowercase"
-                      style={{ color: roleColor(messageRole(msg)) }}
-                    >
-                      {messageRole(msg).toLowerCase()}
-                    </span>
+                  <div
+                    key={i}
+                    className="flex flex-col gap-1 rounded-lg px-2 py-1.5 hover:bg-white/[.04] transition-colors"
+                  >
+                    <div className="flex items-baseline justify-between gap-2">
+                      <span
+                        className="text-[12px] font-semibold lowercase"
+                        style={{ color: roleColor(messageRole(msg)) }}
+                      >
+                        {messageRole(msg).toLowerCase()}
+                      </span>
+                      <span
+                        className="text-[10px] tabular-nums text-right shrink-0"
+                        style={{ color: "#6a7d92" }}
+                      >
+                        {messageText(msg).length.toLocaleString()} ch
+                      </span>
+                    </div>
                     {typeof msg?.content === "string" ? (
-                      <p className="text-[12px] whitespace-pre-wrap" style={{ color: "#93a6ba" }}>
+                      <p className="text-[12px] whitespace-pre-wrap line-clamp-2" style={{ color: "#93a6ba" }}>
                         {messageText(msg)}
                       </p>
                     ) : (

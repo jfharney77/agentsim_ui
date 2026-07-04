@@ -69,6 +69,16 @@ function statusColor(status: string) {
   return map[status] || "text-[#8AA0B8]";
 }
 
+// Hex for the small state dot preceding each status word.
+function statusDotHex(status: string) {
+  const map: Record<string, string> = {
+    running: "#F2A81E",
+    done: "#18A673",
+    error: "#E23D3D",
+  };
+  return map[status] || "#8AA0B8";
+}
+
 export function LandingPage() {
   const navigate = useNavigate();
   const [task, setTask] = useState("");
@@ -210,16 +220,22 @@ export function LandingPage() {
                       <span className="text-[12px] font-medium text-dell">
                         {run.id}
                       </span>
-                      <span className="text-[12px] font-medium text-[#4A5765]">
+                      <span className="text-[12px] font-medium text-[#4A5765] tabular-nums">
                         {run.sim} · {run.n}×
                       </span>
                       <span className="text-[11px] text-[#8593A1]">
                         {run.ago}
                       </span>
-                      <span
-                        className={`text-[11px] font-semibold ${statusColor(run.status)}`}
-                      >
-                        {run.status}
+                      <span className="flex items-center gap-1.5">
+                        <span
+                          className={`w-2 h-2 rounded-full ${run.status === "running" ? "animate-as-blink" : ""}`}
+                          style={{ background: statusDotHex(run.status) }}
+                        />
+                        <span
+                          className={`text-[11px] font-semibold ${statusColor(run.status)}`}
+                        >
+                          {run.status}
+                        </span>
                       </span>
                     </div>
                   ))}

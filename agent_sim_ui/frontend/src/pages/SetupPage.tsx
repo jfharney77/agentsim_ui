@@ -152,12 +152,19 @@ export function SetupPage() {
                     onClick={() => setSelectedId(sim.id)}
                     className={`text-left rounded-xl p-3.5 cursor-pointer transition-all duration-200 hover:-translate-y-0.5 ${
                       active
-                        ? "bg-[#EAF3FB] border-[1.5px] border-dell shadow-[0_4px_14px_rgba(0,118,206,.16)]"
+                        ? "bg-[#EAF3FB] border-[1.5px] border-dell ring-1 ring-dell/20 shadow-[0_4px_14px_rgba(0,118,206,.16)]"
                         : "bg-white border-[1.5px] border-[#e2e8f0] hover:border-[#cdd6e0] hover:shadow-[0_6px_18px_rgba(16,32,48,.08)]"
                     }`}
                   >
-                    <div className="text-[15px] font-bold text-[#12212F] mb-1">
-                      {sim.name}
+                    <div className="flex items-baseline justify-between gap-2 mb-1">
+                      <span className="text-[15px] font-bold text-[#12212F]">
+                        {sim.name}
+                      </span>
+                      {active && (
+                        <span className="page-fade text-dell text-[14px] font-bold">
+                          ✓
+                        </span>
+                      )}
                     </div>
                     <div className="text-[11px] text-[#62707E] mb-2.5">
                       {sim.topology} · {sim.agents.length} agents
@@ -222,7 +229,7 @@ export function SetupPage() {
                     onClick={() => setWorkflowId(wf.id)}
                     className={`text-left rounded-xl p-3.5 cursor-pointer transition-all duration-200 hover:-translate-y-0.5 ${
                       active
-                        ? "bg-[#EAF3FB] border-[1.5px] border-dell shadow-[0_4px_14px_rgba(0,118,206,.16)]"
+                        ? "bg-[#EAF3FB] border-[1.5px] border-dell ring-1 ring-dell/20 shadow-[0_4px_14px_rgba(0,118,206,.16)]"
                         : "bg-white border-[1.5px] border-[#e2e8f0] hover:border-[#cdd6e0] hover:shadow-[0_6px_18px_rgba(16,32,48,.08)]"
                     }`}
                   >
@@ -230,8 +237,15 @@ export function SetupPage() {
                       <span className="text-[14px] font-bold text-[#12212F]">
                         {wf.name}
                       </span>
-                      <span className="text-[11px] text-dell">
-                        {count} of {roster.length}
+                      <span className="flex items-baseline gap-1.5">
+                        {active && (
+                          <span className="page-fade text-dell text-[14px] font-bold">
+                            ✓
+                          </span>
+                        )}
+                        <span className="text-[11px] text-dell">
+                          {count} of {roster.length}
+                        </span>
                       </span>
                     </div>
                     <div className="text-[11.5px] leading-[1.5] text-[#8593A1]">

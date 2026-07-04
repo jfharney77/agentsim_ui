@@ -3,11 +3,13 @@ import { Eye } from "lucide-react";
 import type { AgentRuntimeState } from "../types/api";
 import { AGENT_STATE_COLORS, AGENT_STATE_LABELS } from "../lib/constants";
 
-const LABEL_COLORS: Partial<Record<AgentRuntimeState["state"], string>> = {
-  errored: "#E23D3D",
-  completed: "#18A673",
-  running: "#B27400",
-  // not_started (idle) stays muted — inherits the default label color
+// Label sits ON the state-colored fill, so it must contrast with it:
+// white on the saturated fills, muted slate on the light idle fill.
+const LABEL_COLORS: Record<AgentRuntimeState["state"], string> = {
+  errored: "#ffffff",
+  completed: "#ffffff",
+  running: "#ffffff",
+  not_started: "#62707E",
 };
 
 interface AgentCircleProps {

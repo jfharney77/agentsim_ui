@@ -71,6 +71,8 @@ const GRADIENT_ID: Record<AgentState, string> = {
 };
 
 const GLOW_FILTER_ID = "as-mesh-glow-running";
+const HOT_EDGE_GRADIENT_ID = "as-mesh-grad-hot-edge";
+const HOT_ARROW_ID = "as-mesh-arrow-hot";
 const NODE_WORD: Record<AgentState, string> = {
   [AgentState.NOT_STARTED]: "IDLE",
   [AgentState.RUNNING]: "RUN",
@@ -79,7 +81,6 @@ const NODE_WORD: Record<AgentState, string> = {
 };
 
 const COLD_EDGE = "#33475F";
-const HOT_EDGE = "#3B9BEA";
 const NODE_STROKE = "#0A1727";
 const IDLE_TEXT = "#8AA0B8";
 const LABEL_FILL = "#C6D4E4";
@@ -121,6 +122,31 @@ export function LiveMesh({ instance }: { instance: InstanceDescriptor }) {
             <feMergeNode in="SourceGraphic" />
           </feMerge>
         </filter>
+        {/* userSpaceOnUse: objectBoundingBox gradients vanish on perfectly
+            vertical/horizontal <line>s (zero-area bbox). */}
+        <linearGradient
+          id={HOT_EDGE_GRADIENT_ID}
+          gradientUnits="userSpaceOnUse"
+          x1={0}
+          y1={0}
+          x2={500}
+          y2={0}
+        >
+          <stop offset="0%" stopColor="#3B9BEA" />
+          <stop offset="100%" stopColor="#7fb8e8" />
+        </linearGradient>
+        <marker
+          id={HOT_ARROW_ID}
+          markerWidth={6}
+          markerHeight={6}
+          viewBox="0 0 6 6"
+          refX={5}
+          refY={3}
+          orient="auto"
+          markerUnits="userSpaceOnUse"
+        >
+          <path d="M 0 0 L 6 3 L 0 6 Z" fill="#3B9BEA" />
+        </marker>
       </defs>
       {EDGES.map(([ai, bi], k) => {
         if (ai >= nCount || bi >= nCount) return null;
@@ -150,10 +176,11 @@ export function LiveMesh({ instance }: { instance: InstanceDescriptor }) {
               y1={a[1]}
               x2={b[0]}
               y2={b[1]}
-              stroke={hot ? HOT_EDGE : COLD_EDGE}
+              stroke={hot ? `url(#${HOT_EDGE_GRADIENT_ID})` : COLD_EDGE}
               strokeWidth={hot ? 2.4 : 1.6}
               strokeDasharray="6 7"
               strokeLinecap="round"
+              markerEnd={hot ? `url(#${HOT_ARROW_ID})` : undefined}
               style={style}
             />
           );
@@ -172,10 +199,11 @@ export function LiveMesh({ instance }: { instance: InstanceDescriptor }) {
             key={`e${k}`}
             d={`M ${a[0]} ${a[1]} Q ${cx} ${cy} ${b[0]} ${b[1]}`}
             fill="none"
-            stroke={hot ? HOT_EDGE : COLD_EDGE}
+            stroke={hot ? `url(#${HOT_EDGE_GRADIENT_ID})` : COLD_EDGE}
             strokeWidth={hot ? 2.4 : 1.6}
             strokeDasharray="6 7"
             strokeLinecap="round"
+            markerEnd={hot ? `url(#${HOT_ARROW_ID})` : undefined}
             style={style}
           />
         );

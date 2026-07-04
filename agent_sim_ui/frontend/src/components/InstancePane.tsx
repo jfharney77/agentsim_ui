@@ -80,7 +80,11 @@ export function InstancePane({ instance }: InstancePaneProps) {
         />
       </div>
 
-      <div className="flex flex-wrap gap-3 justify-center mb-4">
+      <div
+        className={`flex flex-wrap gap-3 justify-center mb-4 transition-opacity ${
+          instance.status === "pending" ? "opacity-60" : ""
+        }`}
+      >
         {instance.agents.map((agent) => (
           <AgentCircle
             key={agent.agent_id}
@@ -89,6 +93,16 @@ export function InstancePane({ instance }: InstancePaneProps) {
           />
         ))}
       </div>
+
+      {logLoading && (
+        <div className="mb-2">
+          <div className="skeleton h-3 rounded w-full mb-2" />
+          <div className="skeleton h-3 rounded w-5/6 mb-2" />
+          <div className="skeleton h-3 rounded w-2/3" />
+        </div>
+      )}
+
+      {logError && <p className="text-[12px] text-[#E23D3D] mb-2">{logError}</p>}
 
       <button
         type="button"

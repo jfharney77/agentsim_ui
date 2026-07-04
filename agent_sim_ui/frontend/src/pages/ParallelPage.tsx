@@ -301,9 +301,30 @@ export function ParallelPage() {
               </div>
             ) : (
               <div className="mt-6 bg-white border border-[#e2e8f0] rounded-xl p-5 shadow-light-card">
-                <h3 className="font-semibold text-[#12212F] mb-3">
-                  Instances ({instances.length})
-                </h3>
+                <div className="flex justify-between items-center mb-3">
+                  <h3 className="font-semibold text-[#12212F]">
+                    Instances (<span className="tabular-nums">{instances.length}</span>)
+                  </h3>
+                  <div className="flex items-center gap-4">
+                    {[
+                      { label: "Running", color: "#F2A81E" },
+                      { label: "Completed", color: "#18A673" },
+                      { label: "Errored", color: "#E23D3D" },
+                      { label: "Idle", color: "#E3E9F1" },
+                    ].map(({ label, color }) => (
+                      <span key={label} className="flex items-center gap-1.5">
+                        <span
+                          className="inline-block w-[11px] h-[11px] rounded-[3px]"
+                          style={{
+                            backgroundColor: color,
+                            border: label === "Idle" ? "1px solid #d7e2ee" : undefined,
+                          }}
+                        />
+                        <span className="text-[12px] text-[#62707E]">{label}</span>
+                      </span>
+                    ))}
+                  </div>
+                </div>
                 <div className="grid grid-cols-10 sm:grid-cols-15 md:grid-cols-20 lg:grid-cols-25 gap-1.5">
                   {instances.map((instance) => {
                     const agentStates = instance.agents.reduce((acc, agent) => {

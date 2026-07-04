@@ -9,6 +9,13 @@ interface LogViewerProps {
   onClose: () => void;
 }
 
+function formatTime(ts: string): string {
+  const d = new Date(ts);
+  if (Number.isNaN(d.getTime())) return ts;
+  const pad = (n: number) => String(n).padStart(2, "0");
+  return `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+}
+
 function lineColor(message: string): string {
   if (/\bERROR\b|\bCRITICAL\b|\bFATAL\b/i.test(message)) return "#f26060";
   if (/\bWARN(ING)?\b/i.test(message)) return "#F2A81E";
@@ -67,12 +74,18 @@ export function LogViewer({ log, loading, error, onClose }: LogViewerProps) {
               {log.lines.map((line, i) => (
                 <div
                   key={i}
-                  className="px-2 py-0.5 rounded hover:bg-white/[.04] transition-colors"
-                  style={{ color: lineColor(line.message) }}
+                  className="grid grid-cols-[86px_1fr] gap-2 items-baseline px-2 py-0.5 rounded hover:bg-white/[.04] transition-colors"
                 >
-                  <span style={{ color: "#6a7d92" }}>[{line.ts}]</span>
-                  {line.agent_id && <span className="ml-2">[{line.agent_id}]</span>}
-                  <span className="ml-2">{line.message}</span>
+                  <span
+                    className="tabular-nums whitespace-nowrap"
+                    style={{ fontSize: 11, color: "#6a7d92" }}
+                  >
+                    {formatTime(line.ts)}
+                  </span>
+                  <span className="break-words" style={{ color: lineColor(line.message) }}>
+                    {line.agent_id && <span className="mr-2">[{line.agent_id}]</span>}
+                    {line.message}
+                  </span>
                 </div>
               ))}
             </div>

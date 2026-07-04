@@ -237,9 +237,15 @@ export function RunView() {
           );
         })()}
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {instances.map((instance) => (
-            <InstancePane key={instance.instance_id} instance={instance} />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 items-start">
+          {instances.map((instance, index) => (
+            <div
+              key={instance.instance_id}
+              className="page-fade"
+              style={{ animationDelay: `${Math.min(index * 60, 480)}ms` }}
+            >
+              <InstancePane instance={instance} />
+            </div>
           ))}
         </div>
       </div>
