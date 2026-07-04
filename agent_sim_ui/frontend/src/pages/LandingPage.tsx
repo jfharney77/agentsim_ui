@@ -153,7 +153,7 @@ export function LandingPage() {
                     key={pill.label}
                     type="button"
                     onClick={() => navigate(pill.to)}
-                    className="whitespace-nowrap text-white text-[13px] font-semibold px-5 py-[11px] rounded-full cursor-pointer border-[1.6px] border-transparent [background:linear-gradient(#0A1727,#0A1727)_padding-box,linear-gradient(95deg,#2E93E6,#a24fd0)_border-box] transition-[filter] hover:brightness-110"
+                    className="whitespace-nowrap text-white text-[13px] font-semibold px-5 py-[11px] rounded-full cursor-pointer border-[1.6px] border-transparent [background:linear-gradient(#0A1727,#0A1727)_padding-box,linear-gradient(95deg,#2E93E6,#a24fd0)_border-box] transition-[filter,transform] hover:brightness-110 active:scale-[.98]"
                   >
                     {pill.label}
                   </button>
@@ -189,7 +189,7 @@ export function LandingPage() {
                       key={card.title}
                       type="button"
                       onClick={() => navigate(card.to)}
-                      className="group text-left bg-white border border-[#e2e8f0] rounded-xl p-[18px] cursor-pointer transition-all duration-200 hover:border-dell hover:-translate-y-0.5 hover:shadow-[0_6px_18px_rgba(16,32,48,.08)]"
+                      className="group text-left bg-white border border-[#e2e8f0] rounded-xl p-[18px] cursor-pointer transition-all duration-200 active:scale-[.99] hover:border-dell hover:-translate-y-0.5 hover:shadow-[0_6px_18px_rgba(16,32,48,.08)]"
                     >
                       <div className="text-dell mb-3 transition-transform group-hover:scale-110">{card.glyph}</div>
                       <div className="text-[15px] font-bold text-[#12212F] mb-1.5">
@@ -252,9 +252,9 @@ export function LandingPage() {
                     key={link.label}
                     type="button"
                     onClick={() => link.to && navigate(link.to)}
-                    className={`flex items-center gap-[11px] w-full text-left rounded-lg px-3.5 py-3 cursor-pointer mb-[9px] transition-all hover:border-dell hover:translate-x-0.5 ${
+                    className={`flex items-center gap-[11px] w-full text-left rounded-lg px-3.5 py-3 cursor-pointer mb-[9px] transition-all active:scale-[.99] focus-visible:ring-2 focus-visible:ring-dell/40 hover:border-dell hover:translate-x-0.5 ${
                       link.highlight
-                        ? "bg-[#EAF3FB] border border-[#cfe4f5]"
+                        ? "bg-[#EAF3FB] border border-[#cfe4f5] hover:bg-[#DDEEFB]"
                         : "bg-white border border-[#d7e2ee]"
                     }`}
                   >

@@ -1,5 +1,5 @@
-import { useEffect, useRef } from "react";
-import { X } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { Check, Copy, X } from "lucide-react";
 import type { RunLog } from "../types/api";
 
 interface LogViewerProps {
@@ -25,11 +25,29 @@ function lineColor(message: string): string {
 
 export function LogViewer({ log, loading, error, onClose }: LogViewerProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [copied, setCopied] = useState(false);
+  const copyTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     const el = scrollRef.current;
     if (el) el.scrollTop = el.scrollHeight;
   }, [log]);
+
+  useEffect(() => {
+    return () => {
+      if (copyTimerRef.current) clearTimeout(copyTimerRef.current);
+    };
+  }, []);
+
+  const handleCopy = () => {
+    if (!log) return;
+    const text = log.lines.map((line) => line.message).join("\n");
+    navigator.clipboard.writeText(text).then(() => {
+      setCopied(true);
+      if (copyTimerRef.current) clearTimeout(copyTimerRef.current);
+      copyTimerRef.current = setTimeout(() => setCopied(false), 1500);
+    });
+  };
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
@@ -44,14 +62,28 @@ export function LogViewer({ log, loading, error, onClose }: LogViewerProps) {
           <span className="font-bold" style={{ fontSize: 13, color: "#E9EFF6" }}>
             Log
           </span>
-          <button
-            type="button"
-            onClick={onClose}
+          <div className="flex items-center gap-1">
+            <button
+              type="button"
+              onClick={handleCopy}
+              title="Copy log"
+              className="text-[#8AA0B8] hover:text-[#E9EFF6] transition-colors p-1 rounded"
+            >
+              {copied ? (
+                <Check className="w-3.5 h-3.5" style={{ color: "#37c592" }} />
+              ) : (
+                <Copy className="w-3.5 h-3.5" />
+              )}
+            </button>
+            <button
+              type="button"
+              onClick={onClose}
             className="p-1 rounded hover:bg-white/10"
-            style={{ color: "#8AA0B8" }}
-          >
-            <X className="w-4 h-4" />
-          </button>
+              style={{ color: "#8AA0B8" }}
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
         </div>
 
         <div ref={scrollRef} className="dark-scroll flex-1 max-h-[70vh] overflow-auto p-4">

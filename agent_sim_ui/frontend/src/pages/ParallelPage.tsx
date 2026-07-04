@@ -327,7 +327,7 @@ export function ParallelPage() {
                 </div>
                 <div
                   className="grid gap-1.5"
-                  style={{ gridTemplateColumns: "repeat(auto-fill, minmax(22px, 1fr))" }}
+                  style={{ gridTemplateColumns: "repeat(auto-fill, minmax(22px, 30px))", justifyContent: "start" }}
                 >
                   {instances.map((instance) => {
                     const agentStates = instance.agents.reduce((acc, agent) => {

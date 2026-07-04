@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Loader2, Play } from "lucide-react";
+import { AlertCircle, Loader2, Play } from "lucide-react";
 import { api } from "../lib/api";
 import type { Simulator } from "../types/api";
 import { AppShell } from "../components/AppShell";
@@ -343,7 +343,10 @@ export function SetupPage() {
           />
 
           {error && (
-            <div className="text-[13px] text-state-errored mb-4">{error}</div>
+            <div className="flex items-start gap-2 p-3 rounded-lg bg-[#FDEDEF] border border-[#f3c2c9] text-state-errored text-[13px] mb-4 page-fade">
+              <AlertCircle className="w-4 h-4 shrink-0 mt-px" />
+              <span>{error}</span>
+            </div>
           )}
 
           {/* Launch */}

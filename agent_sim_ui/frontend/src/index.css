@@ -13,6 +13,9 @@
 body {
   margin: 0;
   min-height: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 /* --- AgentSim Console design-system animations (see design handoff) --- */
@@ -170,4 +173,16 @@ button {
 /* Tabular numerals for aligned digits */
 .num {
   font-variant-numeric: tabular-nums;
+}
+
+/* SVG labels are not selectable text */
+svg text {
+  user-select: none;
+}
+
+/* Consistent placeholder color */
+input::placeholder,
+textarea::placeholder {
+  color: #9aa7b4;
+  opacity: 1;
 }

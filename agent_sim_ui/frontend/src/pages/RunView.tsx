@@ -15,11 +15,20 @@ export function RunView() {
   const [error, setError] = useState<string | null>(null);
   const [cancelling, setCancelling] = useState(false);
   const [usePolling, setUsePolling] = useState(false);
+  const [elapsedSec, setElapsedSec] = useState(0);
   const pollIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const lastUpdateRef = useRef<Map<string, number>>(new Map());
   const timersRef = useRef<Map<string, number>>(new Map());
   const pendingRef = useRef<Map<string, StateChangeEvent>>(new Map());
   const MIN_STATE_VISIBLE_MS = parseInt(import.meta.env.VITE_MIN_STATE_VISIBLE_MS || "1500", 10);
+
+  useEffect(() => {
+    const timer = setInterval(() => setElapsedSec((s) => s + 1), 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const formatElapsed = (s: number) =>
+    `${String(Math.floor(s / 60)).padStart(2, "0")}:${String(s % 60).padStart(2, "0")}`;
 
   const applyEvent = (event: StateChangeEvent) => {
     setInstances((prev) =>
@@ -153,7 +162,7 @@ export function RunView() {
   }
 
   return (
-    <AppShell activeTab="live" running onCancel={handleCancel}>
+    <AppShell activeTab="live" running onCancel={handleCancel} elapsed={formatElapsed(elapsedSec)}>
       <div className="bg-band min-h-[calc(100vh-97px)] p-8">
       <div className="page-fade max-w-7xl mx-auto">
         <header className="mb-6 flex items-baseline gap-4">

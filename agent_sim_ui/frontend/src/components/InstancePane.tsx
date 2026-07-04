@@ -44,7 +44,20 @@ export function InstancePane({ instance }: InstancePaneProps) {
     cancelled: "text-[#8593A1]",
   };
 
+  const statusDotColors: Record<string, string> = {
+    pending: "#8593A1",
+    running: "#F2A81E",
+    completed: "#18A673",
+    failed: "#E23D3D",
+    cancelled: "#8593A1",
+  };
+
   const shortId = instance.instance_id.slice(0, 8);
+
+  const failureModeCount = instance.agents.reduce(
+    (sum, a) => sum + a.failure_modes.length,
+    0
+  );
 
   const totalAgents = instance.agents.length;
   const completedAgents = instance.agents.filter((a) => a.state === "completed").length;
@@ -63,10 +76,18 @@ export function InstancePane({ instance }: InstancePaneProps) {
           </p>
         </div>
         <span
-          className={`text-xs font-semibold ${
+          className={`flex items-center gap-1.5 text-xs font-semibold ${
             statusColors[instance.status] || "text-[#8593A1]"
           }`}
         >
+          <span
+            className={`w-2 h-2 rounded-full ${
+              instance.status === "running" ? "animate-as-blink" : ""
+            }`}
+            style={{
+              background: statusDotColors[instance.status] || "#8593A1",
+            }}
+          />
           {instance.status}
         </span>
       </div>
@@ -93,6 +114,12 @@ export function InstancePane({ instance }: InstancePaneProps) {
           />
         ))}
       </div>
+
+      {failureModeCount > 0 && (
+        <p className="text-[12px] text-[#E23D3D] mb-2">
+          {failureModeCount} failure mode{failureModeCount === 1 ? "" : "s"}
+        </p>
+      )}
 
       {logLoading && (
         <div className="mb-2">

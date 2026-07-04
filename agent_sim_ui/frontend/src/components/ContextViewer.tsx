@@ -55,6 +55,7 @@ function ContextWindowBar({ messages }: { messages: any[] }) {
         {messages.map((msg, i) => (
           <div
             key={i}
+            title={`${messageRole(msg)} — ${lengths[i].toLocaleString()} ch`}
             style={{
               width: `${Math.max(lengths[i] * scale, 1.5)}%`,
               background: barColor(messageRole(msg)),
@@ -62,10 +63,10 @@ function ContextWindowBar({ messages }: { messages: any[] }) {
             }}
           />
         ))}
-        <div className="flex-1" style={{ background: "#24344a" }} />
+        <div className="flex-1" title="free" style={{ background: "#24344a" }} />
       </div>
       <div className="text-[11px] mt-1" style={{ color: "#8AA0B8" }}>
-        {messages.length} messages
+        {messages.length} messages · {total.toLocaleString()} ch
       </div>
     </div>
   );

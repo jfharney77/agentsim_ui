@@ -73,9 +73,11 @@ export function AggregateStats({ instances }: AggregateStatsProps) {
             {AGENT_STATE_ORDER.map((state) => {
               const count = byAgentState[state] || 0;
               if (count === 0) return null;
+              const pct = Math.round((count / totalAgents) * 100);
               return (
                 <div
                   key={state}
+                  title={`${AGENT_STATE_LABELS[state]} — ${count} (${pct}%)`}
                   className="h-full transition-all duration-500"
                   style={{
                     width: `${(count / totalAgents) * 100}%`,
@@ -95,6 +97,11 @@ export function AggregateStats({ instances }: AggregateStatsProps) {
               />
               {AGENT_STATE_LABELS[state as keyof typeof AGENT_STATE_LABELS]}:{" "}
               <span className="font-semibold text-[#12212F] tabular-nums">{count}</span>
+              {totalAgents > 0 && (
+                <span className="tabular-nums">
+                  {" "}&middot; {Math.round((count / totalAgents) * 100)}%
+                </span>
+              )}
             </span>
           ))}
         </div>

@@ -54,7 +54,7 @@ export function AgentCircle({ agent, onClick, onViewContext }: AgentCircleProps)
         onClick={onClick}
       >
         <span
-          className="truncate px-1 text-center"
+          className="line-clamp-2 text-[10px] leading-[1.15] text-center px-1.5 break-words"
           style={{ color: LABEL_COLORS[agent.state] }}
           title={`${agent.agent_name} — ${AGENT_STATE_LABELS[agent.state]}`}
         >

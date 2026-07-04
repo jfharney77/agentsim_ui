@@ -212,6 +212,11 @@ export function LiveMesh({ instance }: { instance: InstanceDescriptor }) {
         if (n >= nCount) return null;
         const scoped = inScope(n);
         const state = stateOf(n);
+        // Hub emphasis in the ring layout: slightly larger node plus a
+        // dashed orbit-hint outline around the coordinator.
+        const isHub = nCount > 5 && n === 0;
+        const nodeR = isHub ? 32 : 28;
+        const pingR = isHub ? 33 : 29;
         return (
           <g key={`n${n}`}>
             <title>
@@ -223,7 +228,7 @@ export function LiveMesh({ instance }: { instance: InstanceDescriptor }) {
               <circle
                 cx={p[0]}
                 cy={p[1]}
-                r={29}
+                r={pingR}
                 fill="none"
                 stroke={NODE_FILL[AgentState.RUNNING]}
                 strokeWidth={2}
@@ -234,10 +239,21 @@ export function LiveMesh({ instance }: { instance: InstanceDescriptor }) {
                 }}
               />
             )}
+            {isHub && (
+              <circle
+                cx={p[0]}
+                cy={p[1]}
+                r={37}
+                fill="none"
+                stroke="rgba(255,255,255,.10)"
+                strokeWidth={1}
+                strokeDasharray="2 4"
+              />
+            )}
             <circle
               cx={p[0]}
               cy={p[1]}
-              r={28}
+              r={nodeR}
               fill={scoped ? `url(#${GRADIENT_ID[state]})` : OUT_FILL}
               stroke={scoped ? NODE_STROKE : OUT_STROKE}
               strokeWidth={3}
