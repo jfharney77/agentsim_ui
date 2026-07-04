@@ -158,11 +158,19 @@ export function RunView() {
       <div className="page-fade max-w-7xl mx-auto">
         <header className="mb-6 flex items-baseline gap-4">
           <h1 className="text-[24px] font-normal text-[#12212F]">
-            Run {runGroupId?.slice(0, 8)}
+            Run <span className="font-medium tabular-nums">{runGroupId?.slice(0, 8)}</span>
           </h1>
           <p className="text-sm text-[#62707E]">
             {instances.length} instance{instances.length !== 1 ? "s" : ""}
-            {usePolling && " (polling mode)"}
+            {usePolling && (
+              <span className="inline-flex items-center gap-1.5 ml-2 align-baseline">
+                <span
+                  className="w-[7px] h-[7px] rounded-full animate-as-blink"
+                  style={{ backgroundColor: "#F2A81E" }}
+                />
+                <span className="text-[12px] text-[#8593A1]">polling</span>
+              </span>
+            )}
           </p>
         </header>
 
@@ -236,6 +244,15 @@ export function RunView() {
             </div>
           );
         })()}
+
+        {instances.length === 0 && (
+          <div className="flex justify-center">
+            <div className="bg-white rounded-2xl shadow-sm px-8 py-6 flex items-center gap-3">
+              <span className="w-[10px] h-[10px] rounded-full bg-[#C7D0D9] shrink-0" />
+              <span className="text-[14px] text-[#62707E]">No instances in this run yet.</span>
+            </div>
+          </div>
+        )}
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 items-start">
           {instances.map((instance, index) => (

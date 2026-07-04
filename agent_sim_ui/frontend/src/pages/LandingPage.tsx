@@ -98,17 +98,17 @@ export function LandingPage() {
   return (
     <AppShell>
       {/* Dark hero */}
-      <div className="relative px-[26px] pt-[58px] pb-[54px]">
+      <div className="relative px-[26px] pt-[clamp(32px,6vw,58px)] pb-[54px]">
         <div
           aria-hidden="true"
           className="absolute inset-0 pointer-events-none [background:radial-gradient(600px_300px_at_50%_30%,rgba(0,118,206,.18),transparent_70%)]"
         />
         <div className="relative max-w-[1060px] mx-auto">
           <div className="text-center mb-11">
-            <h1 className="text-[46px] leading-[1.15] font-light mb-4">
+            <h1 className="text-[clamp(32px,4.6vw,46px)] leading-[1.15] font-light mb-4">
               Watch agents think, at any scale.
             </h1>
-            <p className="text-[16px] leading-[1.6] text-[#8AA0B8] max-w-[640px] mx-auto mb-7">
+            <p className="text-[clamp(14px,1.6vw,16px)] leading-[1.6] text-[#8AA0B8] max-w-[640px] mx-auto mb-7">
               Launch multi-agent simulators, follow the mesh as it passes
               messages, and inspect every agent's context window — from a single
               run to a thousand in parallel.
@@ -153,7 +153,7 @@ export function LandingPage() {
                     key={pill.label}
                     type="button"
                     onClick={() => navigate(pill.to)}
-                    className="text-white text-[13px] font-semibold px-5 py-[11px] rounded-full cursor-pointer border-[1.6px] border-transparent [background:linear-gradient(#0A1727,#0A1727)_padding-box,linear-gradient(95deg,#2E93E6,#a24fd0)_border-box] transition-[filter] hover:brightness-110"
+                    className="whitespace-nowrap text-white text-[13px] font-semibold px-5 py-[11px] rounded-full cursor-pointer border-[1.6px] border-transparent [background:linear-gradient(#0A1727,#0A1727)_padding-box,linear-gradient(95deg,#2E93E6,#a24fd0)_border-box] transition-[filter] hover:brightness-110"
                   >
                     {pill.label}
                   </button>
@@ -172,7 +172,7 @@ export function LandingPage() {
           {/* Light content band */}
           <div className="bg-band rounded-[18px] px-7 pt-[26px] pb-7">
             <div className="flex items-baseline justify-between mb-5">
-              <div className="text-[24px] font-normal text-[#12212F]">
+              <div className="text-[clamp(20px,2.4vw,24px)] font-normal text-[#12212F]">
                 Jump back in
               </div>
               <span className="text-[12px] text-[#62707E]">

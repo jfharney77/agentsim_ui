@@ -44,7 +44,7 @@ export function AppShell({
     <div className="min-h-screen bg-ink-bg text-[#E9EFF6] font-sans">
       <div className="sticky top-0 z-40">
       {/* White utility bar (Dell pattern) */}
-      <div className="flex items-center gap-[22px] px-[26px] py-[11px] bg-white/95 backdrop-blur-sm border-b border-[#e6ebf1] shadow-[0_1px_3px_rgba(16,32,48,.06)]">
+      <div className="flex items-center gap-3 md:gap-[22px] px-[26px] py-[11px] bg-white/95 backdrop-blur-sm border-b border-[#e6ebf1] shadow-[0_1px_3px_rgba(16,32,48,.06)]">
         <div
           onClick={() => navigate("/")}
           className="flex items-center cursor-pointer flex-none transition-opacity hover:opacity-85"
@@ -56,7 +56,7 @@ export function AppShell({
           />
         </div>
 
-        <div className="flex-1 max-w-[560px] flex items-center bg-white border border-[#cdd6e0] rounded-md overflow-hidden transition-colors focus-within:border-dell">
+        <div className="hidden md:flex flex-1 max-w-[560px] items-center bg-white border border-[#cdd6e0] rounded-md overflow-hidden transition-colors focus-within:border-dell">
           <input
             type="text"
             placeholder="Search runs, instances, or agents"
@@ -101,7 +101,7 @@ export function AppShell({
           <div className="text-[15px] font-bold leading-none">AgentSim</div>
         </div>
 
-        <div className="flex gap-[3px] bg-white/5 border border-white/[.09] rounded-[11px] p-1">
+        <div className="flex gap-[3px] bg-white/5 border border-white/[.09] rounded-[11px] p-1 overflow-x-auto max-w-full">
           {TABS.map((tab) => {
             const active = tab.id === activeTab;
             return (
@@ -109,7 +109,7 @@ export function AppShell({
                 key={tab.id}
                 type="button"
                 onClick={() => navigate(routeFor[tab.id])}
-                className={`px-[15px] py-[7px] rounded-lg text-[13px] font-semibold transition-all duration-200 ${
+                className={`px-[15px] py-[7px] rounded-lg text-[13px] font-semibold whitespace-nowrap transition-all duration-200 ${
                   active
                     ? "bg-dell text-white shadow-[0_2px_10px_rgba(0,118,206,.35)]"
                     : "text-[#8AA0B8] hover:text-[#c6d5e5]"
@@ -150,7 +150,7 @@ export function AppShell({
             className="flex items-center gap-1 text-[12px] font-semibold text-dell-soft bg-transparent border border-dell/[.55] rounded-lg px-[15px] py-2 cursor-pointer transition-colors hover:bg-dell/10"
           >
             <Plus className="w-3.5 h-3.5" strokeWidth={2.4} />
-            New run
+            <span className="hidden sm:inline">New run</span>
           </button>
         </div>
       </div>

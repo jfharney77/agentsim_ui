@@ -325,7 +325,10 @@ export function ParallelPage() {
                     ))}
                   </div>
                 </div>
-                <div className="grid grid-cols-10 sm:grid-cols-15 md:grid-cols-20 lg:grid-cols-25 gap-1.5">
+                <div
+                  className="grid gap-1.5"
+                  style={{ gridTemplateColumns: "repeat(auto-fill, minmax(22px, 1fr))" }}
+                >
                   {instances.map((instance) => {
                     const agentStates = instance.agents.reduce((acc, agent) => {
                       acc[agent.agent_id] = agent.state;
@@ -341,6 +344,9 @@ export function ParallelPage() {
                       />
                     );
                   })}
+                </div>
+                <div className="mt-2 text-[11px] text-[#8593A1] tabular-nums">
+                  Showing {instances.length} instances
                 </div>
               </div>
             )}

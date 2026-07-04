@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FileText } from "lucide-react";
+import { ChevronDown, FileText } from "lucide-react";
 import type { InstanceDescriptor, RunLog } from "../types/api";
 import { AgentCircle } from "./AgentCircle";
 import { LogViewer } from "./LogViewer";
@@ -110,16 +110,23 @@ export function InstancePane({ instance }: InstancePaneProps) {
         className="flex items-center gap-2 text-sm text-dell hover:text-dell-deep transition"
       >
         <FileText className="w-4 h-4" />
-        View log
+        {showLog ? "Hide log" : "View log"}
+        <ChevronDown
+          className={`w-4 h-4 transition-transform duration-200 ${
+            showLog ? "rotate-180" : ""
+          }`}
+        />
       </button>
 
       {showLog && (
-        <LogViewer
-          log={log}
-          loading={logLoading}
-          error={logError}
-          onClose={() => setShowLog(false)}
-        />
+        <div className="page-fade">
+          <LogViewer
+            log={log}
+            loading={logLoading}
+            error={logError}
+            onClose={() => setShowLog(false)}
+          />
+        </div>
       )}
 
       {contextAgent && (

@@ -47,7 +47,7 @@ function ContextWindowBar({ messages }: { messages: any[] }) {
   // Treat total content as ~70% of the bar so a "free" segment remains visible.
   const scale = total > 0 ? 70 / total : 0;
   return (
-    <div className="px-4 pt-3">
+    <div className="flex-none px-4 pt-3">
       <div
         className="flex rounded-md overflow-hidden border border-white/10"
         style={{ height: 22, background: "#24344a" }}
@@ -99,7 +99,7 @@ export function ContextViewer({ instanceId, agentId, agentName, onClose }: Conte
         style={{ background: "#10233C" }}
       >
         <div style={{ height: 3, background: "#0076CE", flexShrink: 0 }} />
-        <div className="flex items-center justify-between px-4 py-3 border-b border-white/10">
+        <div className="flex-none flex items-center justify-between px-4 py-3 border-b border-white/10">
           <h3 className="text-[14px] font-bold" style={{ color: "#E9EFF6" }}>
             Context Window: {agentName}
           </h3>
@@ -117,9 +117,13 @@ export function ContextViewer({ instanceId, agentId, agentName, onClose }: Conte
 
         {context && <ContextWindowBar messages={context.messages} />}
 
-        <div className="flex-1 overflow-auto p-4">
+        <div className="flex-1 overflow-y-auto dark-scroll pr-1 p-4">
           {loading && (
-            <div className="text-[12px]" style={{ color: "#93a6ba" }}>Loading context...</div>
+            <div className="space-y-3">
+              <div className="skeleton-dark h-4 rounded w-3/4" />
+              <div className="skeleton-dark h-4 rounded w-full" />
+              <div className="skeleton-dark h-4 rounded w-1/2" />
+            </div>
           )}
           {error && (
             <div className="text-[12px] text-red-400">Error: {error}</div>

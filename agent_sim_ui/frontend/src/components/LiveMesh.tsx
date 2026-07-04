@@ -99,8 +99,8 @@ export function LiveMesh({ instance }: { instance: InstanceDescriptor }) {
 
   return (
     <svg
-      viewBox={nCount <= 5 ? "0 0 500 355" : "0 0 500 445"}
-      style={{ width: "100%", maxWidth: 560, height: "auto", display: "block" }}
+      viewBox={nCount <= 5 ? "0 0 500 355" : "-110 0 720 445"}
+      style={{ width: "100%", maxWidth: nCount <= 5 ? 560 : 720, height: "auto", display: "block" }}
     >
       <defs>
         {(Object.keys(GRADIENT_ID) as AgentState[]).map((state) => (
@@ -266,18 +266,44 @@ export function LiveMesh({ instance }: { instance: InstanceDescriptor }) {
             >
               {scoped ? NODE_WORD[state] : "OUT"}
             </text>
-            <text
-              x={p[0]}
-              y={p[1] + 47}
-              textAnchor="middle"
-              style={{
-                font: "600 12px Roboto,sans-serif",
-                fill: scoped ? LABEL_FILL : OUT_TEXT,
-                transition: "fill .4s ease",
-              }}
-            >
-              {nodes[n]?.agent_name ?? ""}
-            </text>
+            {(() => {
+              // Ring layout (>5 agents): push satellite labels radially
+              // outside the ring along the node's angle so they never
+              // collide with neighbors. The hub keeps its label below.
+              const labelFont = `600 ${nCount > 8 ? 10.5 : 12}px Roboto,sans-serif`;
+              let lx = p[0];
+              let ly = p[1] + 47;
+              let baseline: "middle" | undefined;
+              let anchor: "start" | "middle" | "end" = "middle";
+              if (nCount > 5 && n !== 0) {
+                const cx = 250;
+                const cy = 215;
+                const angle = Math.atan2(p[1] - cy, p[0] - cx);
+                const labelRadius = 155 + 38;
+                lx = cx + labelRadius * Math.cos(angle);
+                ly = cy + labelRadius * Math.sin(angle);
+                baseline = "middle";
+                // Anchor away from the node so sideways labels don't run
+                // back over the circle.
+                const c = Math.cos(angle);
+                anchor = c > 0.3 ? "start" : c < -0.3 ? "end" : "middle";
+              }
+              return (
+                <text
+                  x={lx}
+                  y={ly}
+                  textAnchor={anchor}
+                  dominantBaseline={baseline}
+                  style={{
+                    font: labelFont,
+                    fill: scoped ? LABEL_FILL : OUT_TEXT,
+                    transition: "fill .4s ease",
+                  }}
+                >
+                  {nodes[n]?.agent_name ?? ""}
+                </text>
+              );
+            })()}
           </g>
         );
       })}

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Play } from "lucide-react";
+import { Loader2, Play } from "lucide-react";
 import { api } from "../lib/api";
 import type { Simulator } from "../types/api";
 import { AppShell } from "../components/AppShell";
@@ -351,9 +351,14 @@ export function SetupPage() {
             type="button"
             onClick={handleLaunch}
             disabled={!selectedId || launching}
+            aria-busy={launching}
             className="flex items-center justify-center gap-2 w-full py-4 rounded-[11px] bg-dell hover:bg-dell-deep hover:shadow-[0_6px_18px_rgba(0,118,206,.3)] active:scale-[.99] disabled:opacity-60 disabled:cursor-not-allowed text-white text-[15px] font-bold transition-all"
           >
-            <Play className="w-4 h-4 fill-white" />
+            {launching ? (
+              <Loader2 className="w-4 h-4 animate-spin" />
+            ) : (
+              <Play className="w-4 h-4 fill-white" />
+            )}
             {launching
               ? "Launching…"
               : `Launch ${concurrency} × ${

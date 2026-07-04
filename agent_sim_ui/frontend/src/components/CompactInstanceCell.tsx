@@ -1,5 +1,5 @@
 import type { CSSProperties } from "react";
-import { InstanceStatus } from "../types/api";
+import type { InstanceStatus } from "../types/api";
 
 interface CompactInstanceCellProps {
   index: number;
@@ -17,7 +17,7 @@ const CELL_COLORS: Record<DominantState, string> = {
   idle: "#E3E9F1",
 };
 
-export function CompactInstanceCell({ index, status, agentStates, onClick }: CompactInstanceCellProps) {
+export function CompactInstanceCell({ index, agentStates, onClick }: CompactInstanceCellProps) {
   const dominantState: DominantState = Object.values(agentStates).reduce<DominantState>((acc, state) => {
     if (state === "errored") return "errored";
     if (state === "running" && acc !== "errored") return "running";
@@ -45,7 +45,8 @@ export function CompactInstanceCell({ index, status, agentStates, onClick }: Com
       onClick={onClick}
       className="w-12 h-12 relative cursor-pointer transition-transform duration-150 hover:scale-125 hover:z-10 hover:ring-2 hover:ring-white/70 focus-visible:scale-125 focus-visible:z-10 focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:outline-none"
       style={style}
-      title={`Instance #${index + 1} - ${status}`}
+      title={`Instance #${index + 1} — ${dominantState}`}
+      aria-label={`Instance #${index + 1} — ${dominantState}`}
     />
   );
 }

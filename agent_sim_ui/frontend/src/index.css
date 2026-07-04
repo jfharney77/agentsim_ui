@@ -150,3 +150,24 @@ h5,
 h6 {
   text-wrap: pretty;
 }
+
+/* Text selection color */
+::selection {
+  background: #0076CE;
+  color: #fff;
+}
+
+/* Remove mobile tap highlight flash */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Kill double-tap zoom delay on buttons */
+button {
+  touch-action: manipulation;
+}
+
+/* Tabular numerals for aligned digits */
+.num {
+  font-variant-numeric: tabular-nums;
+}
