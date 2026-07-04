@@ -3,6 +3,13 @@ import { Eye } from "lucide-react";
 import type { AgentRuntimeState } from "../types/api";
 import { AGENT_STATE_COLORS, AGENT_STATE_LABELS } from "../lib/constants";
 
+const LABEL_COLORS: Partial<Record<AgentRuntimeState["state"], string>> = {
+  errored: "#E23D3D",
+  completed: "#18A673",
+  running: "#B27400",
+  // not_started (idle) stays muted — inherits the default label color
+};
+
 interface AgentCircleProps {
   agent: AgentRuntimeState;
   onClick?: () => void;
@@ -30,7 +37,7 @@ export function AgentCircle({ agent, onClick, onViewContext }: AgentCircleProps)
       onMouseLeave={() => setHovered(false)}
     >
       <div
-        className="w-16 h-16 rounded-full flex items-center justify-center text-xs font-medium cursor-pointer transition-colors duration-300 hover:scale-105"
+        className="w-16 h-16 rounded-full flex items-center justify-center text-xs font-medium cursor-pointer transition-all duration-150 hover:scale-110"
         style={{
           backgroundColor: color,
           boxShadow:
@@ -44,7 +51,11 @@ export function AgentCircle({ agent, onClick, onViewContext }: AgentCircleProps)
         }}
         onClick={onClick}
       >
-        <span className="truncate px-1 text-center" title={agent.agent_name}>
+        <span
+          className="truncate px-1 text-center"
+          style={{ color: LABEL_COLORS[agent.state] }}
+          title={`${agent.agent_name} — ${AGENT_STATE_LABELS[agent.state]}`}
+        >
           {agent.agent_name}
         </span>
       </div>

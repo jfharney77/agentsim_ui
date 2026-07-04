@@ -42,8 +42,9 @@ export function AppShell({
 
   return (
     <div className="min-h-screen bg-ink-bg text-[#E9EFF6] font-sans">
+      <div className="sticky top-0 z-40">
       {/* White utility bar (Dell pattern) */}
-      <div className="flex items-center gap-[22px] px-[26px] py-[11px] bg-white border-b border-[#e6ebf1] shadow-[0_1px_3px_rgba(16,32,48,.06)]">
+      <div className="flex items-center gap-[22px] px-[26px] py-[11px] bg-white/95 backdrop-blur-sm border-b border-[#e6ebf1] shadow-[0_1px_3px_rgba(16,32,48,.06)]">
         <div
           onClick={() => navigate("/")}
           className="flex items-center cursor-pointer flex-none transition-opacity hover:opacity-85"
@@ -83,7 +84,7 @@ export function AppShell({
       </div>
 
       {/* Dark app nav */}
-      <div className="flex items-center justify-between px-[26px] py-[14px] border-b border-white/[.08] bg-gradient-to-b from-ink-navlo to-ink-bg">
+      <div className="flex items-center justify-between px-[26px] py-[14px] border-b border-white/[.08] bg-gradient-to-b from-ink-navlo to-ink-bg backdrop-blur-sm">
         <div
           onClick={() => navigate("/")}
           className="flex items-center gap-[13px] cursor-pointer transition-opacity hover:opacity-85"
@@ -146,6 +147,7 @@ export function AppShell({
             New run
           </button>
         </div>
+      </div>
       </div>
 
       {children}

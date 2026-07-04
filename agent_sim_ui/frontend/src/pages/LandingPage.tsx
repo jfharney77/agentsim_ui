@@ -179,9 +179,9 @@ export function LandingPage() {
                       key={card.title}
                       type="button"
                       onClick={() => navigate(card.to)}
-                      className="text-left bg-white border border-[#e2e8f0] rounded-xl p-[18px] cursor-pointer transition-colors hover:border-dell"
+                      className="group text-left bg-white border border-[#e2e8f0] rounded-xl p-[18px] cursor-pointer transition-all duration-200 hover:border-dell hover:-translate-y-0.5 hover:shadow-[0_6px_18px_rgba(16,32,48,.08)]"
                     >
-                      <div className="text-dell mb-3">{card.glyph}</div>
+                      <div className="text-dell mb-3 transition-transform group-hover:scale-110">{card.glyph}</div>
                       <div className="text-[15px] font-bold text-[#12212F] mb-1.5">
                         {card.title}
                       </div>
@@ -189,7 +189,10 @@ export function LandingPage() {
                         {card.desc}
                       </div>
                       <div className="text-[12px] font-semibold text-dell">
-                        Open →
+                        Open{" "}
+                        <span className="inline-block transition-transform group-hover:translate-x-0.5">
+                          →
+                        </span>
                       </div>
                     </button>
                   ))}
@@ -202,7 +205,7 @@ export function LandingPage() {
                   {RECENT_RUNS.map((run) => (
                     <div
                       key={run.id}
-                      className="grid grid-cols-[82px_1fr_auto_auto] gap-3.5 items-center py-2.5 border-t border-[#eef2f7]"
+                      className="grid grid-cols-[82px_1fr_auto_auto] gap-3.5 items-center py-2.5 border-t border-[#eef2f7] hover:bg-[#fafbfd] transition-colors rounded"
                     >
                       <span className="text-[12px] font-medium text-dell">
                         {run.id}
@@ -233,7 +236,7 @@ export function LandingPage() {
                     key={link.label}
                     type="button"
                     onClick={() => link.to && navigate(link.to)}
-                    className={`flex items-center gap-[11px] w-full text-left rounded-lg px-3.5 py-3 cursor-pointer mb-[9px] transition-colors hover:border-dell ${
+                    className={`flex items-center gap-[11px] w-full text-left rounded-lg px-3.5 py-3 cursor-pointer mb-[9px] transition-all hover:border-dell hover:translate-x-0.5 ${
                       link.highlight
                         ? "bg-[#EAF3FB] border border-[#cfe4f5]"
                         : "bg-white border border-[#d7e2ee]"

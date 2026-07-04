@@ -29,21 +29,21 @@ export function CompactInstanceCell({ index, status, agentStates, onClick }: Com
     backgroundColor: CELL_COLORS[dominantState],
     borderRadius: 5,
     border: dominantState === "idle" ? "1px solid #d7e2ee" : "1px solid transparent",
-    transition: "background-color 0.3s ease, box-shadow 0.3s ease",
+    transition: "background-color 0.3s ease, filter 0.3s ease, transform 0.15s ease",
   };
 
   if (dominantState === "running") {
     style.animation = "as-cell-pulse 1.3s ease-in-out infinite";
-    style.boxShadow = "0 0 8px rgba(242, 168, 30, 0.45)";
+    style.filter = "drop-shadow(0 0 4px rgba(242, 168, 30, 0.45))";
   } else if (dominantState === "errored") {
-    style.boxShadow = "0 0 8px rgba(226, 61, 61, 0.45)";
+    style.filter = "drop-shadow(0 0 4px rgba(226, 61, 61, 0.45))";
   }
 
   return (
     <button
       type="button"
       onClick={onClick}
-      className="w-12 h-12"
+      className="w-12 h-12 relative cursor-pointer transition-transform duration-150 hover:scale-125 hover:z-10 hover:ring-2 hover:ring-white/70 focus-visible:scale-125 focus-visible:z-10 focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:outline-none"
       style={style}
       title={`Instance #${index + 1} - ${status}`}
     />

@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { X } from "lucide-react";
 import type { RunLog } from "../types/api";
 
@@ -16,6 +17,13 @@ function lineColor(message: string): string {
 }
 
 export function LogViewer({ log, loading, error, onClose }: LogViewerProps) {
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (el) el.scrollTop = el.scrollHeight;
+  }, [log]);
+
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
       <div
@@ -39,17 +47,29 @@ export function LogViewer({ log, loading, error, onClose }: LogViewerProps) {
           </button>
         </div>
 
-        <div className="flex-1 max-h-[70vh] overflow-auto p-4">
+        <div ref={scrollRef} className="dark-scroll flex-1 max-h-[70vh] overflow-auto p-4">
           {loading && (
             <div style={{ color: "#8AA0B8", fontSize: 13 }}>Loading log...</div>
           )}
           {error && (
             <div style={{ color: "#f26060", fontSize: 13 }}>Error: {error}</div>
           )}
-          {log && (
+          {log && log.lines.length === 0 && !loading && !error && (
+            <div
+              className="h-full min-h-[8rem] flex items-center justify-center"
+              style={{ color: "#6a7d92", fontSize: 13 }}
+            >
+              No output yet
+            </div>
+          )}
+          {log && log.lines.length > 0 && (
             <div className="font-mono" style={{ fontSize: 12, lineHeight: 1.6 }}>
               {log.lines.map((line, i) => (
-                <div key={i} style={{ color: lineColor(line.message) }}>
+                <div
+                  key={i}
+                  className="px-2 py-0.5 rounded hover:bg-white/[.04] transition-colors"
+                  style={{ color: lineColor(line.message) }}
+                >
                   <span style={{ color: "#6a7d92" }}>[{line.ts}]</span>
                   {line.agent_id && <span className="ml-2">[{line.agent_id}]</span>}
                   <span className="ml-2">{line.message}</span>

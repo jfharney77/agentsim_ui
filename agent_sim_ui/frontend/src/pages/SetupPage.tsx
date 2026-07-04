@@ -150,10 +150,10 @@ export function SetupPage() {
                     key={sim.id}
                     type="button"
                     onClick={() => setSelectedId(sim.id)}
-                    className={`text-left rounded-xl p-3.5 cursor-pointer transition-all ${
+                    className={`text-left rounded-xl p-3.5 cursor-pointer transition-all duration-200 hover:-translate-y-0.5 ${
                       active
                         ? "bg-[#EAF3FB] border-[1.5px] border-dell shadow-[0_4px_14px_rgba(0,118,206,.16)]"
-                        : "bg-white border-[1.5px] border-[#e2e8f0] hover:border-[#cdd6e0]"
+                        : "bg-white border-[1.5px] border-[#e2e8f0] hover:border-[#cdd6e0] hover:shadow-[0_6px_18px_rgba(16,32,48,.08)]"
                     }`}
                   >
                     <div className="text-[15px] font-bold text-[#12212F] mb-1">
@@ -197,7 +197,7 @@ export function SetupPage() {
                       setScopeSel(roster.map((_, i) => i));
                     }
                   }}
-                  className={`px-4 py-2 rounded-lg text-[12.5px] font-semibold transition-colors ${
+                  className={`px-4 py-2 rounded-lg text-[12.5px] font-semibold transition-all duration-200 ${
                     active ? "bg-dell text-white" : "text-[#62707E] hover:text-[#12212F]"
                   }`}
                 >
@@ -220,10 +220,10 @@ export function SetupPage() {
                     key={wf.id}
                     type="button"
                     onClick={() => setWorkflowId(wf.id)}
-                    className={`text-left rounded-xl p-3.5 cursor-pointer transition-all ${
+                    className={`text-left rounded-xl p-3.5 cursor-pointer transition-all duration-200 hover:-translate-y-0.5 ${
                       active
                         ? "bg-[#EAF3FB] border-[1.5px] border-dell shadow-[0_4px_14px_rgba(0,118,206,.16)]"
-                        : "bg-white border-[1.5px] border-[#e2e8f0] hover:border-[#cdd6e0]"
+                        : "bg-white border-[1.5px] border-[#e2e8f0] hover:border-[#cdd6e0] hover:shadow-[0_6px_18px_rgba(16,32,48,.08)]"
                     }`}
                   >
                     <div className="flex items-baseline justify-between gap-2 mb-1">
@@ -253,7 +253,7 @@ export function SetupPage() {
                     key={agent.agent_id}
                     type="button"
                     onClick={() => toggleAgent(i)}
-                    className={`flex items-center gap-[7px] rounded-full pl-[11px] pr-3.5 py-2 text-[12.5px] font-semibold transition-colors ${
+                    className={`flex items-center gap-[7px] rounded-full pl-[11px] pr-3.5 py-2 text-[12.5px] font-semibold transition-all duration-200 hover:-translate-y-px ${
                       on
                         ? "bg-[#EAF3FB] border-[1.5px] border-dell text-dell"
                         : "bg-white border border-[#d7e2ee] text-[#62707E] hover:border-[#cdd6e0]"
@@ -291,7 +291,7 @@ export function SetupPage() {
                   key={n}
                   type="button"
                   onClick={() => setConcurrency(n)}
-                  className={`flex-1 py-2 rounded-lg text-[13px] font-medium transition-colors ${
+                  className={`flex-1 py-2 rounded-lg text-[13px] font-medium transition-all duration-200 ${
                     active
                       ? "bg-dell text-white"
                       : "text-[#62707E] hover:text-[#12212F]"
@@ -337,7 +337,7 @@ export function SetupPage() {
             type="button"
             onClick={handleLaunch}
             disabled={!selectedId || launching}
-            className="flex items-center justify-center gap-2 w-full py-4 rounded-[11px] bg-dell hover:bg-dell-deep disabled:opacity-60 disabled:cursor-not-allowed text-white text-[15px] font-bold transition-colors"
+            className="flex items-center justify-center gap-2 w-full py-4 rounded-[11px] bg-dell hover:bg-dell-deep hover:shadow-[0_6px_18px_rgba(0,118,206,.3)] active:scale-[.99] disabled:opacity-60 disabled:cursor-not-allowed text-white text-[15px] font-bold transition-all"
           >
             <Play className="w-4 h-4 fill-white" />
             {launching

@@ -28,6 +28,49 @@ function messageRole(msg: any): string {
   return "other";
 }
 
+const BAR_ROLE_COLORS: Record<string, string> = {
+  system: "#8b5cf6",
+  human: "#3b82f6",
+  user: "#3b82f6",
+  ai: "#10b981",
+  assistant: "#10b981",
+  tool: "#f59e0b",
+};
+
+function barColor(role: string): string {
+  return BAR_ROLE_COLORS[role.toLowerCase()] ?? "#6b7280";
+}
+
+function ContextWindowBar({ messages }: { messages: any[] }) {
+  const lengths = messages.map((msg) => Math.max(messageText(msg).length, 1));
+  const total = lengths.reduce((sum, len) => sum + len, 0);
+  // Treat total content as ~70% of the bar so a "free" segment remains visible.
+  const scale = total > 0 ? 70 / total : 0;
+  return (
+    <div className="px-4 pt-3">
+      <div
+        className="flex rounded-md overflow-hidden border border-white/10"
+        style={{ height: 22, background: "#24344a" }}
+      >
+        {messages.map((msg, i) => (
+          <div
+            key={i}
+            style={{
+              width: `${Math.max(lengths[i] * scale, 1.5)}%`,
+              background: barColor(messageRole(msg)),
+              flexShrink: 0,
+            }}
+          />
+        ))}
+        <div className="flex-1" style={{ background: "#24344a" }} />
+      </div>
+      <div className="text-[11px] mt-1" style={{ color: "#8AA0B8" }}>
+        {messages.length} messages
+      </div>
+    </div>
+  );
+}
+
 function messageText(msg: any): string {
   const content = msg?.content;
   if (typeof content === "string") return content;
@@ -71,6 +114,8 @@ export function ContextViewer({ instanceId, agentId, agentName, onClose }: Conte
             <X className="w-5 h-5" />
           </button>
         </div>
+
+        {context && <ContextWindowBar messages={context.messages} />}
 
         <div className="flex-1 overflow-auto p-4">
           {loading && (

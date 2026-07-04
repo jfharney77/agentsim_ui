@@ -71,11 +71,50 @@ body {
   animation: as-page-fade 240ms ease-out both;
 }
 
+/* Shimmer skeleton placeholders */
+@keyframes as-shimmer {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
+.skeleton {
+  border-radius: 0.375rem;
+  background: linear-gradient(90deg, #EEF2F7 25%, #f7f9fc 37%, #EEF2F7 63%);
+  background-size: 400% 100%;
+  animation: as-shimmer 1.4s ease infinite;
+}
+.skeleton-dark {
+  border-radius: 0.375rem;
+  background: linear-gradient(90deg, #16283f 25%, #1d3350 37%, #16283f 63%);
+  background-size: 400% 100%;
+  animation: as-shimmer 1.4s ease infinite;
+}
+
+/* Reusable hover lift for cards */
+.card-hover {
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+}
+
+/* Smooth in-page scrolling (guarded below for reduced motion) */
+html {
+  scroll-behavior: smooth;
+}
+
 /* Respect reduced-motion preferences for all animations/transitions */
 @media (prefers-reduced-motion: reduce) {
   * {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
+  }
+  html {
+    scroll-behavior: auto;
   }
 }
 

@@ -155,7 +155,7 @@ export function RunView() {
   return (
     <AppShell activeTab="live" running onCancel={handleCancel}>
       <div className="bg-band min-h-[calc(100vh-97px)] p-8">
-      <div className="max-w-7xl mx-auto">
+      <div className="page-fade max-w-7xl mx-auto">
         <header className="mb-6 flex items-baseline gap-4">
           <h1 className="text-[24px] font-normal text-[#12212F]">
             Run {runGroupId?.slice(0, 8)}
@@ -171,7 +171,7 @@ export function RunView() {
           {Object.entries(AGENT_STATE_COLORS).map(([state, color]) => (
             <div key={state} className="flex items-center gap-2">
               <div
-                className="w-4 h-4 rounded-full border border-[#D2D2D2]"
+                className="w-[10px] h-[10px] rounded-full shadow-[0_0_0_1px_rgba(16,32,48,.08)]"
                 style={{ backgroundColor: color }}
               />
               <span className="text-[#62707E]">
@@ -193,7 +193,7 @@ export function RunView() {
               ? `All ${total} agents`
               : `${scoped.length} of ${total} agents`;
           return (
-            <div className="mb-6 rounded-2xl bg-[#0D1E33] border border-white/10 p-6">
+            <div className="mb-6 rounded-2xl bg-[#0D1E33] border border-white/10 p-6 shadow-[0_10px_30px_rgba(6,16,30,.25)]">
               <div className="flex items-start justify-between mb-4 flex-wrap gap-4">
                 <div>
                   <div className="text-[16px] font-bold text-[#E9EFF6]">
@@ -204,26 +204,26 @@ export function RunView() {
                   </div>
                 </div>
                 <div className="flex gap-3">
-                  <div className="rounded-lg bg-white/[.04] px-4 py-2 text-center min-w-[92px]">
+                  <div className="rounded-lg bg-white/[.04] transition-colors hover:bg-white/[.07] px-4 py-2 text-center min-w-[92px]">
                     <div className="text-[11px] text-[#7E93AB]">
                       Agents done
                     </div>
-                    <div className="text-[18px] font-bold text-[#37c592]">
+                    <div className="text-[18px] font-bold tabular-nums text-[#37c592]">
                       {done}
                       <span className="text-[#7E93AB]">/{scoped.length}</span>
                     </div>
                   </div>
-                  <div className="rounded-lg bg-white/[.04] px-4 py-2 text-center min-w-[92px]">
+                  <div className="rounded-lg bg-white/[.04] transition-colors hover:bg-white/[.07] px-4 py-2 text-center min-w-[92px]">
                     <div className="text-[11px] text-[#7E93AB]">
                       Active
                     </div>
-                    <div className="text-[18px] font-bold text-[#F2A81E]">{active}</div>
+                    <div className="text-[18px] font-bold tabular-nums text-[#F2A81E]">{active}</div>
                   </div>
-                  <div className="rounded-lg bg-white/[.04] px-4 py-2 text-center min-w-[92px]">
+                  <div className="rounded-lg bg-white/[.04] transition-colors hover:bg-white/[.07] px-4 py-2 text-center min-w-[92px]">
                     <div className="text-[11px] text-[#7E93AB]">
                       Scope
                     </div>
-                    <div className="text-[18px] font-bold text-[#E9EFF6]">
+                    <div className="text-[18px] font-bold tabular-nums text-[#E9EFF6]">
                       {scoped.length}
                       <span className="text-[#7E93AB]">/{total}</span>
                     </div>

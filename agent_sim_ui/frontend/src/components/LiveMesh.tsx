@@ -134,9 +134,14 @@ export function LiveMesh({ instance }: { instance: InstanceDescriptor }) {
         // Ring edges (satellite→satellite) bow slightly outward via a
         // quadratic bezier; spokes from the hub stay straight.
         const isRing = ai !== 0 && bi !== 0;
+        const edgeTransition = "opacity .4s ease, stroke .4s ease";
         const style = hot
-          ? { animation: "as-edge-flow 0.9s linear infinite", opacity: 0.95 }
-          : { opacity: bothIn ? 0.55 : 0.16 };
+          ? {
+              animation: "as-edge-flow 0.9s linear infinite",
+              opacity: 0.95,
+              transition: edgeTransition,
+            }
+          : { opacity: bothIn ? 0.55 : 0.16, transition: edgeTransition };
         if (!isRing) {
           return (
             <line
@@ -181,6 +186,11 @@ export function LiveMesh({ instance }: { instance: InstanceDescriptor }) {
         const state = stateOf(n);
         return (
           <g key={`n${n}`}>
+            <title>
+              {`${nodes[n]?.agent_name ?? ""} — ${
+                scoped ? state : "out of scope"
+              }`}
+            </title>
             {scoped && state === AgentState.RUNNING && (
               <circle
                 cx={p[0]}
@@ -205,6 +215,7 @@ export function LiveMesh({ instance }: { instance: InstanceDescriptor }) {
               strokeWidth={3}
               strokeDasharray={scoped ? undefined : "4 4"}
               style={{
+                transition: "fill .4s ease",
                 filter: !scoped
                   ? "none"
                   : state === AgentState.RUNNING
@@ -234,6 +245,7 @@ export function LiveMesh({ instance }: { instance: InstanceDescriptor }) {
               style={{
                 font: "600 12px Roboto,sans-serif",
                 fill: scoped ? LABEL_FILL : OUT_TEXT,
+                transition: "fill .4s ease",
               }}
             >
               {nodes[n]?.agent_name ?? ""}

@@ -161,7 +161,7 @@ export function ParallelPage() {
         </header>
 
         {!runGroupId ? (
-          <div className="bg-white rounded-xl p-6 shadow-light-card border border-[#e2e8f0]">
+          <div className="bg-white rounded-xl p-6 shadow-light-card border border-[#e2e8f0] hover:border-[#cdd6e0] transition-colors">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
               <div>
                 <label className="block text-[13px] font-bold text-[#12212F] mb-2">
@@ -216,7 +216,7 @@ export function ParallelPage() {
               type="button"
               onClick={handleLaunch}
               disabled={!canLaunch}
-              className={`px-6 py-2 rounded-md font-medium transition-colors ${
+              className={`px-6 py-2 rounded-md font-medium transition-all active:scale-[.99] ${
                 canLaunch
                   ? "bg-dell hover:bg-dell-deep text-white"
                   : "bg-[#EEF2F7] text-[#8593A1] cursor-not-allowed"
@@ -280,7 +280,7 @@ export function ParallelPage() {
                   setInstances([]);
                   setDrillInInstance(null);
                 }}
-                className="px-4 py-2 bg-white border border-dell text-dell hover:bg-[#EAF3FB] rounded-md font-medium transition"
+                className="px-4 py-2 bg-white border border-dell text-dell hover:bg-[#EAF3FB] rounded-md font-medium transition-all active:scale-[.99]"
               >
                 New run
               </button>
@@ -289,7 +289,7 @@ export function ParallelPage() {
             <AggregateStats instances={instances} />
 
             {drillInInstance ? (
-              <div className="mt-6">
+              <div className="mt-6 page-fade">
                 <button
                   type="button"
                   onClick={() => setDrillInInstance(null)}
@@ -300,11 +300,11 @@ export function ParallelPage() {
                 <InstancePane instance={drillInInstance} />
               </div>
             ) : (
-              <div className="mt-6">
+              <div className="mt-6 bg-white border border-[#e2e8f0] rounded-xl p-5 shadow-light-card">
                 <h3 className="font-semibold text-[#12212F] mb-3">
                   Instances ({instances.length})
                 </h3>
-                <div className="grid grid-cols-10 sm:grid-cols-15 md:grid-cols-20 lg:grid-cols-25 gap-1">
+                <div className="grid grid-cols-10 sm:grid-cols-15 md:grid-cols-20 lg:grid-cols-25 gap-1.5">
                   {instances.map((instance) => {
                     const agentStates = instance.agents.reduce((acc, agent) => {
                       acc[agent.agent_id] = agent.state;
