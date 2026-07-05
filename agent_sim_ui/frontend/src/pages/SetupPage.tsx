@@ -142,7 +142,7 @@ export function SetupPage() {
               No simulators available.
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-[30px]">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-[30px] items-stretch">
               {simulators.map((sim) => {
                 const active = sim.id === selectedId;
                 return (
@@ -150,7 +150,7 @@ export function SetupPage() {
                     key={sim.id}
                     type="button"
                     onClick={() => setSelectedId(sim.id)}
-                    className={`text-left rounded-xl p-3.5 cursor-pointer transition-all duration-200 hover:-translate-y-0.5 ${
+                    className={`h-full text-left rounded-xl p-3.5 cursor-pointer transition-all duration-200 hover:-translate-y-0.5 ${
                       active
                         ? "bg-[#EAF3FB] border-[1.5px] border-dell ring-1 ring-dell/20 shadow-[0_4px_14px_rgba(0,118,206,.16)]"
                         : "bg-white border-[1.5px] border-[#e2e8f0] hover:border-[#cdd6e0] hover:shadow-[0_6px_18px_rgba(16,32,48,.08)]"
@@ -169,7 +169,7 @@ export function SetupPage() {
                     <div className="text-[11px] text-[#62707E] mb-2.5">
                       {sim.topology} · {sim.agents.length} agents
                     </div>
-                    <div className="text-[10.5px] leading-[1.55] text-[#8593A1]">
+                    <div className="text-[10.5px] leading-[1.55] text-[#8593A1] line-clamp-2">
                       {sim.agents.map((a) => a.agent_name).join(" · ")}
                     </div>
                   </button>
@@ -218,7 +218,7 @@ export function SetupPage() {
             })}
           </div>
           {scopeMode === "workflow" && workflows.length > 0 && (
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3 items-stretch">
               {workflows.map((wf) => {
                 const active = wf.id === workflowId;
                 const count = workflowIndices(wf).length;
@@ -227,7 +227,7 @@ export function SetupPage() {
                     key={wf.id}
                     type="button"
                     onClick={() => setWorkflowId(wf.id)}
-                    className={`text-left rounded-xl p-3.5 cursor-pointer transition-all duration-200 hover:-translate-y-0.5 ${
+                    className={`h-full text-left rounded-xl p-3.5 cursor-pointer transition-all duration-200 hover:-translate-y-0.5 ${
                       active
                         ? "bg-[#EAF3FB] border-[1.5px] border-dell ring-1 ring-dell/20 shadow-[0_4px_14px_rgba(0,118,206,.16)]"
                         : "bg-white border-[1.5px] border-[#e2e8f0] hover:border-[#cdd6e0] hover:shadow-[0_6px_18px_rgba(16,32,48,.08)]"
@@ -248,7 +248,7 @@ export function SetupPage() {
                         </span>
                       </span>
                     </div>
-                    <div className="text-[11.5px] leading-[1.5] text-[#8593A1]">
+                    <div className="text-[11.5px] leading-[1.5] text-[#8593A1] line-clamp-2">
                       {wf.description}
                     </div>
                   </button>
@@ -274,7 +274,7 @@ export function SetupPage() {
                     }`}
                   >
                     <span
-                      className="inline-block w-[9px] h-[9px] rounded-[3px]"
+                      className="inline-block w-[9px] h-[9px] rounded-full"
                       style={{ background: on ? "#0076CE" : "#cbd6e4" }}
                     />
                     {agent.agent_name}

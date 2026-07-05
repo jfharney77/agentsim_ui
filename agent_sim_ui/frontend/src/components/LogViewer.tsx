@@ -59,15 +59,21 @@ export function LogViewer({ log, loading, error, onClose }: LogViewerProps) {
           className="flex items-center justify-between px-4 py-2.5 border-b"
           style={{ borderColor: "rgba(255,255,255,0.1)" }}
         >
-          <span className="font-bold" style={{ fontSize: 13, color: "#E9EFF6" }}>
-            Log
-          </span>
+          <div className="flex items-baseline gap-2">
+            <span className="font-bold" style={{ fontSize: 13, color: "#E9EFF6" }}>
+              Log
+            </span>
+            <span className="tabular-nums" style={{ fontSize: 11, color: "#6a7d92" }}>
+              {log?.lines?.length ?? 0} {(log?.lines?.length ?? 0) === 1 ? "line" : "lines"}
+            </span>
+          </div>
           <div className="flex items-center gap-1">
             <button
               type="button"
               onClick={handleCopy}
               title="Copy log"
-              className="text-[#8AA0B8] hover:text-[#E9EFF6] transition-colors p-1 rounded"
+              disabled={(log?.lines?.length ?? 0) === 0}
+              className="text-[#8AA0B8] hover:text-[#E9EFF6] transition-colors p-1 rounded disabled:opacity-50"
             >
               {copied ? (
                 <Check className="w-3.5 h-3.5" style={{ color: "#37c592" }} />

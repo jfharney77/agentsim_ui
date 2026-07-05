@@ -116,7 +116,7 @@ export function ContextViewer({ instanceId, agentId, agentName, onClose }: Conte
           </button>
         </div>
 
-        {context && <ContextWindowBar messages={context.messages} />}
+        {context && context.messages.length > 0 && <ContextWindowBar messages={context.messages} />}
 
         <div className="flex-1 overflow-y-auto dark-scroll pr-1 p-4">
           {loading && (
@@ -127,9 +127,17 @@ export function ContextViewer({ instanceId, agentId, agentName, onClose }: Conte
             </div>
           )}
           {error && (
-            <div className="text-[12px] text-red-400">Error: {error}</div>
+            <div className="text-[12px] text-center" style={{ color: "#f26060" }}>{error}</div>
           )}
-          {context && (
+          {!loading && !error && (!context || context.messages.length === 0) && (
+            <div className="text-center py-8">
+              <div className="border border-white/15 rounded-full w-6 h-6 mx-auto mb-2" />
+              <p className="text-[13px]" style={{ color: "#8AA0B8" }}>
+                No context captured for this agent yet.
+              </p>
+            </div>
+          )}
+          {context && context.messages.length > 0 && (
             <div className="space-y-4">
               <div className="text-[12px] space-y-0.5" style={{ color: "#93a6ba" }}>
                 <p><span style={{ color: "#E9EFF6" }}>Model:</span> {context.model}</p>

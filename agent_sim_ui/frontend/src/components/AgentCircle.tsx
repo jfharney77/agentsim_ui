@@ -42,10 +42,13 @@ export function AgentCircle({ agent, onClick, onViewContext }: AgentCircleProps)
         className="w-16 h-16 rounded-full flex items-center justify-center text-xs font-medium cursor-pointer transition-all duration-150 hover:scale-110"
         style={{
           backgroundColor: color,
+          border: agent.state === "not_started" ? "1px solid #d7e2ee" : undefined,
           boxShadow:
             agent.state === "errored"
               ? `0 0 0 2px ${color}55, 0 2px 6px rgba(16, 24, 40, 0.12), 0 0 12px 2px rgba(226, 61, 61, 0.35)`
-              : `0 0 0 2px ${color}55, 0 2px 6px rgba(16, 24, 40, 0.12)`,
+              : agent.state === "not_started"
+                ? "0 0 0 2px #E3E9F155, 0 1px 3px rgba(16,24,40,.08)"
+                : `0 0 0 2px ${color}55, 0 2px 6px rgba(16, 24, 40, 0.12)`,
           animation:
             agent.state === "running"
               ? "as-cell-pulse 1.3s ease-in-out infinite"

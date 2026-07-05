@@ -186,3 +186,27 @@ textarea::placeholder {
   color: #9aa7b4;
   opacity: 1;
 }
+
+/* Print styles */
+@media print {
+  .sticky,
+  button {
+    display: none !important;
+  }
+
+  body {
+    background: #fff !important;
+    color: #161616 !important;
+  }
+
+  [class*="bg-[#0D1E33]"],
+  [class*="bg-[#10233C]"] {
+    background: #fff !important;
+    color: #161616 !important;
+    border-color: #D2D2D2 !important;
+  }
+
+  a {
+    text-decoration: underline;
+  }
+}

@@ -196,6 +196,10 @@ export function RunView() {
               </span>
             </div>
           ))}
+          <div className="flex items-center gap-2">
+            <div className="w-[11px] h-[11px] border border-dashed border-[#2A3E58] bg-[#122237] rounded-full" />
+            <span className="text-[11px] text-[#8AA0B8]">Out of scope</span>
+          </div>
         </div>
 
         {/* Live mesh for the first instance (scope-aware: out-of-scope agents show as OUT). */}
@@ -205,6 +209,7 @@ export function RunView() {
           const total = inst.agents.length;
           const done = scoped.filter((a) => a.state === AgentState.COMPLETED).length;
           const active = scoped.filter((a) => a.state === AgentState.RUNNING).length;
+          const errored = scoped.filter((a) => a.state === AgentState.ERRORED).length;
           const scopeSummary =
             scoped.length === total
               ? `All ${total} agents`
@@ -235,6 +240,12 @@ export function RunView() {
                       Active
                     </div>
                     <div className="text-[18px] font-bold tabular-nums text-[#F2A81E]">{active}</div>
+                  </div>
+                  <div className="rounded-lg bg-white/[.04] transition-colors hover:bg-white/[.07] px-4 py-2 text-center min-w-[92px]">
+                    <div className="text-[11px] text-[#7E93AB]">
+                      Errored
+                    </div>
+                    <div className="text-[18px] font-bold tabular-nums text-[#E23D3D]">{errored}</div>
                   </div>
                   <div className="rounded-lg bg-white/[.04] transition-colors hover:bg-white/[.07] px-4 py-2 text-center min-w-[92px]">
                     <div className="text-[11px] text-[#7E93AB]">

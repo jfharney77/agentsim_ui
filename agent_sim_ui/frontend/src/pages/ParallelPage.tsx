@@ -286,21 +286,26 @@ export function ParallelPage() {
               </button>
             </div>
 
-            <AggregateStats instances={instances} />
-
             {drillInInstance ? (
-              <div className="mt-6 page-fade">
-                <button
-                  type="button"
-                  onClick={() => setDrillInInstance(null)}
-                  className="mb-4 text-sm text-dell hover:underline"
-                >
-                  ← Back to grid
-                </button>
-                <InstancePane instance={drillInInstance} />
-              </div>
+              <>
+                <AggregateStats instances={instances} />
+                <div className="mt-6 page-fade">
+                  <button
+                    type="button"
+                    onClick={() => setDrillInInstance(null)}
+                    className="mb-4 text-sm text-dell hover:underline"
+                  >
+                    ← Back to grid
+                  </button>
+                  <InstancePane instance={drillInInstance} />
+                </div>
+              </>
             ) : (
-              <div className="mt-6 bg-white border border-[#e2e8f0] rounded-xl p-5 shadow-light-card">
+              <div className="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-5 items-start">
+                <div className="lg:sticky lg:top-[120px]">
+                  <AggregateStats instances={instances} />
+                </div>
+                <div className="bg-white border border-[#e2e8f0] rounded-xl p-5 shadow-light-card">
                 <div className="flex justify-between items-center mb-3">
                   <h3 className="font-semibold text-[#12212F]">
                     Instances (<span className="tabular-nums">{instances.length}</span>)
@@ -345,8 +350,9 @@ export function ParallelPage() {
                     );
                   })}
                 </div>
-                <div className="mt-2 text-[11px] text-[#8593A1] tabular-nums">
-                  Showing {instances.length} instances
+                  <div className="mt-2 text-[11px] text-[#8593A1] tabular-nums">
+                    Showing {instances.length} instances
+                  </div>
                 </div>
               </div>
             )}

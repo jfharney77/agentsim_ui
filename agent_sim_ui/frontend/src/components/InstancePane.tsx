@@ -65,31 +65,31 @@ export function InstancePane({ instance }: InstancePaneProps) {
   const progressPct = totalAgents > 0 ? (completedAgents / totalAgents) * 100 : 0;
 
   return (
-    <div className="bg-white rounded-xl p-6 shadow-light-card border border-[#e2e8f0] transition-all hover:shadow-[0_4px_14px_rgba(0,118,206,.12)] hover:border-[#cdd6e0]">
-      <div className="flex items-center justify-between mb-4">
-        <div>
-          <h3 className="font-semibold text-lg text-[#12212F]">
+    <div className="h-full flex flex-col bg-white rounded-xl p-6 shadow-light-card border border-[#e2e8f0] transition-all hover:shadow-[0_4px_14px_rgba(0,118,206,.12)] hover:border-[#cdd6e0]">
+      <div className="mb-4">
+        <div className="flex items-center justify-between">
+          <h3 className="font-semibold text-lg text-[#12212F] truncate">
             Instance #{instance.index + 1}
           </h3>
-          <p className="text-sm text-[#62707E]">
-            ID: <span className="font-mono text-xs">{shortId}</span>
-          </p>
-        </div>
-        <span
-          className={`flex items-center gap-1.5 text-xs font-semibold ${
-            statusColors[instance.status] || "text-[#8593A1]"
-          }`}
-        >
           <span
-            className={`w-2 h-2 rounded-full ${
-              instance.status === "running" ? "animate-as-blink" : ""
+            className={`flex-none flex items-center gap-1.5 text-xs font-semibold ${
+              statusColors[instance.status] || "text-[#8593A1]"
             }`}
-            style={{
-              background: statusDotColors[instance.status] || "#8593A1",
-            }}
-          />
-          {instance.status}
-        </span>
+          >
+            <span
+              className={`w-2 h-2 rounded-full ${
+                instance.status === "running" ? "animate-as-blink" : ""
+              }`}
+              style={{
+                background: statusDotColors[instance.status] || "#8593A1",
+              }}
+            />
+            {instance.status}
+          </span>
+        </div>
+        <p className="text-sm text-[#62707E]">
+          ID: <span className="font-mono text-[11px] select-all">{shortId}</span>
+        </p>
       </div>
 
       <div className="h-1 rounded-full bg-[#EEF2F7] mb-4">
@@ -134,7 +134,7 @@ export function InstancePane({ instance }: InstancePaneProps) {
       <button
         type="button"
         onClick={handleLogClick}
-        className="flex items-center gap-2 text-sm text-dell hover:text-dell-deep transition"
+        className="mt-auto flex items-center gap-2 text-sm text-dell hover:text-dell-deep transition"
       >
         <FileText className="w-4 h-4" />
         {showLog ? "Hide log" : "View log"}

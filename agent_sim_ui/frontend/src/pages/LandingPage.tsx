@@ -83,12 +83,19 @@ export function LandingPage() {
   const navigate = useNavigate();
   const [task, setTask] = useState("");
   const [simCount, setSimCount] = useState<number | null>(null);
+  const [simCountLoaded, setSimCountLoaded] = useState(false);
 
   useEffect(() => {
     api
       .listSimulators()
-      .then((sims) => setSimCount(sims.length))
-      .catch(() => setSimCount(null));
+      .then((sims) => {
+        setSimCount(sims.length);
+        setSimCountLoaded(true);
+      })
+      .catch(() => {
+        setSimCount(null);
+        setSimCountLoaded(true);
+      });
   }, []);
 
   const submitTask = () => {
@@ -126,7 +133,7 @@ export function LandingPage() {
                     onChange={(e) => setTask(e.target.value)}
                     onKeyDown={(e) => e.key === "Enter" && submitTask()}
                     placeholder='Describe a run to launch — e.g. "Swarm, 100 instances, analyze Acme Corp market position"'
-                    className="flex-1 border-none outline-none text-[15px] text-[#1B2733] bg-transparent pt-px"
+                    className="flex-1 border-none outline-none text-[15px] text-[#1B2733] bg-transparent pt-px caret-dell"
                   />
                 </div>
                 <div className="flex items-center justify-between mt-1.5">
@@ -175,9 +182,13 @@ export function LandingPage() {
               <div className="text-[clamp(20px,2.4vw,24px)] font-normal text-[#12212F]">
                 Jump back in
               </div>
-              <span className="text-[12px] text-[#62707E]">
-                {simCount ?? 5} simulators · 1 run active · anthropic
-              </span>
+              {!simCountLoaded && simCount === null ? (
+                <span className="skeleton inline-block h-3 w-44 rounded align-middle" />
+              ) : (
+                <span className="text-[12px] text-[#62707E]">
+                  {simCount ?? 5} simulators · 1 run active · anthropic
+                </span>
+              )}
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-[22px] items-start">

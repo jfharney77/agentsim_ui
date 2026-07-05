@@ -81,7 +81,7 @@ const NODE_WORD: Record<AgentState, string> = {
 };
 
 const COLD_EDGE = "#33475F";
-const NODE_STROKE = "#0A1727";
+const NODE_STROKE = "#0D1E33";
 const IDLE_TEXT = "#8AA0B8";
 const LABEL_FILL = "#C6D4E4";
 const OUT_FILL = "#122237";
@@ -235,6 +235,7 @@ export function LiveMesh({ instance }: { instance: InstanceDescriptor }) {
                 style={{
                   transformBox: "fill-box",
                   transformOrigin: "center",
+                  opacity: 0.8,
                   animation: "as-ping 1.6s ease-out infinite",
                 }}
               />
