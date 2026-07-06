@@ -1,0 +1,7 @@
+{
+  "model": "unknown",
+  "context_window_tokens": 128000,
+  "timestamp": "2026-07-03T16:31:14",
+  "tools": [],
+  "messages": []
+}
